@@ -53,13 +53,14 @@ def User_Data_Conv_to_Class(User_Data):
     (name, id, level, role_id, mission_id, status, vote_count, team, password, exp) = User_Data
     data = [id, password, name, level, exp]
     return User(data[0], data[1], data[2], data[3], data[4])
-def runApp():
+def runApp(Debug):
     st.title("D-0613 Laboratory Sinario Carbon Copy: Doppelganger Escape")
     st.write("""
 
     #### 이벤트에 참여
     #### 설정
     """)
+    st.write(Debug)
 Reset_Tables()
 Users = []
 for i in range(27):
