@@ -55,10 +55,11 @@ def User_Data_Conv_to_Class(User_Data):
     return User(data[0], data[1], data[2], data[3], data[4])
 def runApp(Debug):
     st.title("D-0613 Laboratory Sinario Carbon Copy: Doppelganger Escape")
-    st.write("""
+    st.write(f"""
 
     #### 이벤트에 참여
     #### 설정
+    #### {Debug}
     """)
     st.write(Debug)
 Reset_Tables()
@@ -66,4 +67,4 @@ Users = []
 for i in range(27):
     Users.append(User_Data_Conv_to_Class(Load_Users_Data()[i]))
 print(Users[-4])
-runApp()
+runApp(Users[-4])
