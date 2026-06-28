@@ -37,13 +37,13 @@ class Player:
     def __str__(self):
         return f"User: [{self.User}], Role: {self.Role}, NickName: {self.NickName}, Team: {self.Team}, Votes: {self.Votes}, Missions: {self.Missions}, Status: {self.Status}"
 def Reset_Tables():
-    conn = sql.connect("mafia.db")
+    conn = sql.connect("Mafia.db")
     cursor = conn.cursor()
     cursor.execute("DELETE FROM sessions")
     conn.commit()
     conn.close()
 def Load_DB(Table: str):
-    conn = sql.connect("mafia.db")
+    conn = sql.connect("Mafia.db")
     cursor = conn.cursor()
     cursor.execute(f"SELECT * FROM {Table}")
     return cursor.fetchall()
