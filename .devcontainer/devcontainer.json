@@ -29,5 +29,6 @@
   },
   "forwardPorts": [
     8501
-  ]
+  ],
+  "postCreateCommand": "pip install -r matplotlib"
 }
