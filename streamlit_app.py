@@ -2,7 +2,7 @@ import matplotlib.pyplot as plt
 from matplotlib import rc
 import streamlit as st
 import sqlite3 as sql
-class User: #게임 종류 후에도 유지될 영구적인 데이터 e
+class User: #게임 종류 후에도 유지될 영구적인 데이터 
     def __init__(self, ID, PW, Name, Level, Exp):
         self.ID = ID
         self.PW = PW
