@@ -3,10 +3,12 @@ import sqlite3 as sql
 
 font_css = """
 <style>
-@import url('https://jsdelivr.net');
 
-html, body, [class*="css"]  {
-    font-family: 'EF_Diary', sans-serif;
+html, body, [class*="css"] {
+    font-family: 'Ria';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/2410-1@1.0/RiaSans-ExtraBold.woff2') format('woff2');
+    font-weight: normal;
+    font-display: swap;
 }
 </style>
 """
