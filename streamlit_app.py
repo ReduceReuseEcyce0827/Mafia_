@@ -1,3 +1,14 @@
+import os
+import sys
+
+# 터미널 pip가 고장 났을 때, 파이썬이 실행되면서 필요한 모듈을 인터넷에서 직접 강제 다운로드하는 코드입니다.
+try:
+    import matplotlib
+except ImportError:
+    os.system(f"{sys.executable} -m pip install matplotlib")
+    import matplotlib
+
+import streamlit as s
 import matplotlib.pyplot as plt
 from matplotlib import rc
 import streamlit as st
