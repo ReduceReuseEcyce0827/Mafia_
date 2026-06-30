@@ -23,12 +23,12 @@ try:
     font_css = f"""
     <style>
     @font-face {{
-        font-family: 'CustomFont';
+        font-family: 'RiaSans-ExtraBold';
         src: url(data:font/ttf;base64,{base64_font}) format('truetype');
     }}
 
     html, body, [class*="css"] {{
-        font-family: 'CustomFont', sans-serif;
+        font-family: 'RiaSans-ExtraBold', sans-serif;
     }}
     </style>
     """
