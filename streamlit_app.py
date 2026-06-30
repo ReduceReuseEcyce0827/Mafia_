@@ -1,20 +1,48 @@
 import streamlit as st
 import sqlite3 as sql
 
-font_css = """
-<style>
-@import urlurl('https://cdn.jsdelivr.net/gh/projectnoonnu/2410-1@1.0/RiaSans-ExtraBold.woff2') format('woff2');
-html, body, [class*="css"] {
-    font-family: 'Ria';
-}
-</style>
-"""
+import base64
 
+
+
+# 1. 로컬 폰트 파일을 읽어서 Base64로 인코딩하는 함수
+def get_base64_font(font_path):
+    with open(font_path, "rb") as f:
+        data = f.read()
+    return base64.b64encode(data).decode()
+
+
+# 2. 폰트 파일 경로 설정 (예시: 눈누에서 다운로드한 TTF 파일)
+font_file_path = "RiaSans-ExtraBold.ttf"
+
+try:
+    # 3. Base64 문자열 생성
+    base64_font = get_base64_font(font_file_path)
+
+    # 4. CSS 작성 및 적용
+    font_css = f"""
+    <style>
+    @font-face {{
+        font-family: 'CustomFont';
+        src: url(data:font/ttf;base64,{base64_font}) format('truetype');
+    }}
+
+    html, body, [class*="css"] {{
+        font-family: 'CustomFont', sans-serif;
+    }}
+    </style>
+    """
+    st.markdown(font_css, unsafe_allow_html=True)
+
+except FileNotFoundError:
+    st.error(
+        f"폰트 파일을 찾을 수 없습니다. 경로를 확인해주세요: {font_file_path}"
+    )
+
+# 5. 결과 확인
+st.title("Base64 한글 폰트 적용 완료")
+st.write("인터넷 연결 없이도 이 한글 폰트가 올바르게 표시됩니다.")
 # Streamlit 앱에 CSS 적용
-st.markdown(font_css, unsafe_allow_html=True)
-
-# 텍스트 출력 테스트
-st.write("안녕하세요! Streamlit에 한글 폰트가 적용되었습니다.")
 """
 class User: #게임 종류 후에도 유지될 영구적인 데이터 e
     def __init__(self, ID, PW, Name, Level, Exp):
