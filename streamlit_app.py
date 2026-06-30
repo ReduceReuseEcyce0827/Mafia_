@@ -1,3 +1,11 @@
+import sys
+import subprocess
+
+# 현재 실행 중인 파이썬 환경에 matplotlib이 없으면 강제로 무조건 설치
+try:
+    import matplotlib
+except ImportError:
+    subprocess.check_call([sys.executable, "-m", "pip", "install", "matplotlib"])
 import matplotlib.pyplot as plt
 from matplotlib import rc
 import streamlit as st
