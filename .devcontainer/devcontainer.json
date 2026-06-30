@@ -30,5 +30,5 @@
   "forwardPorts": [
     8501
   ],
-  "postCreateCommand": "pip install -r matplotlib"
+  "postCreateCommand": "pip3 install streamlit matplotlib"
 }
