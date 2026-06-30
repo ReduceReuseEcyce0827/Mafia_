@@ -3,7 +3,7 @@ import sqlite3 as sql
 
 font_css = """
 <style>
-@import url('https://cdn.jsdelivr.net');
+@import url('https://cdn.jsdelivr.net/gh/projectnoonnu/2410-1@1.0/RiaSans-ExtraBold.woff2');
 html, body, [class*="css"] {
     font-family: 'Ria';
 }
