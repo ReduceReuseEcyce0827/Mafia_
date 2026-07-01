@@ -1,49 +1,7 @@
+import matplotlib.pyplot as plt
+from matplotlib import rc
 import streamlit as st
 import sqlite3 as sql
-
-import base64
-
-
-
-# 1. 로컬 폰트 파일을 읽어서 Base64로 인코딩하는 함수
-def get_base64_font(font_path):
-    with open(font_path, "rb") as f:
-        data = f.read()
-    return base64.b64encode(data).decode()
-
-
-# 2. 폰트 파일 경로 설정 (예시: 눈누에서 다운로드한 TTF 파일)
-font_file_path = "RiaSans-ExtraBold.ttf"
-
-try:
-    # 3. Base64 문자열 생성
-    base64_font = get_base64_font(font_file_path)
-
-    # 4. CSS 작성 및 적용
-    font_css = f"""
-    <style>
-    @font-face {{
-        font-family: 'RiaSans-ExtraBold';
-        src: url(data:font/ttf;base64,{base64_font}) format('truetype');
-    }}
-
-    html, body, [class*="css"] {{
-        font-family: 'RiaSans-ExtraBold', sans-serif;
-    }}
-    </style>
-    """
-    st.markdown(font_css, unsafe_allow_html=True)
-
-except FileNotFoundError:
-    st.error(
-        f"폰트 파일을 찾을 수 없습니다. 경로를 확인해주세요: {font_file_path}"
-    )
-
-# 5. 결과 확인
-st.title("Base64 한글 폰트 적용 완료")
-st.write("인터넷 연결 없이도 이 한글 폰트가 올바르게 표시됩니다.")
-# Streamlit 앱에 CSS 적용
-"""
 class User: #게임 종류 후에도 유지될 영구적인 데이터 e
     def __init__(self, ID, PW, Name, Level, Exp):
         self.ID = ID
@@ -131,4 +89,3 @@ for i in range(17):
 Roles = []
 for i in range(25):
     Users.append(User_Data_Conv_to_Class(Load_Users_Data()[i]))
-"""
