@@ -8,8 +8,10 @@ font_css = """
 @import url('https://jsdelivr.net');
 
 html, body, [class*="st-"] {
-    font-family: 'Pretendard', sans-serif !important;
+    font-family: 'Pretendard';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/pretendard@1.0/Pretendard-Thin.woff2') format('woff2');
     font-weight: 100;
+    font-display: swap;
 }
 </style>
 """
