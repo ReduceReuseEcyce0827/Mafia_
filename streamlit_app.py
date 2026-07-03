@@ -2,6 +2,8 @@ import matplotlib.pyplot as plt
 from matplotlib import rc
 import streamlit as st
 import sqlite3 as sql
+import matplotlib.font_manager as fm
+
 class User: #게임 종류 후에도 유지될 영구적인 데이터 e
     def __init__(self, ID, PW, Name, Level, Exp):
         self.ID = ID
@@ -75,11 +77,11 @@ def Role_Data_Conv_to_Class(Role):
 
 def runApp(Debug):
     # 시스템 폰트 사용 (나눔고딕 또는 기본 폰트)
+    GameTitle = plt.title("마피아 게임", ha='center', va='center')
+    Start_B = plt.text(0.5, 0.5, "게임 시작", fontsize=20, ha='center', va='center', bbox=dict(facecolor='lightblue', edgecolor='black', boxstyle='round,pad=0.5'))
     rc('font', family='DejaVu Sans')
     plt.rcParams['axes.unicode_minus'] = False
-    st.title("마피아 게임")
-    Start_B = st.button('게임 시작')
-    st.write(Debug)
-
+    st.pyplot(GameTitle)
+    st.pyplot(Start_B)
 if __name__ == "__main__":
     runApp("게임 준비 중...")
