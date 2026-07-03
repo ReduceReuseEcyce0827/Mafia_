@@ -8,12 +8,15 @@ font_css = """
 @import url('https://jsdelivr.net');
 
 html, body, [class*="st-"] {
-    font-family: 'RiaSans', sans-serif !important;
+    font-family: 'Pretendard', sans-serif !important;
 }
 </style>
 """
 st.markdown(font_css, unsafe_allow_html=True)
 
+# 폰트 적용 테스트
+st.title("안녕하세요!")
+st.write("스트림릿에서 프리텐다드 폰트가 잘 적용되었습니다.")
 class User: #게임 종류 후에도 유지될 영구적인 데이터 e
     def __init__(self, ID, PW, Name, Level, Exp):
         self.ID = ID
