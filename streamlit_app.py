@@ -145,7 +145,7 @@ if __name__ == "__main__":
     Users = Load_Users_Data()
     Roles = Load_Role()
     Missions = Load_Missions()
-    runApp("진행중인 이벤트가 없습니다.")
+    runApp("진행중인 이벤트가 없습니다.", Users, Roles, Missions)
 
 """
 613: 전체 서버
