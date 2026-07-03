@@ -108,7 +108,7 @@ def Change_Display(Where, PH, Users, Server613):
             st.title("로그인")
             ID = st.text_input("아이디")
             PW = st.text_input("비밀번호", type="password")
-            Login_B = st.button('로그인', on_click=lambda: LoginB(PH, Server613, Users))
+            Login_B1 = st.button('로그인', on_click=lambda: LoginB(PH, Server613, Users))
         return PH
 def LoginB(place_holder, Server613, Users):
     st.write("로그인 버튼 클릭됨") 
