@@ -124,16 +124,16 @@ def Change_Display(Where, PH, Users, Server613):
         return PH
     st.session_state.show_content = False
 def LoginB(place_holder, Server613, Users):
-    st.write("로그인 버튼 클릭됨") 
-    [ID, PW, Login_B] = Change_Display("Login", place_holder)
-    if Login_B:
-        if Server613 and ID in [user.ID for user in Users] and PW == [user.PW for user in Users if user.ID == ID][0]:
-            st.success("로그인 성공")
-            LoginSuccessed = True
-        else:
-            st.error("로그인 실패")
-            LoginSuccessed = False
+    if Server613 and ID in [user.ID for user in Users] and PW == [user.PW for user in Users if user.ID == ID][0]:
+        st.success("로그인 성공")
+        LoginSuccessed = True
+    else:
+        st.error("로그인 실패")
+        LoginSuccessed = False
+    try:
         Server613.sendto(f"LOGIN|{ID}|{PW}|{LoginSuccessed}".encode(), ("localhost", 613))
+    except:
+        pass
 def AdminB():
     Admin_Code = st.text_input("관리자 코드 입력", type="password")
     if Admin_Code == "admin140827Roymin":  # 예시로 관리자 코드를 "admin123"으로 설정
