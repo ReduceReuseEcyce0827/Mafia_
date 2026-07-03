@@ -74,18 +74,12 @@ def Role_Data_Conv_to_Class(Role):
 
 
 def runApp(Debug):
-    rc('font', family='RiaSans-ExtraBold')
-    plt.rcParams['axe.unicode_minus'] = False
-    st.title("D-0613 Laboratory Sinario Carbon Copy: Doppelganger Escape")
+    # 시스템 폰트 사용 (나눔고딕 또는 기본 폰트)
+    rc('font', family='DejaVu Sans')
+    plt.rcParams['axes.unicode_minus'] = False
+    st.title("마피아 게임")
     Start_B = st.button('게임 시작')
     st.write(Debug)
-Reset_Tables()
-Users = []
-for i in range(27):
-    Users.append(User_Data_Conv_to_Class(Load_Users_Data()[i]))
-Missions = []
-for i in range(17):
-    Users.append(User_Data_Conv_to_Class(Load_Users_Data()[i]))
-Roles = []
-for i in range(25):
-    Users.append(User_Data_Conv_to_Class(Load_Users_Data()[i]))
+
+if __name__ == "__main__":
+    runApp("게임 준비 중...")
