@@ -9,6 +9,7 @@ font_css = """
 
 html, body, [class*="st-"] {
     font-family: 'Pretendard', sans-serif !important;
+    font-weight: 100;
 }
 </style>
 """
