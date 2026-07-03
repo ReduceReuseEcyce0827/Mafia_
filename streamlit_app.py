@@ -96,7 +96,7 @@ def Connect_Event_Server():
         print(f"서버 연결 실패: {e}")
         return None
 def Change_Display(Where, PH, Users, Server613):
-    PH.empty()
+    st.session_state.show_content = False
     if Where == "Main":
         with PH.container():
             st.title("마피아 게임")
@@ -122,6 +122,7 @@ def Change_Display(Where, PH, Users, Server613):
             else:
                 st.error("관리자 코드 인증 실패")
         return PH
+    st.session_state.show_content = False
 def LoginB(place_holder, Server613, Users):
     st.write("로그인 버튼 클릭됨") 
     [ID, PW, Login_B] = Change_Display("Login", place_holder)
