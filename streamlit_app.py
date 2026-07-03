@@ -3,6 +3,16 @@ from matplotlib import rc
 import streamlit as st
 import sqlite3 as sql
 import matplotlib.font_manager as fm
+font_css = """
+<style>
+@import url('https://jsdelivr.net');
+
+html, body, [class*="st-"] {
+    font-family: 'RiaSans', sans-serif !important;
+}
+</style>
+"""
+st.markdown(font_css, unsafe_allow_html=True)
 
 class User: #게임 종류 후에도 유지될 영구적인 데이터 e
     def __init__(self, ID, PW, Name, Level, Exp):
