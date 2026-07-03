@@ -6,20 +6,16 @@ A simple Streamlit app template for you to modify!
 
 ### How to run it on your own machine
 
-Prerequisite: install `uv` if you don't already have it.
+Use Python and a virtual environment. Install dependencies from `requirements.txt`.
 
+```bash
+python3 -m venv .venv
+. .venv/bin/activate
+python -m pip install --upgrade pip
+pip install -r requirements.txt
+streamlit run streamlit_app.py
 ```
-$ curl -LsSf https://astral.sh/uv/install.sh | sh
-```
 
-1. Sync the dependencies
+### Deploying to Streamlit Community Cloud
 
-   ```
-   $ uv sync
-   ```
-
-2. Run the app
-
-   ```
-   $ uv run streamlit run streamlit_app.py
-   ```
+This repo includes a `requirements.txt` file and a Streamlit config at `.streamlit/config.toml`, so it is ready to deploy on Streamlit Community Cloud.
