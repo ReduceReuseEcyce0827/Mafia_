@@ -110,6 +110,18 @@ def Change_Display(Where, PH, Users, Server613):
             PW = st.text_input("비밀번호", type="password")
             Login_B1 = st.button('로그인', on_click=lambda: LoginB(PH, Server613, Users))
         return PH
+    elif Where == "Admin":
+        with PH.container():
+            st.title("관리자 모드")
+            Admin_Code = st.text_input("관리자 코드 입력", type="password")
+            if Admin_Code == "admin140827Roymin":
+                st.success("관리자 코드 인증 성공")
+                Amount = int(st.text_input("인원 수"))
+                server = socket.socket(socket.AF_INET, socket.SOCK_STREAM).bind(('', 613))
+                server.listen(Amount)
+            else:
+                st.error("관리자 코드 인증 실패")
+        return PH
 def LoginB(place_holder, Server613, Users):
     st.write("로그인 버튼 클릭됨") 
     [ID, PW, Login_B] = Change_Display("Login", place_holder)
