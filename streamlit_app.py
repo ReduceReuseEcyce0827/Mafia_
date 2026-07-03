@@ -3,6 +3,7 @@ from matplotlib import rc
 import streamlit as st
 import sqlite3 as sql
 import matplotlib.font_manager as fm
+import socket
 font_css = """
 <style>
 @import url('https://jsdelivr.net');
@@ -90,14 +91,66 @@ def Role_Data_Conv_to_Class(Role):
     data = [Id, Name, isNeutral, Desc]
     return Role(data[0], data[1], data[2], data[3])
 
+def Connect_Event_Server():
+    try:
+        s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+        s.connect(("localhost", 613))  # 서버 주소와 포트 번호를 지정
+        return s
+    except Exception as e:
+        print(f"서버 연결 실패: {e}")
+        return None
+def Change_Display(Where):
+    st.session_state()
+    if Where == "Main":
+        st.title("마피아 게임")
+        Login_B = st.button('로그인')
+        Code_B = st.button('관리자 코드 입력')
 
-def runApp(Debug):
+        return [Login_B, Code_B]
+    elif Where == "Login":
+        st.title("로그인")
+        ID = st.text_input("아이디")
+        PW = st.text_input("비밀번호", type="password")
+        Login_B = st.button('로그인')
+        return [ID, PW, Login_B]
+def runApp(Debug, Users, Roles, Missions):
     # 시스템 폰트 사용 (나눔고딕 또는 기본 폰트)
     rc('font', family='RiaSans-ExtraBold')
     plt.rcParams['axes.unicode_minus'] = False
-    st.title("마피아 게임")
-    Start_B = st.button('게임 시작')
-    st.write(Debug)
-
+    st.write("Debug")
+    [Login_B, Code_B] = Change_Display("Main")
+    Server613 = Connect_Event_Server()
+    if Login_B:
+        st.write("로그인 버튼 클릭됨") 
+        [ID, PW, Login_B] = Change_Display("Login")
+        if Login_B:
+            if Server613 and ID in [user.ID for user in Users] and PW == [user.PW for user in Users if user.ID == ID][0]:
+                st.success("로그인 성공")
+                LoginSuccessed = True
+            else:
+                st.error("로그인 실패")
+                LoginSuccessed = False
+            Server613.sendto(f"LOGIN|{ID}|{PW}|{LoginSuccessed}".encode(), ("localhost", 613))
+    if Code_B:
+        st.session_state()
+        Admin_Code = st.text_input("관리자 코드 입력", type="password")
+        if Admin_Code == "admin140827Roymin":  # 예시로 관리자 코드를 "admin123"으로 설정
+            st.success("관리자 코드 인증 성공")
+            Amount = int(st.text_input("인원 수"))
+            server = socket.socket(socket.AF_INET, socket.SOCK_STREAM).bind(('', 613))  # 관리자 서버에 연결
+            server.listen(Amount)
+        else:
+            st.error("관리자 코드 인증 실패")
 if __name__ == "__main__":
-    runApp("게임 준비 중...")
+    Users = Load_Users_Data()
+    Roles = Load_Role()
+    Missions = Load_Missions()
+    runApp("진행중인 이벤트가 없습니다.")
+
+"""
+613: 전체 서버
+6131: 팀 1 서버
+6132: 팀 2 서버
+6130: 관리자 서버
+
+"""
