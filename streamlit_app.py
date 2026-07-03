@@ -17,10 +17,6 @@ html, body, [class*="st-"] {
 </style>
 """
 st.markdown(font_css, unsafe_allow_html=True)
-
-# 폰트 적용 테스트
-st.title("안녕하세요!")
-st.write("스트림릿에서 프리텐다드 폰트가 잘 적용되었습니다.")
 class User: #게임 종류 후에도 유지될 영구적인 데이터 e
     def __init__(self, ID, PW, Name, Level, Exp):
         self.ID = ID
@@ -99,48 +95,49 @@ def Connect_Event_Server():
     except Exception as e:
         print(f"서버 연결 실패: {e}")
         return None
-def Change_Display(Where):
-    st.session_state()
+def Change_Display(Where, PH, Users, Server613):
+    PH.empty()
     if Where == "Main":
-        st.title("마피아 게임")
-        Login_B = st.button('로그인')
-        Code_B = st.button('관리자 코드 입력')
-
-        return [Login_B, Code_B]
+        with PH.container():
+            st.title("마피아 게임")
+            Login_B = st.button('로그인', onclick=lambda: Change_Display("Login", PH, Users, Server613))
+            Code_B = st.button('관리자 코드 입력')
+        return PH
     elif Where == "Login":
-        st.title("로그인")
-        ID = st.text_input("아이디")
-        PW = st.text_input("비밀번호", type="password")
-        Login_B = st.button('로그인')
-        return [ID, PW, Login_B]
+        with PH.container():
+            st.title("로그인")
+            ID = st.text_input("아이디")
+            PW = st.text_input("비밀번호", type="password")
+            Login_B = st.button('로그인', onclick=lambda: LoginB(PH, Server613, Users))
+        return PH
+def LoginB(place_holder, Server613, Users):
+    st.write("로그인 버튼 클릭됨") 
+    [ID, PW, Login_B] = Change_Display("Login", place_holder)
+    if Login_B:
+        if Server613 and ID in [user.ID for user in Users] and PW == [user.PW for user in Users if user.ID == ID][0]:
+            st.success("로그인 성공")
+            LoginSuccessed = True
+        else:
+            st.error("로그인 실패")
+            LoginSuccessed = False
+        Server613.sendto(f"LOGIN|{ID}|{PW}|{LoginSuccessed}".encode(), ("localhost", 613))
+def AdminB():
+    Admin_Code = st.text_input("관리자 코드 입력", type="password")
+    if Admin_Code == "admin140827Roymin":  # 예시로 관리자 코드를 "admin123"으로 설정
+        st.success("관리자 코드 인증 성공")
+        Amount = int(st.text_input("인원 수"))
+        server = socket.socket(socket.AF_INET, socket.SOCK_STREAM).bind(('', 613))  # 관리자 서버에 연결
+        server.listen(Amount)
+    else:
+        st.error("관리자 코드 인증 실패")
 def runApp(Debug, Users, Roles, Missions):
     # 시스템 폰트 사용 (나눔고딕 또는 기본 폰트)
     rc('font', family='RiaSans-ExtraBold')
+    place_holder = st.empty()
     plt.rcParams['axes.unicode_minus'] = False
     st.write("Debug")
-    [Login_B, Code_B] = Change_Display("Main")
     Server613 = Connect_Event_Server()
-    if Login_B:
-        st.write("로그인 버튼 클릭됨") 
-        [ID, PW, Login_B] = Change_Display("Login")
-        if Login_B:
-            if Server613 and ID in [user.ID for user in Users] and PW == [user.PW for user in Users if user.ID == ID][0]:
-                st.success("로그인 성공")
-                LoginSuccessed = True
-            else:
-                st.error("로그인 실패")
-                LoginSuccessed = False
-            Server613.sendto(f"LOGIN|{ID}|{PW}|{LoginSuccessed}".encode(), ("localhost", 613))
-    if Code_B:
-        st.session_state()
-        Admin_Code = st.text_input("관리자 코드 입력", type="password")
-        if Admin_Code == "admin140827Roymin":  # 예시로 관리자 코드를 "admin123"으로 설정
-            st.success("관리자 코드 인증 성공")
-            Amount = int(st.text_input("인원 수"))
-            server = socket.socket(socket.AF_INET, socket.SOCK_STREAM).bind(('', 613))  # 관리자 서버에 연결
-            server.listen(Amount)
-        else:
-            st.error("관리자 코드 인증 실패")
+    place_holder = Change_Display("Main", place_holder, Users, Server613)
 if __name__ == "__main__":
     Users = Load_Users_Data()
     Roles = Load_Role()
