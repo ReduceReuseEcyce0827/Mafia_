@@ -77,7 +77,7 @@ def Role_Data_Conv_to_Class(Role):
 
 def runApp(Debug):
     # 시스템 폰트 사용 (나눔고딕 또는 기본 폰트)
-    rc('font', family='DejaVu Sans')
+    rc('font', family='RiaSans-ExtraBold')
     plt.rcParams['axes.unicode_minus'] = False
     st.title("마피아 게임")
     Start_B = st.button('게임 시작')
