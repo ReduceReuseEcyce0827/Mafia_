@@ -3,7 +3,7 @@ from matplotlib import rc
 import streamlit as st
 import sqlite3 as sql
 import matplotlib.font_manager as fm
-import socket
+import socket, time
 font_css = """
 <style>
 @import url('https://jsdelivr.net');
@@ -148,15 +148,17 @@ def runApp(Debug, Users, Roles, Missions):
     rc('font', family='RiaSans-ExtraBold')
     place_holder = st.empty()
     plt.rcParams['axes.unicode_minus'] = False
-    st.write("Debug")
+    st.write(Debug)
     Server613 = Connect_Event_Server()
     place_holder = Change_Display("Main", place_holder, Users, Server613)
+Running = False
 if __name__ == "__main__":
-    Users = Load_Users_Data()
-    Roles = Load_Role()
-    Missions = Load_Missions()
-    runApp("진행중인 이벤트가 없습니다.", Users, Roles, Missions)
-
+    if Running ==  False:
+        Running = True
+        Users = Load_Users_Data()
+        Roles = Load_Role()
+        Missions = Load_Missions()
+        runApp("진행중인 이벤트가 없습니다.", Users, Roles, Missions)
 """
 613: 전체 서버
 6131: 팀 1 서버
