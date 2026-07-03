@@ -100,7 +100,7 @@ def Change_Display(Where, PH, Users, Server613):
     if Where == "Main":
         with PH.container():
             st.title("마피아 게임")
-            Login_B = st.button('로그인', on_click=lambda: Change_Display("Login", PH, Users, Server613))
+            Login_B = st.button('로그인', 2, on_click=lambda: Change_Display("Login", PH, Users, Server613))
             Code_B = st.button('관리자 코드 입력')
         return PH
     elif Where == "Login":
@@ -108,7 +108,7 @@ def Change_Display(Where, PH, Users, Server613):
             st.title("로그인")
             ID = st.text_input("아이디")
             PW = st.text_input("비밀번호", type="password")
-            Login_B1 = st.button('로그인', on_click=lambda: LoginB(PH, Server613, Users))
+            Login_B1 = st.button('로그인', 1, on_click=lambda: LoginB(PH, Server613, Users))
         return PH
     elif Where == "Admin":
         with PH.container():
