@@ -152,11 +152,9 @@ def runApp(Debug, Users, Roles, Missions):
         st.write(Debug)
         Server613 = Connect_Event_Server()
         place_holder = Change_Display("Main", place_holder, Users, Server613)
-Running = False
 if __name__ == "__main__":
-    if Running ==  False:
-        Running = True
-        Users = Load_Users_Data()
-        Roles = Load_Role()
-        Missions = Load_Missions()
-        runApp("진행중인 이벤트가 없습니다.", Users, Roles, Missions)
+    Running = True
+    Users = Load_Users_Data()
+    Roles = Load_Role()
+    Missions = Load_Missions()
+    runApp("진행중인 이벤트가 없습니다.", Users, Roles, Missions)
