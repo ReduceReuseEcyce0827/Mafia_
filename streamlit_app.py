@@ -95,23 +95,22 @@ def Connect_Event_Server():
     except Exception as e:
         print(f"서버 연결 실패: {e}")
         return None
-def Change_Display(Where, PH, Users, Server613):
-    st.experimental_rerun()
-    if Where == "Main":
-        with PH.container():
+def Change_Display(Where, Users, Server613):
+    L = ["Main", "Login", "Admin"]
+    for n in L:
+        if n not in st.session_state:
+            st.session_state[n] = False
+    st.session_state[Where] = True
+    if st.session_state["Main"]:
             st.title("마피아 게임")
-            Login_B = st.button('로그인', 2, on_click=lambda: Change_Display("Login", PH, Users, Server613))
+            Login_B = st.button('로그인', 2, on_click=lambda: Change_Display("Login", Users, Server613))
             Code_B = st.button('관리자 코드 입력')
-        return PH
-    elif Where == "Login":
-        with PH.container():
+    elif st.session_state["Login"]:
             st.title("로그인")
             ID = st.text_input("아이디")
             PW = st.text_input("비밀번호", type="password")
-            Login_B1 = st.button('로그인', 1, on_click=lambda: LoginB(PH, Server613, Users, ID, PW))
-        return PH
-    elif Where == "Admin":
-        with PH.container():
+            Login_B1 = st.button('로그인', 1, on_click=lambda: LoginB(Server613, Users, ID, PW))
+    elif st.session_state["Admin"]:
             st.title("관리자 모드")
             Admin_Code = st.text_input("관리자 코드 입력", type="password")
             if Admin_Code == "admin140827Roymin":
@@ -121,8 +120,7 @@ def Change_Display(Where, PH, Users, Server613):
                 server.listen(Amount)
             else:
                 st.error("관리자 코드 인증 실패")
-        return PH
-def LoginB(place_holder, Server613, Users, ID, PW):
+def LoginB(Server613, Users, ID, PW):
     if Server613 and ID in [user.ID for user in Users] and PW == [user.PW for user in Users if user.ID == ID][0]:
         st.success("로그인 성공")
         LoginSuccessed = True
@@ -149,7 +147,7 @@ def runApp(Debug, Users, Roles, Missions):
     plt.rcParams['axes.unicode_minus'] = False
     st.write(Debug)
     Server613 = Connect_Event_Server()
-    Change_Display("Main", place_holder, Users, Server613)
+    Change_Display("Main", Users, Server613)
 if __name__ == "__main__":
     Users = Load_Users_Data()
     Roles = Load_Role()
