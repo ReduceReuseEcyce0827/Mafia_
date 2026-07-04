@@ -96,6 +96,12 @@ def Connect_Event_Server():
         print(f"서버 연결 실패: {e}")
         return None
 def Change_Display(Where, Users, Server613):
+    L = ["Main", "Login", "Admin"]
+    for n in L:
+        if n not in st.session_state:
+            st.session_state[n] = False
+            if n == Where:
+                st.session_state[n] = True
     st.session_state[Where] = True
     if st.session_state["Main"]:
             st.title("마피아 게임")
@@ -145,10 +151,6 @@ def runApp(Debug, Users, Roles, Missions):
     Server613 = Connect_Event_Server()
     Change_Display("Main", Users, Server613)
 if __name__ == "__main__":
-    L = ["Main", "Login", "Admin"]
-    for n in L:
-        if n not in st.session_state:
-            st.session_state[n] = False
     Users = Load_Users_Data()
     Roles = Load_Role()
     Missions = Load_Missions()
