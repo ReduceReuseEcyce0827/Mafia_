@@ -96,7 +96,7 @@ def Connect_Event_Server():
         print(f"서버 연결 실패: {e}")
         return None
 def Change_Display(Where, PH, Users, Server613):
-    st.session_state.show_content = False
+    st.experimental_rerun()
     if Where == "Main":
         with PH.container():
             st.title("마피아 게임")
@@ -122,7 +122,6 @@ def Change_Display(Where, PH, Users, Server613):
             else:
                 st.error("관리자 코드 인증 실패")
         return PH
-    st.session_state.show_content = True
 def LoginB(place_holder, Server613, Users, ID, PW):
     if Server613 and ID in [user.ID for user in Users] and PW == [user.PW for user in Users if user.ID == ID][0]:
         st.success("로그인 성공")
@@ -150,7 +149,7 @@ def runApp(Debug, Users, Roles, Missions):
     plt.rcParams['axes.unicode_minus'] = False
     st.write(Debug)
     Server613 = Connect_Event_Server()
-    place_holder = Change_Display("Main", place_holder, Users, Server613)
+    Change_Display("Main", place_holder, Users, Server613)
 if __name__ == "__main__":
     Users = Load_Users_Data()
     Roles = Load_Role()
