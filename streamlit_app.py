@@ -103,19 +103,19 @@ def Change_Display(Where, Users, Server613):
     st.session_state[Where] = True
     if st.session_state["Main"]:
             st.title("마피아 게임")
-            Login_B = st.button('로그인', 2, on_click=lambda: Change_Display("Login", Users, Server613))
+            Login_B = st.button('로그인', key="Login_B", on_click=lambda: Change_Display("Login", Users, Server613))
             Code_B = st.button('관리자 코드 입력')
     elif st.session_state["Login"]:
             st.title("로그인")
-            ID = st.text_input("아이디")
-            PW = st.text_input("비밀번호", type="password")
-            Login_B1 = st.button('로그인', 1, on_click=lambda: LoginB(Server613, Users, ID, PW))
+            ID = st.text_input("아이디", key="ID")
+            PW = st.text_input("비밀번호", type="password", key="PW")
+            Login_B1 = st.button('로그인', key="Login_B1", on_click=lambda: LoginB(Server613, Users, ID, PW))
     elif st.session_state["Admin"]:
             st.title("관리자 모드")
-            Admin_Code = st.text_input("관리자 코드 입력", type="password")
+            Admin_Code = st.text_input("관리자 코드 입력", type="password", key="Admin_Code")
             if Admin_Code == "admin140827Roymin":
                 st.success("관리자 코드 인증 성공")
-                Amount = int(st.text_input("인원 수"))
+                Amount = int(st.text_input("인원 수", key="Amount"))
                 server = socket.socket(socket.AF_INET, socket.SOCK_STREAM).bind(('', 613))
                 server.listen(Amount)
             else:
