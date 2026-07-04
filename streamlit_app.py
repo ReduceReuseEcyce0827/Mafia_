@@ -160,15 +160,3 @@ if __name__ == "__main__":
         Roles = Load_Role()
         Missions = Load_Missions()
         runApp("진행중인 이벤트가 없습니다.", Users, Roles, Missions)
-        try:
-            while True:
-                time.sleep(1)
-        except RuntimeError:
-            pass
-"""
-613: 전체 서버
-6131: 팀 1 서버
-6132: 팀 2 서버
-6130: 관리자 서버
-
-"""
