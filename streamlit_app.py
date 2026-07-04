@@ -122,7 +122,7 @@ def Change_Display(Where, PH, Users, Server613):
             else:
                 st.error("관리자 코드 인증 실패")
         return PH
-    st.session_state.show_content = False
+    st.session_state.show_content = True
 def LoginB(place_holder, Server613, Users, ID, PW):
     if Server613 and ID in [user.ID for user in Users] and PW == [user.PW for user in Users if user.ID == ID][0]:
         st.success("로그인 성공")
