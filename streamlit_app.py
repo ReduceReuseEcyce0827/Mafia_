@@ -145,15 +145,13 @@ def AdminB():
         st.error("관리자 코드 인증 실패")
 def runApp(Debug, Users, Roles, Missions):
     # 시스템 폰트 사용 (나눔고딕 또는 기본 폰트)
-    if Running == False:
-        rc('font', family='RiaSans-ExtraBold')
-        place_holder = st.empty()
-        plt.rcParams['axes.unicode_minus'] = False
-        st.write(Debug)
-        Server613 = Connect_Event_Server()
-        place_holder = Change_Display("Main", place_holder, Users, Server613)
+    rc('font', family='RiaSans-ExtraBold')
+    place_holder = st.empty()
+    plt.rcParams['axes.unicode_minus'] = False
+    st.write(Debug)
+    Server613 = Connect_Event_Server()
+    place_holder = Change_Display("Main", place_holder, Users, Server613)
 if __name__ == "__main__":
-    Running = True
     Users = Load_Users_Data()
     Roles = Load_Role()
     Missions = Load_Missions()
