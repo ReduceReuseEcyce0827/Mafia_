@@ -105,13 +105,16 @@ def Change_Display(Where, Users, Server613):
     st.session_state[Where] = True
     if st.session_state["Main"]:
             st.title("마피아 게임")
-            st.button('로그인', on_click=lambda: Change_Display("Login", Users, Server613))
-            st.button('관리자 코드 입력')
+            if st.button('로그인'):
+                Change_Display("Login", Users, Server613)
+            if  st.button('관리자 코드 입력'):
+                Change_Display("Admin", Users, Server613)
     elif st.session_state["Login"]:
             st.title("로그인")
             ID = st.text_input("아이디")
             PW = st.text_input("비밀번호", type="password")
-            st.button('로그인', on_click=lambda: LoginB(Server613, Users, ID, PW))
+            if st.button('로그인'):
+                LoginB(Server613, Users, ID, PW)
     elif st.session_state["Admin"]:
             st.title("관리자 모드")
             Admin_Code = st.text_input("관리자 코드 입력", type="password")
