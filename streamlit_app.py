@@ -157,8 +157,9 @@ def Change_Display(Where, Users, Server613: socket.socket):
             inzung = st.button("인증", key="Admin_Admin")
             if Admin_Code in admin_code and inzung:
                 st.success(f"관리자 코드 인증 성공! ({admin_name[admin_code.index(Admin_Code)]}으로 인증됨)")
-                if Admin_Code == "admin140827Roymin":
+                if Admin_Code == "admin140827Roymin":\
                     serverT = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+                    serverT.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
                     st.session_state["ServerT2"].append(serverT)
                     st.session_state["ServerT1"].append(serverT)
                     try:
