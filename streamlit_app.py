@@ -143,7 +143,8 @@ def Wait2():
     try:
         client_socket, addr = st.session_state["ServerT2"][-1].accept()
         team2C.append(client_socket)
-        
+        print(f"연결 수락됨: {addr}")
+        st.session_state["ServerT2"].sendall("Hello!".encode())
     except socket.timeout:
         pass
 wait1 = threading.Thread(target=Wait)
