@@ -162,26 +162,30 @@ def Change_Display(Where, Users, Server613: socket.socket):
                         server1 = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
                         server1.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
                         server1.bind(('0.0.0.0', 16131))
-                        st.session_state["ServerT1"].append(server1)
-                        
+                        if not server1 in st.session_state["ServerT1"]:
+                            st.session_state["ServerT1"].append(server1)
+                            
                         server2 = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
                         server2.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
                         server2.bind(('0.0.0.0', 26132))
-                        st.session_state["ServerT1"].append(server2)
+                        if not server2 in st.session_state["ServerT2"]:
+                            st.session_state["ServerT2"].append(server2)
 
                         st.success("서버 생성됨")
                         st.session_state["display"] = "ControlCenter"
                         st.rerun()
                     except OSError as e:
                         st.write(e)
-                    finally:
-                        serverT.close()
                 else: 
-                    serverT = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-                    st.session_state["ServerT2"].append(serverT)
-                    st.session_state["ServerT1"].append(serverT)
-                    st.session_state["ServerT2"][-1].connect(('127.0.0.1', 6132))
-                    st.session_state["ServerT1"][-1].connect(('127.0.0.1', 9613))
+                    server1 = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+                    server1.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
+                    server1.connect(('0.0.0.0', 16131))
+                    st.session_state["ServerT1"].append(server1)
+                    
+                    server2 = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+                    server2.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
+                    server2.connect(('0.0.0.0', 26132))
+                    st.session_state["ServerT1"].append(server2)
                     st.success("서버 연결됨")
             elif not Admin_Code in admin_code and inzung:
                 st.error("관리자 코드 인증 실패")
