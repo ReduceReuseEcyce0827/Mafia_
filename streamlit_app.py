@@ -281,8 +281,10 @@ def Change_Display(Where, Users, Server613: socket.socket):
             Debugging()
         if st.button("새로고침"):
             Debugging()
-        get1.start()
-        get2.start()
+        while True:
+            get1.start()
+            get2.start()
+            time.sleep(3)
     else:
             st.title("마피아 게임")
             if st.button("로그인", key="Login_Main"):
