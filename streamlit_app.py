@@ -305,6 +305,7 @@ def runApp(Debug, Users, Roles, Missions):
 if __name__ == "__main__":
     if not "ServerT1" in st.session_state:
         st.session_state["ServerT1"] = []
+    if not "ServerT2" in st.session_state:
         st.session_state["ServerT2"] = []
     if "ReS" not in st.session_state:
         st.session_state["ReS"] = False
