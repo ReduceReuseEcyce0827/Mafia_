@@ -146,8 +146,8 @@ def Change_Display(Where, Users, Server613: socket.socket):
                     else:
                         serverAT = socket.socket(socket.AF_INET, socket.SOCK_STREAM).connect(('', 6131))
                         serverT = socket.socket(socket.AF_INET, socket.SOCK_STREAM).connect(('', 6132))
-                st.session_state["ServerT2"] = serverT
-                st.session_state["ServerT1"] = serverAT
+                st.session_state["ServerT2"].append(serverT)
+                st.session_state["ServerT1"].append(serverAT)
             elif not Admin_Code in admin_code and inzung:
                 st.error("관리자 코드 인증 실패")
     elif st.session_state["display"] == "Login" or Where == "Login":
@@ -165,7 +165,7 @@ def Change_Display(Where, Users, Server613: socket.socket):
             if L[i].Team != Users[Id].Team:
                 S += f"{L[i].Name}, "
         st.write(f"당신은 {S[0:-3]}와 같은 조입니다")
-        server = st.session_state["ServerT1"]
+        server = st.session_state["ServerT1"][-1]
         A = server.recv(1024).decode()
         st.write(A)
     elif st.session_state["display"] == "ControlCenter" or Where == "ControlCenter":
@@ -197,7 +197,7 @@ def LoginB(Server613, Users, PW):
         else:
                     serverPort = 6132
         server = socket.socket(socket.AF_INET, socket.SOCK_STREAM).connect(('', serverPort))
-        st.session_state["ServerT1"] = server
+        st.session_state["ServerT1"].append(server)
     else:
         st.error("로그인 실패")
         LoginSuccessed = False
@@ -233,9 +233,9 @@ def runApp(Debug, Users, Roles, Missions):
     Change_Display(st.session_state["display"], Users, Server613)
 if __name__ == "__main__":
     if "ServerT1" not in st.session_state:
-        st.session_state["ServerT1"] = None
+        st.session_state["ServerT1"] = []
     if "ServerT2" not in st.session_state:
-        st.session_state["ServerT2"] = None
+        st.session_state["ServerT2"] = []
     st.write(st.session_state["ServerT2"])
     if "ReS" not in st.session_state:
         st.session_state["ReS"] = False
