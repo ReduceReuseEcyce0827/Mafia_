@@ -129,12 +129,16 @@ def Make_Text_Input(Label):
         return st.text_input("오류")
 Id = -1
 server = None
+team1C = []
+team2C = []
 def Wait():
     if st.session_state["ServerT1"]:
-        st.session_state["ServerT1"].accept()
+        client_socket, addr = st.session_state["ServerT1"].accept()
+        team1C.append(client_socket)
 def Wait2():
     if st.session_state["ServerT2"]:
-        st.session_state["ServerT2"].accept()
+        client_socket, addr = st.session_state["ServerT2"].accept()
+        team2C.append(client_socket)
 wait1 = threading.Thread(target=Wait)
 wait2 = threading.Thread(target=Wait2)
 
