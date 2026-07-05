@@ -166,6 +166,8 @@ def Change_Display(Where, Users, Server613: socket.socket):
                 if Admin_Code == "admin140827Roymin":
                     try:
                         server1 = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+                        server1.settimeout(None)
+                        server1.setsockopt(socket.SOL_SOCKET, socket.SO_KEEPALIVE, 1)
                         server1.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
                         if hasattr(socket, 'SO_REUSEPORT'):
                             server1.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEPORT, 1)
@@ -174,6 +176,8 @@ def Change_Display(Where, Users, Server613: socket.socket):
                             st.session_state["ServerT1"].append(server1)
                             
                         server2 = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+                        server2.settimeout(None)
+                        server2.setsockopt(socket.SOL_SOCKET, socket.SO_KEEPALIVE, 1)
                         server2.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
                         if hasattr(socket, 'SO_REUSEPORT'):
                             server2.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEPORT, 1)
