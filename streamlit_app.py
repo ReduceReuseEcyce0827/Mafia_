@@ -214,7 +214,8 @@ def LoginB(Server613, Users, PW):
                     serverPort = 6131
         else:
                     serverPort = 6132
-        server = socket.socket(socket.AF_INET, socket.SOCK_STREAM).connect(('', serverPort))
+        server = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+        server.connect(('', serverPort))
         st.session_state["ServerT1"].append(server)
         st.session_state["display"] = "WaitRoom"
         st.rerun()
