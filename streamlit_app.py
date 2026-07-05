@@ -113,6 +113,9 @@ admin_name = ['류민', '정우', '채원']
 def A():
     while True:
         st.session_state["ServerT1"][-1].settimeout(10000000)
+def B():
+    while True:
+        st.session_state["ServerT2"][-1].settimeout(10000000)
 def Make_Button(Label):
     global Max_Id
     if "Max_Id" not in st.session_state:
