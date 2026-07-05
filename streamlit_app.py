@@ -170,7 +170,7 @@ def Change_Display(Where, Users, Server613):
                 st.session_state["display"] = "Admin"
                 st.rerun()
 def LoginB(Server613, Users, PW):
-    if Server613 and PW in [user.PW for user in Users]:
+    if PW in [user.PW for user in Users]:
         st.success("로그인 성공")
         LoginSuccessed = True
         Id = [user.PW for user in Users].index(PW)-1
