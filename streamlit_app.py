@@ -135,12 +135,14 @@ def Wait():
     try:
         client_socket, addr = st.session_state["ServerT1"][-1].accept()
         team1C.append(client_socket)
+        print(f"연결 수락됨: {addr}")
     except socket.timeout:
         pass
 def Wait2():
     try:
         client_socket, addr = st.session_state["ServerT2"][-1].accept()
         team2C.append(client_socket)
+        
     except socket.timeout:
         pass
 wait1 = threading.Thread(target=Wait)
