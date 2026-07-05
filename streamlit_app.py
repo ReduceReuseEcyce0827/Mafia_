@@ -152,17 +152,25 @@ def Wait2():
     except socket.timeout:
         pass
 def Get1():
-    for t1 in team1C:
-        try:
-            st.write(t1.recv(1024).decode())
-        except:
-            pass
+    try:
+        while True:
+            for t1 in team1C:
+                try:
+                    st.write(t1.recv(1024).decode())
+                except:
+                    pass
+    except RuntimeError:
+        pass
 def Get2():
-    for t2 in team2C:
-        try:
-            st.write(t2.recv(1024).decode())
-        except:
-            pass
+    try:
+        while True:
+            for t2 in team2C:
+                try:
+                    st.write(t2.recv(1024).decode())
+                except:
+                    pass
+    except RuntimeError:
+        pass
 wait1 = threading.Thread(target=Wait)
 wait2 = threading.Thread(target=Wait2)
 get1 = threading.Thread(target=Get1)
@@ -281,10 +289,8 @@ def Change_Display(Where, Users, Server613: socket.socket):
             Debugging()
         if st.button("새로고침"):
             Debugging()
-        while True:
-            get1.start()
-            get2.start()
-            time.sleep(3)
+        get1.start()
+        get2.start()
     else:
             st.title("마피아 게임")
             if st.button("로그인", key="Login_Main"):
