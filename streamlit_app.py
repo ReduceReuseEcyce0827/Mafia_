@@ -168,7 +168,11 @@ def runApp(Debug, Users, Roles, Missions):
     plt.rcParams['axes.unicode_minus'] = False
     st.write(Debug)
     Server613 = Connect_Event_Server()
-    Change_Display("Main", Users, Server613)
+
+    if "display" not in st.session_state:
+        st.session_state["display"] = "Main"
+
+    Change_Display(st.session_state["display"], Users, Server613)
 st.session_state["ReS"] = False
 if __name__ == "__main__":
     if not st.session_state["ReS"]:
