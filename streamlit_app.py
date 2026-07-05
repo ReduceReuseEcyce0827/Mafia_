@@ -160,10 +160,11 @@ def Change_Display(Where, Users, Server613: socket.socket):
                 if Admin_Code == "admin140827Roymin":
                     serverT = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
                     serverT.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
-                    st.session_state["ServerT2"].append(serverT)
-                    st.session_state["ServerT1"].append(serverT)
-                    st.session_state["ServerT2"][-1].bind(('localhost', 6132))
-                    st.session_state["ServerT1"][-1].bind(('localhost', 9613))
+                    server1, server2 = serverT
+                    server1.bind(('localhost', 6132))
+                    server2.bind(('localhost', 9613))
+                    st.session_state["ServerT2"].append(server2)
+                    st.session_state["ServerT1"].append(server1)
                     st.success("서버 생성됨")
                     st.session_state["display"] = "ControlCenter"
                     st.rerun()
