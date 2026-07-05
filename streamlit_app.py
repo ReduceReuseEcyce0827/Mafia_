@@ -191,14 +191,14 @@ def LoginB(Server613, Users, PW):
         st.success("로그인 성공")
         LoginSuccessed = True
         Id = -([user.PW for user in Users].index(PW)-1)
-        st.session_state["display"] = "WaitRoom"
-        st.rerun()
         if User[Id].Team == 1:
                     serverPort = 6131
         else:
                     serverPort = 6132
         server = socket.socket(socket.AF_INET, socket.SOCK_STREAM).connect(('', serverPort))
         st.session_state["ServerT1"].append(server)
+        st.session_state["display"] = "WaitRoom"
+        st.rerun()
     else:
         st.error("로그인 실패")
         LoginSuccessed = False
