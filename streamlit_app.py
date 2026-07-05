@@ -268,6 +268,7 @@ def runApp(Debug, Users, Roles, Missions):
 
     Change_Display(st.session_state["display"], Users, Server613)
 if __name__ == "__main__":
+    socket.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
     if not "ServerT1" in st.session_state:
         st.session_state["ServerT1"] = []
         st.session_state["ServerT2"] = []
