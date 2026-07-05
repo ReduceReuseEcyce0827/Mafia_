@@ -122,10 +122,7 @@ Input = {"Main": {}, "Login": {"ID": Make_Text_Input("아이디"), "PW": Make_Te
 def Change_Display(Where, Users, Server613):
     L = ["Main", "Login", "Admin"]
     for n in L:
-        if n not in st.session_state:
-            st.session_state[n] = False
-            if n == Where:
-                st.session_state[n] = True
+        st.session_state[n] = False
     st.session_state[Where] = True
     if st.session_state["Main"]:
             st.title("마피아 게임")
