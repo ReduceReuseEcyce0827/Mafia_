@@ -162,8 +162,8 @@ def Change_Display(Where, Users, Server613: socket.socket):
                     st.session_state["ServerT2"].append(serverT)
                     st.session_state["ServerT1"].append(serverT)
                     try:
-                        st.session_state["ServerT2"][-1].bind(('', 6132))
-                        st.session_state["ServerT1"][-1].bind(('', 6131))
+                        st.session_state["ServerT2"][-1].bind(('localhost', 6132))
+                        st.session_state["ServerT1"][-1].bind(('localhost', 6131))
                         st.success("서버 생성됨")
                         st.session_state["display"] = "ControlCenter"
                         st.rerun()
@@ -173,8 +173,8 @@ def Change_Display(Where, Users, Server613: socket.socket):
                     serverT = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
                     st.session_state["ServerT2"].append(serverT)
                     st.session_state["ServerT1"].append(serverT)
-                    st.session_state["ServerT2"][-1].connect(('', 6132))
-                    st.session_state["ServerT1"][-1].connect(('', 6131))
+                    st.session_state["ServerT2"][-1].connect(('localhost', 6132))
+                    st.session_state["ServerT1"][-1].connect(('localhost', 6131))
                     st.success("서버 연결됨")
             elif not Admin_Code in admin_code and inzung:
                 st.error("관리자 코드 인증 실패")
