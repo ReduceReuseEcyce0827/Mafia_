@@ -161,7 +161,7 @@ def LoginB(Server613, Users, ID, PW):
     except:
         pass
 def AdminB():
-    Admin_Code = st.text_input("관리자 코드 입력", type="password", key=f"Admin_Code_{Button_Key['Admin']['Admin_Code'][-1]+1}")
+    Admin_Code = Input["Admin"]["Admin_Code"]
     {Button_Key['Admin']['Admin2'].append(Button_Key['Admin']['Admin2'][-1]+1) if Button_Key['Admin']['Admin2'] else Button_Key['Admin']['Admin2'].append(0)}
     if Admin_Code == "admin140827Roymin":  # 예시로 관리자 코드를 "admin123"으로 설정
         st.success("관리자 코드 인증 성공")
