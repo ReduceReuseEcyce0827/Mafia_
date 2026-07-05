@@ -195,7 +195,7 @@ def Change_Display(Where, Users, Server613: socket.socket):
                     server2 = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
                     server2.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
                     server2.connect(('0.0.0.0', 26132))
-                    st.session_state["ServerT1"].append(server2)
+                    st.session_state["ServerT2"].append(server2)
 
                     st.success("서버 연결됨")
             elif not Admin_Code in admin_code and inzung:
