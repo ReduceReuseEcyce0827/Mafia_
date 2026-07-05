@@ -251,11 +251,11 @@ def LoginB(Server613, Users, PW):
         LoginSuccessed = True
         Id = int(-([user.PW for user in Users].index(PW)-1))
         if Users[Id].Team == 1:
-                    serverPort = 6131
+                    serverPort = 16131
         else:
-                    serverPort = 9613
+                    serverPort = 26132
         server = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-        server.connect(('127.0.0.1', serverPort))
+        server.connect(('0.0.0.0', serverPort))
         st.session_state["ServerT1"].append(server)
         st.session_state["display"] = "WaitRoom"
         st.rerun()
