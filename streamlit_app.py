@@ -122,18 +122,6 @@ def Change_Display(Where, Users, Server613):
     for n in L:
         st.session_state[n] = False
     st.session_state[Where] = True
-    if st.session_state["Main"]:
-            st.title("마피아 게임")
-            if Make_Button("로그인"):
-                Change_Display("Login", Users, Server613)
-            if Make_Button("관리자 코드 입력"):
-                Change_Display("Admin", Users, Server613)
-    if st.session_state["Login"]:
-            st.title("로그인")
-            ID = Make_Text_Input("아이디")
-            PW = Make_Text_Input("비밀번호")
-            if Make_Button("로그인"):
-                LoginB(Server613, Users, ID, PW)
     if st.session_state["Admin"]:
             st.title("관리자 모드")
             Admin_Code = Make_Text_Input("관리자 코드 입력")
@@ -144,6 +132,18 @@ def Change_Display(Where, Users, Server613):
                 server.listen(Amount)
             else:
                 st.error("관리자 코드 인증 실패")
+    elif st.session_state["Login"]:
+            st.title("로그인")
+            ID = Make_Text_Input("아이디")
+            PW = Make_Text_Input("비밀번호")
+            if Make_Button("로그인"):
+                LoginB(Server613, Users, ID, PW)
+    elif st.session_state["Main"]:
+            st.title("마피아 게임")
+            if Make_Button("로그인"):
+                Change_Display("Login", Users, Server613)
+            if Make_Button("관리자 코드 입력"):
+                Change_Display("Admin", Users, Server613)
 def LoginB(Server613, Users, ID, PW):
     if Server613 and ID in [user.ID for user in Users] and PW == [user.PW for user in Users if user.ID == ID][0]:
         st.success("로그인 성공")
@@ -156,11 +156,11 @@ def LoginB(Server613, Users, ID, PW):
     except:
         pass
 def AdminB():
-    Admin_Code = Input["Admin"]["Admin_Code"]
+    Admin_Code = Make_Text_Input("관리자 코드 입력")
     {Button_Key['Admin']['Admin2'].append(Button_Key['Admin']['Admin2'][-1]+1) if Button_Key['Admin']['Admin2'] else Button_Key['Admin']['Admin2'].append(0)}
     if Admin_Code == "admin140827Roymin":  # 예시로 관리자 코드를 "admin123"으로 설정
         st.success("관리자 코드 인증 성공")
-        Amount = int(st.text_input("인원 수", key=f"Amount_{Button_Key['Admin']['Amount'][-1]+1}"))
+        Amount = int(Make_Text_Input("인원 수"))
         server = socket.socket(socket.AF_INET, socket.SOCK_STREAM).bind(('', 613))  # 관리자 서버에 연결
         server.listen(Amount)
     else:
@@ -174,7 +174,9 @@ def runApp(Debug, Users, Roles, Missions):
     Server613 = Connect_Event_Server()
     Change_Display("Main", Users, Server613)
 if __name__ == "__main__":
-    Users = Load_Users_Data()
-    Roles = Load_Role()
-    Missions = Load_Missions()
-    runApp("진행중인 이벤트가 없습니다.", Users, Roles, Missions)
+    st.session_state["ReS"] = False
+    if st.session_state["ReS"]:
+        Users = Load_Users_Data()
+        Roles = Load_Role()
+        Missions = Load_Missions()
+        runApp("진행중인 이벤트가 없습니다.", Users, Roles, Missions)
