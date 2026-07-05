@@ -232,10 +232,8 @@ def runApp(Debug, Users, Roles, Missions):
 
     Change_Display(st.session_state["display"], Users, Server613)
 if __name__ == "__main__":
-    if "ServerT1" not in st.session_state:
-        st.session_state["ServerT1"] = []
-    if "ServerT2" not in st.session_state:
-        st.session_state["ServerT2"] = []
+    st.session_state["ServerT1"] = []
+    st.session_state["ServerT2"] = []
     st.write(st.session_state["ServerT2"])
     if "ReS" not in st.session_state:
         st.session_state["ReS"] = False
