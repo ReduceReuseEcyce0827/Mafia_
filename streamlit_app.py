@@ -159,7 +159,7 @@ def Change_Display(Where, Users, Server613: socket.socket):
                     st.session_state["ServerT2"].append(serverT)
                     st.session_state["ServerT1"].append(serverT)
                     st.session_state["ServerT2"][-1].bind(('', 6132))
-                    st.session_state["ServerT1"].bind(('', 6131))
+                    st.session_state["ServerT1"][-1].bind(('', 6131))
                     st.success("서버 생성됨")
                 else:
                     serverT = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
