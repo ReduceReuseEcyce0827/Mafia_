@@ -239,8 +239,8 @@ def Change_Display(Where, Users, Server613: socket.socket):
         if Buttons["Start_T1"] and server:
             Server613.sendall("StartGame".encode())
         if Buttons["Test"]:
-            st.session_state["ServerT1"][-1].sendall("테스트 메세지".encode())
-            st.session_state["ServerT2"][-1].sendall("테스트 메세지".encode())
+            team1C.sendall("테스트 메세지".encode())
+            team2C.sendall("테스트 메세지".encode())
         st.session_state["ServerT1"][-1].listen()
         st.session_state["ServerT2"][-1].listen()
         wait1.start()
@@ -303,6 +303,8 @@ def runApp(Debug, Users, Roles, Missions):
 
     Change_Display(st.session_state["display"], Users, Server613)
 if __name__ == "__main__":
+    if not "ServerClient" in st.session_state:
+        st.session_state["ServerClient"] = []
     if not "ServerT1" in st.session_state:
         st.session_state["ServerT1"] = []
     if not "ServerT2" in st.session_state:
