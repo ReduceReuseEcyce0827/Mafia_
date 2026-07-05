@@ -240,16 +240,16 @@ def Change_Display(Where, Users, Server613: socket.socket):
                    "Stop_T1": st.button('팀1 중지', key="Team1St"), 
                    "Stop_T2": st.button('팀2 중지', key="Team2St"),
                    "Test": st.button('메세지 보내기(테스트용)')}
-        if Buttons["Start_T1"] and server:
-            Server613.sendall("StartGame".encode())
-        if Buttons["Test"]:
-            team1C.sendall("테스트 메세지".encode())
-            team2C.sendall("테스트 메세지".encode())
         st.session_state["ServerT1"][-1].listen()
         st.session_state["ServerT2"][-1].listen()
         wait1.start()
         wait2.start()
         st.write(socket.gethostname())
+        if Buttons["Start_T1"] and server:
+            Server613.sendall("StartGame".encode())
+        if Buttons["Test"]:
+            st.session_state["ServerT1"][-1].sendall("테스트 메세지".encode())
+            st.session_state["ServerT2"][-1].sendall("테스트 메세지".encode())
         isDebugging = 0
         if st.button("디버깅(김류민용)"):
             isDebugging = 1-isDebugging
