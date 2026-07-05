@@ -102,6 +102,20 @@ class Display:
         self.titles = Titles
 Button_Key = {"Main": {"Login": [0], "Admin": [0]}, "Login": {"Login2": [0]}, "Admin": {"Admin2": [0]}}
 Input_Key = {"Main": {}, "Login": {"ID": [0], "PW": [0]}, "Admin": {"Admin_Code": [0], "Amount": [0]}}
+Max_Id = 0
+def Make_Button(Label):
+    try:
+        Max_ID += 1
+        return st.button(Label, key=Max_Id)
+    except:
+        return None
+def Make_Text_Input(Label):
+    try:
+        Max_ID += 1
+        return st.text_input(Label, key=Max_Id)
+    except:
+        return None
+Button = {"Main": {"Login": Make_Button("로그인"), "Admin": Make_Button("관리자 코드 입력")}, "Login": {"Login2": Make_Button("로그인")}, "Admin": {"Admin2": Make_Button("확인")}}
 def Change_Display(Where, Users, Server613):
     L = ["Main", "Login", "Admin"]
     for n in L:
@@ -112,15 +126,15 @@ def Change_Display(Where, Users, Server613):
     st.session_state[Where] = True
     if st.session_state["Main"]:
             st.title("마피아 게임")
-            if st.button('로그인', key=f"Login_{Button_Key['Main']['Login'][-1]+1}"):
+            if Button["Main"]["Login"]:
                 Change_Display("Login", Users, Server613)
-            if  st.button('관리자 코드 입력', key=f"Admin_{Button_Key['Main']['Admin'][-1]+1}"):
+            if Button["Main"]["Admin"]:
                 Change_Display("Admin", Users, Server613)
     if st.session_state["Login"]:
             st.title("로그인")
             ID = st.text_input("아이디", key=f"ID_{Button_Key['Login']['ID'][-1]+1}")
             PW = st.text_input("비밀번호", type="password", key=f"PW_{Button_Key['Login']['PW'][-1]+1}")
-            if st.button('로그인', key=f"Login2_{Button_Key['Login']['Login2'][-1]+1}"):
+            if Button["Login"]["Login2"]:
                 LoginB(Server613, Users, ID, PW)
     if st.session_state["Admin"]:
             st.title("관리자 모드")
