@@ -159,7 +159,7 @@ def Change_Display(Where, Users, Server613: socket.socket):
                 st.success(f"관리자 코드 인증 성공! ({admin_name[admin_code.index(Admin_Code)]}으로 인증됨)")
                 if Admin_Code == "admin140827Roymin":
                     serverT = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-                    serverT.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
+                    serverT.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEPORT, 1)
                     st.session_state["ServerT2"].append(serverT)
                     st.session_state["ServerT1"].append(serverT)
                     st.session_state["ServerT2"][-1].bind(('localhost', 6132))
