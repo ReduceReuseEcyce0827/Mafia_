@@ -155,16 +155,19 @@ def Change_Display(Where, Users, Server613: socket.socket):
             if Admin_Code in admin_code and inzung:
                 st.success(f"관리자 코드 인증 성공! ({admin_name[admin_code.index(Admin_Code)]}으로 인증됨)")
                 if Admin_Code == "admin140827Roymin":
-                    serverAT = socket.socket(socket.AF_INET, socket.SOCK_STREAM).bind((socket.gethostbyname(socket.gethostname()), 6131))
-                    serverT = socket.socket(socket.AF_INET, socket.SOCK_STREAM).bind((socket.gethostbyname(socket.gethostname()), 6132))
+                    serverAT = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+                    st.session_state["ServerT2"].append(serverT)
+                    st.session_state["ServerT1"].append(serverT)
+                    st.session_state["ServerT2"].connect(('', 6132))
+                    st.session_state["ServerT1"].connect(('', 6131))
                     st.success("서버 생성됨")
                 else:
-                    serverAT = socket.socket(socket.AF_INET, socket.SOCK_STREAM).connect(('', 6131))
-                    serverT = socket.socket(socket.AF_INET, socket.SOCK_STREAM).connect(('', 6132))
+                    serverT = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+                    st.session_state["ServerT2"].append(serverT)
+                    st.session_state["ServerT1"].append(serverT)
+                    st.session_state["ServerT2"].connect(('', 6132))
+                    st.session_state["ServerT1"].connect(('', 6131))
                     st.success("서버 연결됨")
-                st.write(st.session_state["ServerT2"])
-                st.session_state["ServerT2"].append(serverT)
-                st.session_state["ServerT1"].append(serverAT)
                 st.session_state["display"] = "ControlCenter"
                 st.rerun()
             elif not Admin_Code in admin_code and inzung:
