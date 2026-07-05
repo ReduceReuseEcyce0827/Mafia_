@@ -187,6 +187,7 @@ def Change_Display(Where, Users, Server613: socket.socket):
                 st.session_state["display"] = "Admin"
                 st.rerun()
 def LoginB(Server613, Users, PW):
+    global Id
     if PW in [user.PW for user in Users]:
         st.success("로그인 성공")
         LoginSuccessed = True
