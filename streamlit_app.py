@@ -211,8 +211,9 @@ def Change_Display(Where, Users, Server613: socket.socket):
                 S += f"{L[i].Name}, "
         st.write(f"당신은 {S[0:-3]}와 같은 조입니다.")
         server = st.session_state["ServerT1"][-1]
-        A = server.recv(1024).decode()
-        st.write(A)
+        while True:
+            A = server.recv(1024).decode()
+            st.write(A)
     elif st.session_state["display"] == "ControlCenter" or Where == "ControlCenter":
         st.title("컨트롤 센터")
         st.write("관리자만 사용할 수 있는 컨트롤 센터입니다.")
@@ -224,8 +225,8 @@ def Change_Display(Where, Users, Server613: socket.socket):
         if Buttons["Start_T1"] and server:
             Server613.sendall("StartGame".encode())
         if Buttons["Test"]:
-            st.session_state["ServerT1"][-1].sendall("테스트 메세지").encode()
-            st.session_state["ServerT2"][-1].sendall("테스트 메세지").encode()
+            st.session_state["ServerT1"][-1].sendall("테스트 메세지".encode())
+            st.session_state["ServerT2"][-1].sendall("테스트 메세지".encode())
         st.session_state["ServerT1"][-1].listen()
         st.session_state["ServerT2"][-1].listen()
         wait1.start()
