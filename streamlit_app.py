@@ -214,7 +214,7 @@ def Change_Display(Where, Users, Server613: socket.socket):
         server.settimeout(None)
         server.setsockopt(socket.SOL_SOCKET, socket.SO_KEEPALIVE, 1)
         server.connect(('0.0.0.0', serverPort))
-        st.session_state["ServerT1"].append(server)
+        st.session_state["ServerMT"].append(server)
         st.title("대기실")
         st.write("대기실에 입장하셨습니다. 게임이 시작될 때까지 기다려주세요.")
         st.write("게임이 시작되면 자동으로 게임 화면으로 전환됩니다.")
@@ -224,9 +224,9 @@ def Change_Display(Where, Users, Server613: socket.socket):
             if L[i].Team != Users[Id].Team:
                 S += f"{L[i].Name}, "
         st.write(f"당신은 {S[0:-3]}와 같은 조입니다.")
-        server = st.session_state["ServerT1"][-1]
+        server = st.session_state["ServerMT"][-1]
         while True:
-            A = server.recv(1024).decode()
+            A = st.session_state["ServerMT"][-1].recv(1024).decode()
             st.write(A)
     elif st.session_state["display"] == "ControlCenter" or Where == "ControlCenter":
         st.title("컨트롤 센터")
@@ -307,6 +307,8 @@ if __name__ == "__main__":
         st.session_state["ServerT1"] = []
     if not "ServerT2" in st.session_state:
         st.session_state["ServerT2"] = []
+    if not "ServerMT" in st.session_state:
+        st.session_state["ServerMT"] = []
     if "ReS" not in st.session_state:
         st.session_state["ReS"] = False
     if "Max_Id" not in st.session_state:
