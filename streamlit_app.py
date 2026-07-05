@@ -198,6 +198,8 @@ def Change_Display(Where, Users, Server613: socket.socket):
             Server613.sendall("StartGame".encode())
         st.session_state["ServerT1"].listen()
         st.session_state["ServerT1"].setblocking(False)
+        st.session_state["ServerT2"].listen()
+        st.session_state["ServerT2"].setblocking(False)
         wait1.start()
         wait2.start()
         st.write(socket.gethostname())
