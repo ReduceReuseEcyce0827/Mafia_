@@ -182,7 +182,7 @@ def Change_Display(Where, Users, Server613: socket.socket):
                             st.session_state["ServerT2"].append(server2)
 
                         st.success("서버 생성됨")
-                        st.session_statre["display"] = "ControlCenter"
+                        st.session_state["display"] = "ControlCenter"
                         st.rerun()
                     except OSError as e:
                         st.write(e)
