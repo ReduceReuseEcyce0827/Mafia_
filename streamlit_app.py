@@ -139,7 +139,7 @@ def Wait():
         client_socket, addr = st.session_state["ServerT1"][-1].accept()
         team1C.append(client_socket)
         print(f"연결 수락됨: {addr}")
-        client_socket.send("Hello!".encode())
+        client_socket.sendall("Hello!".encode('utf-8'))
     except socket.timeout:
         pass
 def Wait2():
@@ -147,7 +147,7 @@ def Wait2():
         client_socket, addr = st.session_state["ServerT2"][-1].accept()
         team2C.append(client_socket)
         print(f"연결 수락됨: {addr}")
-        client_socket.send("Hello!".encode())
+        client_socket.sendall("Hello!".encode('utf-8'))
     except socket.timeout:
         pass
 wait1 = threading.Thread(target=Wait)
@@ -211,6 +211,7 @@ def Change_Display(Where, Users, Server613: socket.socket):
         else:
             serverPort = 26132
         server = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+        server.setsockopt(socket.SOL_SOCKET, socket.SO_LINGER, 1)
         server.settimeout(None)
         server.setsockopt(socket.SOL_SOCKET, socket.SO_KEEPALIVE, 1)
         server.connect(('0.0.0.0', serverPort))
@@ -226,7 +227,7 @@ def Change_Display(Where, Users, Server613: socket.socket):
         st.write(f"당신은 {S[0:-3]}와 같은 조입니다.")
         server = st.session_state["ServerMT"][-1]
         while True:
-            A = st.session_state["ServerMT"][-1].recv(1024).decode()
+            A = st.session_state["ServerMT"][-1].recv(1024).decode('utf-8')
             st.write(A)
     elif st.session_state["display"] == "ControlCenter" or Where == "ControlCenter":
         st.title("컨트롤 센터")
@@ -239,8 +240,8 @@ def Change_Display(Where, Users, Server613: socket.socket):
         if Buttons["Start_T1"] and server:
             Server613.sendall("StartGame".encode())
         if Buttons["Test"]:
-            st.session_state["ServerT1"][-1].send("테스트 메세지".encode())
-            st.session_state["ServerT2"][-1].send("테스트 메세지".encode())
+            st.session_state["ServerT1"][-1].sendall("테스트 메세지".encode())
+            st.session_state["ServerT2"][-1].sendall("테스트 메세지".encode())
         st.session_state["ServerT1"][-1].listen()
         st.session_state["ServerT2"][-1].listen()
         wait1.start()
