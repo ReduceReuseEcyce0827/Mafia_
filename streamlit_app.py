@@ -104,18 +104,21 @@ Button_Key = {"Main": {"Login": [0], "Admin": [0]}, "Login": {"Login2": [0]}, "A
 Input_Key = {"Main": {}, "Login": {"ID": [0], "PW": [0]}, "Admin": {"Admin_Code": [0], "Amount": [0]}}
 Max_Id = 0
 def Make_Button(Label):
+    global Max_Id
     try:
-        Max_ID += 1
+        Max_Id += 1
         return st.button(Label, key=Max_Id)
     except:
         return None
 def Make_Text_Input(Label):
+    global Max_Id
     try:
-        Max_ID += 1
+        Max_Id += 1
         return st.text_input(Label, key=Max_Id)
     except:
         return None
 Button = {"Main": {"Login": Make_Button("로그인"), "Admin": Make_Button("관리자 코드 입력")}, "Login": {"Login2": Make_Button("로그인")}, "Admin": {"Admin2": Make_Button("확인")}}
+Input = {"Main": {}, "Login": {"ID": Make_Text_Input("아이디"), "PW": Make_Text_Input("비밀번호")}, "Admin": {"Admin_Code": Make_Text_Input("관리자 코드 입력"), "Amount": Make_Text_Input("인원 수")}}
 def Change_Display(Where, Users, Server613):
     L = ["Main", "Login", "Admin"]
     for n in L:
@@ -132,16 +135,16 @@ def Change_Display(Where, Users, Server613):
                 Change_Display("Admin", Users, Server613)
     if st.session_state["Login"]:
             st.title("로그인")
-            ID = st.text_input("아이디", key=f"ID_{Input_Key['Login']['ID'][-1]+1}")
-            PW = st.text_input("비밀번호", type="password", key=f"PW_{Input_Key['Login']['PW'][-1]+1}")
+            ID = Input["Login"]["ID"]
+            PW = Input["Login"]["PW"]
             if Button["Login"]["Login2"]:
                 LoginB(Server613, Users, ID, PW)
     if st.session_state["Admin"]:
             st.title("관리자 모드")
-            Admin_Code = st.text_input("관리자 코드 입력", type="password", key=f"Admin_Code_{Input_Key['Admin']['Admin_Code'][-1]+1}")
+            Admin_Code = Input["Admin"]["Admin_Code"]
             if Admin_Code == "admin140827Roymin":
                 st.success("관리자 코드 인증 성공")
-                Amount = int(st.text_input("인원 수", key=f"Amount_{Button_Key['Admin']['Amount'][-1]+1}"))
+                Amount = int(Input["Admin"]["Amount"])
                 server = socket.socket(socket.AF_INET, socket.SOCK_STREAM).bind(('', 613))
                 server.listen(Amount)
             else:
