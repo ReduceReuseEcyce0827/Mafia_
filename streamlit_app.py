@@ -157,7 +157,7 @@ def Change_Display(Where, Users, Server613):
         st.write("게임이 시작되면 자동으로 게임 화면으로 전환됩니다.")
         L = [user for user in Users]
         S = ''
-        for i in range(len(L)):
+        for i in range(len(L)-1):
             if L[i].Team == Users[Id].Team:
                 S += f"{L[i].Name}, "
         st.write(f"당신은 {S[0:-3]}와 같은 조입니다")
