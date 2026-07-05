@@ -116,18 +116,18 @@ def Change_Display(Where, Users, Server613):
                 Change_Display("Login", Users, Server613)
             if  st.button('관리자 코드 입력', key=f"Admin_{Button_Key['Main']['Admin'][-1]+1}"):
                 Change_Display("Admin", Users, Server613)
-    elif st.session_state["Login"]:
+    if st.session_state["Login"]:
             st.title("로그인")
-            ID = st.text_input("아이디", key=f"ID_{Input_Key['Login'][0]}_{Button_Key['Login']['Login2'][-1]+1}")
-            PW = st.text_input("비밀번호", type="password", key=f"PW_{Input_Key['Login'][1]}_{Button_Key['Login']['Login2'][-1]+1}")
+            ID = st.text_input("아이디", key=f"ID_{Button_Key['Login']['ID'][-1]+1}")
+            PW = st.text_input("비밀번호", type="password", key=f"PW_{Button_Key['Login']['PW'][-1]+1}")
             if st.button('로그인', key=f"Login2_{Button_Key['Login']['Login2'][-1]+1}"):
                 LoginB(Server613, Users, ID, PW)
-    elif st.session_state["Admin"]:
+    if st.session_state["Admin"]:
             st.title("관리자 모드")
-            Admin_Code = st.text_input("관리자 코드 입력", type="password", key=f"Admin_Code_{Input_Key['Admin'][0]}_{Button_Key['Admin']['Admin2'][-1]+1}")
+            Admin_Code = st.text_input("관리자 코드 입력", type="password", key=f"Admin_Code_{Button_Key['Admin']['Admin2'][-1]+1}")
             if Admin_Code == "admin140827Roymin":
                 st.success("관리자 코드 인증 성공")
-                Amount = int(st.text_input("인원 수", key=f"Amount_{Input_Key['Admin'][1]}_{Button_Key['Admin']['Admin2'][-1]+1}"))
+                Amount = int(st.text_input("인원 수", key=f"Amount_{Button_Key['Admin']['Amount'][-1]+1}"))
                 server = socket.socket(socket.AF_INET, socket.SOCK_STREAM).bind(('', 613))
                 server.listen(Amount)
             else:
@@ -144,11 +144,11 @@ def LoginB(Server613, Users, ID, PW):
     except:
         pass
 def AdminB():
-    Admin_Code = st.text_input("관리자 코드 입력", type="password", key=f"Admin_Code_{Button_Key['Admin']['Admin2'][-1]+1}")
+    Admin_Code = st.text_input("관리자 코드 입력", type="password", key=f"Admin_Code_{Button_Key['Admin']['Admin_Code'][-1]+1}")
     {Button_Key['Admin']['Admin2'].append(Button_Key['Admin']['Admin2'][-1]+1) if Button_Key['Admin']['Admin2'] else Button_Key['Admin']['Admin2'].append(0)}
     if Admin_Code == "admin140827Roymin":  # 예시로 관리자 코드를 "admin123"으로 설정
         st.success("관리자 코드 인증 성공")
-        Amount = int(st.text_input("인원 수", key=f"Amount_{Button_Key['Admin']['Admin2'][-1]+1}"))
+        Amount = int(st.text_input("인원 수", key=f"Amount_{Button_Key['Admin']['Amount'][-1]+1}"))
         server = socket.socket(socket.AF_INET, socket.SOCK_STREAM).bind(('', 613))  # 관리자 서버에 연결
         server.listen(Amount)
     else:
