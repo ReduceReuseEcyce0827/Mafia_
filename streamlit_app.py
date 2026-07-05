@@ -150,6 +150,7 @@ def Change_Display(Where, Users, Server613: socket.socket):
                     st.write(st.session_state["ServerT2"])
                     st.session_state["ServerT2"].append(serverT)
                     st.session_state["ServerT1"].append(serverAT)
+                    time.sleep(5)
             elif not Admin_Code in admin_code and inzung:
                 st.error("관리자 코드 인증 실패")
     elif st.session_state["display"] == "Login" or Where == "Login":
