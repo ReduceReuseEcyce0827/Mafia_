@@ -163,8 +163,8 @@ def Change_Display(Where, Users, Server613: socket.socket):
                     st.session_state["ServerT2"].append(serverT)
                     st.session_state["ServerT1"].append(serverT)
                     try:
-                        st.session_state["ServerT2"][-1].bind(('localhost', 6132))
-                        st.session_state["ServerT1"][-1].bind(('localhost', 6131))
+                        st.session_state["ServerT2"][-1].bind(('127.0.0.1', 6132))
+                        st.session_state["ServerT1"][-1].bind(('127.0.0.1', 6131))
                         st.success("서버 생성됨")
                         st.session_state["display"] = "ControlCenter"
                         st.rerun()
@@ -174,8 +174,8 @@ def Change_Display(Where, Users, Server613: socket.socket):
                     serverT = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
                     st.session_state["ServerT2"].append(serverT)
                     st.session_state["ServerT1"].append(serverT)
-                    st.session_state["ServerT2"][-1].connect(('localhost', 6132))
-                    st.session_state["ServerT1"][-1].connect(('localhost', 6131))
+                    st.session_state["ServerT2"][-1].connect(('127.0.0.1', 6132))
+                    st.session_state["ServerT1"][-1].connect(('127.0.0.1', 6131))
                     st.success("서버 연결됨")
             elif not Admin_Code in admin_code and inzung:
                 st.error("관리자 코드 인증 실패")
@@ -241,7 +241,7 @@ def LoginB(Server613, Users, PW):
         else:
                     serverPort = 6132
         server = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-        server.connect(('localhost', serverPort))
+        server.connect(('127.0.0.1', serverPort))
         st.session_state["ServerT1"].append(server)
         st.session_state["display"] = "WaitRoom"
         st.rerun()
@@ -249,7 +249,7 @@ def LoginB(Server613, Users, PW):
         st.error("로그인 실패")
         LoginSuccessed = False
     try:
-        Server613.sendto(f"LOGIN|{PW}|{LoginSuccessed}".encode(), ("localhost", 613))
+        Server613.sendto(f"LOGIN|{PW}|{LoginSuccessed}".encode(), ("127.0.0.1", 613))
     except:
         pass
 def AdminB():
