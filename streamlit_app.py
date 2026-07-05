@@ -118,11 +118,8 @@ def Make_Text_Input(Label):
     except:
         return None
 def Change_Display(Where, Users, Server613):
-    L = ["Main", "Login", "Admin"]
-    for n in L:
-        st.session_state[n] = False
-    st.session_state[Where] = True
-    if st.session_state["Admin"]:
+    st.session_state["display"] = Where
+    if st.session_state["display"] == "Admin":
             st.title("관리자 모드")
             Admin_Code = Make_Text_Input("관리자 코드 입력")
             if Admin_Code == "admin140827Roymin":
@@ -132,13 +129,13 @@ def Change_Display(Where, Users, Server613):
                 server.listen(Amount)
             else:
                 st.error("관리자 코드 인증 실패")
-    elif st.session_state["Login"]:
+    elif st.session_state["display"] == "Login":
             st.title("로그인")
             ID = Make_Text_Input("아이디")
             PW = Make_Text_Input("비밀번호")
             if Make_Button("로그인"):
                 LoginB(Server613, Users, ID, PW)
-    elif st.session_state["Main"]:
+    elif st.session_state["display"] == "Main":
             st.title("마피아 게임")
             if Make_Button("로그인"):
                 Change_Display("Login", Users, Server613)
