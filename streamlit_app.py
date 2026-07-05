@@ -147,7 +147,8 @@ def Wait2():
         pass
 wait1 = threading.Thread(target=Wait)
 wait2 = threading.Thread(target=Wait2)
-
+def Debugging():
+    pass
 def Change_Display(Where, Users, Server613: socket.socket):
     st.session_state["display"] = Where
     if st.session_state["display"] == "Admin" or Where == "Admin":
@@ -205,12 +206,17 @@ def Change_Display(Where, Users, Server613: socket.socket):
         if Buttons["Start_T1"] and server:
             Server613.sendall("StartGame".encode())
         st.session_state["ServerT1"][-1].listen()
-        st.session_state["ServerT1"][-1].setblocking(False)
         st.session_state["ServerT2"][-1].listen()
-        st.session_state["ServerT2"][-1].setblocking(False)
         wait1.start()
         wait2.start()
         st.write(socket.gethostname())
+        isDebugging = 0
+        if st.button("디버깅(김류민용)"):
+            isDebugging = 1-isDebugging
+        if isDebugging == 1:
+            Debugging()
+        if st.button("새로고침"):
+            Debugging
     else:
             st.title("마피아 게임")
             if st.button("로그인", key="Login_Main"):
@@ -268,7 +274,6 @@ def runApp(Debug, Users, Roles, Missions):
 
     Change_Display(st.session_state["display"], Users, Server613)
 if __name__ == "__main__":
-    socket.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
     if not "ServerT1" in st.session_state:
         st.session_state["ServerT1"] = []
         st.session_state["ServerT2"] = []
