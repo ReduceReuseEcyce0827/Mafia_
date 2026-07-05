@@ -236,6 +236,7 @@ if __name__ == "__main__":
         st.session_state["ServerT1"] = None
     if "ServerT2" not in st.session_state:
         st.session_state["ServerT2"] = None
+    st.write(st.session_state["ServerT2"])
     if "ReS" not in st.session_state:
         st.session_state["ReS"] = False
     if "Max_Id" not in st.session_state:
