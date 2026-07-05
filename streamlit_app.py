@@ -153,8 +153,8 @@ def Change_Display(Where, Users, Server613: socket.socket):
             if Admin_Code in admin_code and inzung:
                 st.success(f"관리자 코드 인증 성공! ({admin_name[admin_code.index(Admin_Code)]}으로 인증됨)")
                 if Admin_Code == "admin140827Roymin":
-                    serverAT = socket.socket(socket.AF_INET, socket.SOCK_STREAM).bind(('', 6131))
-                    serverT = socket.socket(socket.AF_INET, socket.SOCK_STREAM).bind(('', 6132))
+                    serverAT = socket.socket(socket.AF_INET, socket.SOCK_STREAM).bind((socket.gethostbyname(socket.gethostname()), 6131))
+                    serverT = socket.socket(socket.AF_INET, socket.SOCK_STREAM).bind((socket.gethostbyname(socket.gethostname()), 6132))
                     st.success("서버 생성됨")
                 else:
                     serverAT = socket.socket(socket.AF_INET, socket.SOCK_STREAM).connect(('', 6131))
@@ -196,6 +196,7 @@ def Change_Display(Where, Users, Server613: socket.socket):
             Server613.sendall("StartGame".encode())
         wait1.start()
         wait2.start()
+        st.write(socket.gethostname())
     else:
             st.title("마피아 게임")
             if st.button("로그인", key="Login_Main"):
