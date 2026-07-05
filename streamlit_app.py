@@ -196,10 +196,10 @@ def Change_Display(Where, Users, Server613: socket.socket):
                    "Stop_T2": st.button('팀2 중지', key="Team2St")}
         if Buttons["Start_T1"] and server:
             Server613.sendall("StartGame".encode())
-        st.session_state["ServerT1"].listen()
-        st.session_state["ServerT1"].setblocking(False)
-        st.session_state["ServerT2"].listen()
-        st.session_state["ServerT2"].setblocking(False)
+        st.session_state["ServerT1"][-1].listen()
+        st.session_state["ServerT1"][-1].setblocking(False)
+        st.session_state["ServerT2"][-1].listen()
+        st.session_state["ServerT2"][-1].setblocking(False)
         wait1.start()
         wait2.start()
         st.write(socket.gethostname())
