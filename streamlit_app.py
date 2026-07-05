@@ -124,25 +124,26 @@ def Change_Display(Where, Users, Server613):
     st.session_state["display"] = Where
     if st.session_state["display"] == "Admin" or Where == "Admin":
             st.title("관리자 모드")
-            Admin_Code = Make_Text_Input("관리자 코드 입력")
-            if Admin_Code == "admin140827Roymin" and Make_Button("인증"):
+            Admin_Code = st.text_input("관리자 코드 입력", key="Admin_Code_Admin")
+            inzung = st.button("인증", key="Admin_Admin")
+            if Admin_Code == "admin140827Roymin" and inzung:
                 st.success("관리자 코드 인증 성공")
-                Amount = int(Make_Text_Input("인원 수"))
+                Amount = int(st.text_input("인원 수", key="Amount_Admin"))
                 server = socket.socket(socket.AF_INET, socket.SOCK_STREAM).bind(('', 613))
                 server.listen(Amount)
-            elif Admin_Code != "admin140827Roymin" and Make_Button("인증"):
+            elif Admin_Code != "admin140827Roymin" and inzung:
                 st.error("관리자 코드 인증 실패")
     elif st.session_state["display"] == "Login" or Where == "Login":
             st.title("로그인")
-            PW = Make_Text_Input("로그인 코드")
-            if Make_Button(" 로그인 "):
+            PW = st.text_input("로그인 코드", key="Login_PW")
+            if st.button("로그인", key="Login_Login"):
                 LoginB(Server613, Users, PW)
     else:
             st.title("마피아 게임")
-            if Make_Button("로그인"):
+            if st.button("로그인", key="Login_Main"):
                 st.session_state["display"] = "Login"
                 st.rerun()
-            if Make_Button("관리자 코드 입력"):
+            if st.button("관리자 코드 입력", key="Admin_Main"):
                 st.session_state["display"] = "Admin"
                 st.rerun()
 def LoginB(Server613, Users, PW):
