@@ -113,14 +113,16 @@ def Make_Button(Label):
         return None
 def Make_Text_Input(Label):
     global Max_Id
+    if "Max_Id" not in st.session_state:
+        st.session_state["Max_Id"] = 0
     try:
-        Max_Id += 1
-        return st.text_input(Label, key=Max_Id)
+        st.session_state["Max_Id"] += 1
+        return st.text_input(Label, key=st.session_state["Max_Id"])
     except:
         return None
 def Change_Display(Where, Users, Server613):
     st.session_state["display"] = Where
-    if st.session_state["display"] == "Admin":
+    if st.session_state["display"] == "Admin" or Where == "Admin":
             st.title("관리자 모드")
             Admin_Code = Make_Text_Input("관리자 코드 입력")
             if Admin_Code == "admin140827Roymin" and Make_Button("인증"):
@@ -130,12 +132,12 @@ def Change_Display(Where, Users, Server613):
                 server.listen(Amount)
             elif Admin_Code != "admin140827Roymin" and Make_Button("인증"):
                 st.error("관리자 코드 인증 실패")
-    elif st.session_state["display"] == "Login":
+    elif st.session_state["display"] == "Login" or Where == "Login":
             st.title("로그인")
             PW = Make_Text_Input("로그인 코드")
             if Make_Button("로그인"):
                 LoginB(Server613, Users, PW)
-    elif st.session_state["display"] == "Main":
+    elif st.session_state["display"] == "Main" or Where == "Main":
             st.title("마피아 게임")
             if Make_Button("로그인"):
                 Change_Display("Login", Users, Server613)
