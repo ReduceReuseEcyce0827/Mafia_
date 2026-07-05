@@ -164,7 +164,7 @@ def Change_Display(Where, Users, Server613: socket.socket):
                     st.session_state["ServerT1"].append(serverT)
                     try:
                         st.session_state["ServerT2"][-1].bind(('127.0.0.1', 6132))
-                        st.session_state["ServerT1"][-1].bind(('127.0.0.1', 9613))
+                        st.session_state["ServerT1"][-1].bind(('localhost', 9613))
                         st.success("서버 생성됨")
                         st.session_state["display"] = "ControlCenter"
                         st.rerun()
