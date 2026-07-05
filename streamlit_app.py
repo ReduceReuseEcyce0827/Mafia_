@@ -126,22 +126,22 @@ def Change_Display(Where, Users, Server613):
     st.session_state[Where] = True
     if st.session_state["Main"]:
             st.title("마피아 게임")
-            if Button["Main"]["Login"]:
+            if Make_Button("로그인"):
                 Change_Display("Login", Users, Server613)
-            if Button["Main"]["Admin"]:
+            if Make_Button("관리자 코드 입력"):
                 Change_Display("Admin", Users, Server613)
     if st.session_state["Login"]:
             st.title("로그인")
-            ID = Input["Login"]["ID"]
-            PW = Input["Login"]["PW"]
+            ID = Make_Text_Input("아이디")
+            PW = Make_Text_Input("비밀번호")
             if Button["Login"]["Login2"]:
                 LoginB(Server613, Users, ID, PW)
     if st.session_state["Admin"]:
             st.title("관리자 모드")
-            Admin_Code = Input["Admin"]["Admin_Code"]
+            Admin_Code = Make_Text_Input("관리자 코드 입력")
             if Admin_Code == "admin140827Roymin":
                 st.success("관리자 코드 인증 성공")
-                Amount = int(Input["Admin"]["Amount"])
+                Amount = int(Make_Text_Input("인원 수"))
                 server = socket.socket(socket.AF_INET, socket.SOCK_STREAM).bind(('', 613))
                 server.listen(Amount)
             else:
