@@ -187,11 +187,13 @@ def Change_Display(Where, Users, Server613: socket.socket):
                     server1.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
                     server1.connect(('0.0.0.0', 16131))
                     st.session_state["ServerT1"].append(server1)
+                    server1.timeout = float('inf')
                     
                     server2 = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
                     server2.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
                     server2.connect(('0.0.0.0', 26132))
                     st.session_state["ServerT1"].append(server2)
+                    server2.timeout = float('inf')
                     st.success("서버 연결됨")
             elif not Admin_Code in admin_code and inzung:
                 st.error("관리자 코드 인증 실패")
@@ -208,7 +210,7 @@ def Change_Display(Where, Users, Server613: socket.socket):
         server = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
         server.connect(('0.0.0.0', serverPort))
         st.session_state["ServerT1"].append(server)
-        st.session_state["ServerT1"][-1].timeout = float('inf')
+        st.session_state["ServerT1"][-1].settimeout(float('inf'))
         st.title("대기실")
         st.write("대기실에 입장하셨습니다. 게임이 시작될 때까지 기다려주세요.")
         st.write("게임이 시작되면 자동으로 게임 화면으로 전환됩니다.")
