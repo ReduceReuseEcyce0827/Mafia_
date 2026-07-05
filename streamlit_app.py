@@ -158,7 +158,7 @@ def Change_Display(Where, Users, Server613):
         L = [user for user in Users]
         S = ''
         for i in range(len(L)-1):
-            if L[i].Team == Users[Id].Team:
+            if L[i].Team != Users[Id].Team:
                 S += f"{L[i].Name}, "
         st.write(f"당신은 {S[0:-3]}와 같은 조입니다")
     else:
@@ -173,7 +173,7 @@ def LoginB(Server613, Users, PW):
     if PW in [user.PW for user in Users]:
         st.success("로그인 성공")
         LoginSuccessed = True
-        Id = [user.PW for user in Users].index(PW)-1
+        Id = -([user.PW for user in Users].index(PW)-1)
         st.session_state["display"] = "WaitRoom"
         st.rerun()
     else:
