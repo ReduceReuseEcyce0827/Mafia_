@@ -152,20 +152,19 @@ def Change_Display(Where, Users, Server613: socket.socket):
             inzung = st.button("인증", key="Admin_Admin")
             if Admin_Code in admin_code and inzung:
                 st.success(f"관리자 코드 인증 성공! ({admin_name[admin_code.index(Admin_Code)]}으로 인증됨)")
-                Amount = st.text_input("인원 수", key="Amount_Admin")
-                if st.button("이벤트 서버 생성"):
-                    if Admin_Code == "admin140827Roymin":
-                        serverAT = socket.socket(socket.AF_INET, socket.SOCK_STREAM).bind(('', 6131))
-                        serverT = socket.socket(socket.AF_INET, socket.SOCK_STREAM).bind(('', 6132))
-                        st.success("서버 생성됨")
-                    else:
-                        serverAT = socket.socket(socket.AF_INET, socket.SOCK_STREAM).connect(('', 6131))
-                        serverT = socket.socket(socket.AF_INET, socket.SOCK_STREAM).connect(('', 6132))
-                    st.write(st.session_state["ServerT2"])
-                    st.session_state["ServerT2"].append(serverT)
-                    st.session_state["ServerT1"].append(serverAT)
-                    st.session_state["display"] = "ControlCenter"
-                    st.rerun()
+                if Admin_Code == "admin140827Roymin":
+                    serverAT = socket.socket(socket.AF_INET, socket.SOCK_STREAM).bind(('', 6131))
+                    serverT = socket.socket(socket.AF_INET, socket.SOCK_STREAM).bind(('', 6132))
+                    st.success("서버 생성됨")
+                else:
+                    serverAT = socket.socket(socket.AF_INET, socket.SOCK_STREAM).connect(('', 6131))
+                    serverT = socket.socket(socket.AF_INET, socket.SOCK_STREAM).connect(('', 6132))
+                    st.success("서버 연결됨")
+                st.write(st.session_state["ServerT2"])
+                st.session_state["ServerT2"].append(serverT)
+                st.session_state["ServerT1"].append(serverAT)
+                st.session_state["display"] = "ControlCenter"
+                st.rerun()
             elif not Admin_Code in admin_code and inzung:
                 st.error("관리자 코드 인증 실패")
     elif st.session_state["display"] == "Login" or Where == "Login":
