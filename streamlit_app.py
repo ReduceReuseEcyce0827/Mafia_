@@ -192,7 +192,7 @@ def Change_Display(Where, Users, Server613: socket.socket):
         for i in range(len(L)-1):
             if L[i].Team != Users[Id].Team:
                 S += f"{L[i].Name}, "
-        st.write(f"당신은 {S[0:-3]}와 같은 조입니다")
+        st.write(f"당신은 {S[0:-3]}와 같은 조입니다.")
         server = st.session_state["ServerT1"][-1]
         A = server.recv(1024).decode()
         st.write(A)
@@ -202,9 +202,13 @@ def Change_Display(Where, Users, Server613: socket.socket):
         Buttons = {"Start_T1": st.button('팀1 시작', key="Team1S"), 
                    "Start_T2": st.button('팀2 시작', key="Team2S"), 
                    "Stop_T1": st.button('팀1 중지', key="Team1St"), 
-                   "Stop_T2": st.button('팀2 중지', key="Team2St")}
+                   "Stop_T2": st.button('팀2 중지', key="Team2St"),
+                   "Test": st.button('메세지 보내기(테스트용)')}
         if Buttons["Start_T1"] and server:
             Server613.sendall("StartGame".encode())
+        if Buttons["Test"]:
+            st.session_state["ServerT1"][-1].sendall("테스트 메세지").encode()
+            st.session_state["ServerT2"][-1].sendall("테스트 메세지").encode()
         st.session_state["ServerT1"][-1].listen()
         st.session_state["ServerT2"][-1].listen()
         wait1.start()
