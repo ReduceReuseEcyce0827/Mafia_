@@ -336,6 +336,7 @@ def Reload_STClose():
         st.session_state["ServerT1"].close()
         st.session_state["ServerT2"].close()
         st.session_state["ServerMT"].close()
+        st.write("Reloaded")
 if __name__ == "__main__":
     if not "ServerClient" in st.session_state:
         st.session_state["ServerClient"] = []
@@ -357,4 +358,5 @@ if __name__ == "__main__":
             Users.append(User_Data_Conv_to_Class(Userss[i]))
         Roles = Load_Role()
         Missions = Load_Missions()
+        Reload_STClose()
         runApp("진행중인 이벤트가 없습니다.", Users, Roles, Missions)
