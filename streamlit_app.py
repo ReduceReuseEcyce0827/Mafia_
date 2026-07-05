@@ -110,7 +110,7 @@ def Make_Button(Label):
         st.session_state["Max_Id"] += 1
         return st.button(Label, key=st.session_state["Max_Id"])
     except:
-        return None
+        return st.button("오류")
 def Make_Text_Input(Label):
     global Max_Id
     if "Max_Id" not in st.session_state:
@@ -119,7 +119,7 @@ def Make_Text_Input(Label):
         st.session_state["Max_Id"] += 1
         return st.text_input(Label, key=st.session_state["Max_Id"])
     except:
-        return None
+        return st.text_input("오류")
 def Change_Display(Where, Users, Server613):
     st.session_state["display"] = Where
     if st.session_state["display"] == "Admin" or Where == "Admin":
