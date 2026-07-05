@@ -143,7 +143,7 @@ def Wait():
         client_socket, addr = st.session_state["ServerT1"][-1].accept()
         team1C.append(client_socket)
         print(f"연결 수락됨: {addr}")
-        client_socket.sendall("Hello!".encode('utf-8'))
+        client_socket.sendall("Hello!".encode())
     except socket.timeout:
         pass
 def Wait2():
@@ -151,7 +151,7 @@ def Wait2():
         client_socket, addr = st.session_state["ServerT2"][-1].accept()
         team2C.append(client_socket)
         print(f"연결 수락됨: {addr}")
-        client_socket.sendall("Hello!".encode('utf-8'))
+        client_socket.sendall("Hello!".encode())
     except socket.timeout:
         pass
 def Get1():
