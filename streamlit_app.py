@@ -158,14 +158,14 @@ def Change_Display(Where, Users, Server613: socket.socket):
             if Admin_Code in admin_code and inzung:
                 st.success(f"관리자 코드 인증 성공! ({admin_name[admin_code.index(Admin_Code)]}으로 인증됨)")
                 if Admin_Code == "admin140827Roymin":
-                    serverT = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+                    serverT = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
                     serverT.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
                     try:
                         server1 = serverT
                         server2 = serverT
-                        server2.bind(('', 9613))
+                        server2.bind(('localhost', 9613))
                         st.session_state["ServerT2"].append(server2)
-                        server1.bind(('', 6132))
+                        server1.bind(('localhost', 6132))
                         st.session_state["ServerT1"].append(server1)
                         st.success("서버 생성됨")
                         st.session_state["display"] = "ControlCenter"
