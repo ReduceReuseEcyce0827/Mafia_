@@ -127,7 +127,7 @@ def Change_Display(Where, Users, Server613):
                 Amount = int(Make_Text_Input("인원 수"))
                 server = socket.socket(socket.AF_INET, socket.SOCK_STREAM).bind(('', 613))
                 server.listen(Amount)
-            else:
+            elif Admin_Code != "admin140827Roymin" and Make_Button("인증"):
                 st.error("관리자 코드 인증 실패")
     elif st.session_state["display"] == "Login":
             st.title("로그인")
