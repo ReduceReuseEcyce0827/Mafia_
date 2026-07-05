@@ -256,9 +256,6 @@ def Change_Display(Where, Users, Server613: socket.socket):
                 S += f"{L[i].Name}, "
         st.write(f"당신은 {S[0:-3]}와 같은 조입니다.")
         server = st.session_state["ServerMT"][-1]
-        while True:
-            A = st.session_state["ServerMT"][-1].recv(1024).decode('utf-8')
-            st.write(A)
     elif st.session_state["display"] == "ControlCenter" or Where == "ControlCenter":
         st.title("컨트롤 센터")
         st.write("관리자만 사용할 수 있는 컨트롤 센터입니다.")
