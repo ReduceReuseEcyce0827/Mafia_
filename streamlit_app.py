@@ -146,6 +146,7 @@ def Change_Display(Where, Users, Server613: socket.socket):
                     else:
                         serverAT = socket.socket(socket.AF_INET, socket.SOCK_STREAM).connect(('', 6131))
                         serverT = socket.socket(socket.AF_INET, socket.SOCK_STREAM).connect(('', 6132))
+                st.write(st.session_state["ServerT2"])
                 st.session_state["ServerT2"].append(serverT)
                 st.session_state["ServerT1"].append(serverAT)
             elif not Admin_Code in admin_code and inzung:
@@ -234,7 +235,6 @@ def runApp(Debug, Users, Roles, Missions):
 if __name__ == "__main__":
     st.session_state["ServerT1"] = []
     st.session_state["ServerT2"] = []
-    st.write(st.session_state["ServerT2"])
     if "ReS" not in st.session_state:
         st.session_state["ReS"] = False
     if "Max_Id" not in st.session_state:
