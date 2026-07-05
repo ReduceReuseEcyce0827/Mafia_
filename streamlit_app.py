@@ -191,7 +191,7 @@ def LoginB(Server613, Users, PW):
     if PW in [user.PW for user in Users]:
         st.success("로그인 성공")
         LoginSuccessed = True
-        Id = -([user.PW for user in Users].index(PW)-1)
+        Id = int(-([user.PW for user in Users].index(PW)-1))
         if User[Id].Team == 1:
                     serverPort = 6131
         else:
