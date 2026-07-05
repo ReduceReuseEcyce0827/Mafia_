@@ -212,6 +212,7 @@ def Change_Display(Where, Users, Server613: socket.socket):
             serverPort = 26132
         server = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
         server.settimeout(None)
+        server.setsockopt(socket.SOL_SOCKET, socket.SO_KEEPALIVE, 1)
         server.connect(('0.0.0.0', serverPort))
         st.session_state["ServerT1"].append(server)
         st.title("대기실")
