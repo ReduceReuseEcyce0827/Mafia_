@@ -161,12 +161,16 @@ def Change_Display(Where, Users, Server613: socket.socket):
                     try:
                         server1 = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
                         server1.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
+                        if hasattr(socket, 'SO_REUSEPORT'):
+                            server1.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEPORT, 1)
                         server1.bind(('0.0.0.0', 16131))
                         if not server1 in st.session_state["ServerT1"]:
                             st.session_state["ServerT1"].append(server1)
                             
                         server2 = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
                         server2.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
+                        if hasattr(socket, 'SO_REUSEPORT'):
+                            server2.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEPORT, 1)
                         server2.bind(('0.0.0.0', 26132))
                         if not server2 in st.session_state["ServerT2"]:
                             st.session_state["ServerT2"].append(server2)
