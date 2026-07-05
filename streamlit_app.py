@@ -151,8 +151,22 @@ def Wait2():
         client_socket.sendall("Hello!".encode('utf-8'))
     except socket.timeout:
         pass
+def Get1():
+    for t1 in team1C:
+        try:
+            st.write(t1.recv(1024).decode())
+        except:
+            pass
+def Get2():
+    for t2 in team2C:
+        try:
+            st.write(t2.recv(1024).decode())
+        except:
+            pass
 wait1 = threading.Thread(target=Wait)
 wait2 = threading.Thread(target=Wait2)
+get1 = threading.Thread(target=Get1)
+get2 = threading.Thread(target=Get2)
 settimeout = threading.Thread(target=A)
 def Debugging():
     pass
@@ -227,6 +241,14 @@ def Change_Display(Where, Users, Server613: socket.socket):
         st.title("대기실")
         st.write("대기실에 입장하셨습니다. 게임이 시작될 때까지 기다려주세요.")
         st.write("게임이 시작되면 자동으로 게임 화면으로 전환됩니다.")
+        if st.button("❤️"):
+            st.session_state["ServerMT"][-1].send("Heart".encode())
+        if st.button("😊"):
+            st.session_state["ServerMT"][-1].send("Happy".encode())
+        if st.button("😂"):
+            st.session_state["ServerMT"][-1].send("Fun".encode())
+        if st.button("👍"):
+            st.session_state["ServerMT"][-1].send("Good".encode())
         L = [user for user in Users]
         S = ''
         for i in range(len(L)-1):
@@ -253,15 +275,17 @@ def Change_Display(Where, Users, Server613: socket.socket):
         if Buttons["Start_T1"] and server:
             Server613.sendall("StartGame".encode())
         if Buttons["Test"]:
-            st.session_state["ServerT1"][-1].sendall("테스트 메세지".encode())
-            st.session_state["ServerT2"][-1].sendall("테스트 메세지".encode())
+            st.session_state["ServerT1"][-1].sendall("테스트 메세지".encode('utf-8'))
+            st.session_state["ServerT2"][-1].sendall("테스트 메세지".encode('utf-8'))
         isDebugging = 0
         if st.button("디버깅(김류민용)"):
             isDebugging = 1-isDebugging
         if isDebugging == 1:
             Debugging()
         if st.button("새로고침"):
-            Debugging
+            Debugging()
+        get1.start()
+        get2.start()
     else:
             st.title("마피아 게임")
             if st.button("로그인", key="Login_Main"):
