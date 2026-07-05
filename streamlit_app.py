@@ -167,7 +167,7 @@ def Change_Display(Where, Users, Server613: socket.socket):
                 if Admin_Code == "admin140827Roymin":
                     try:
                         server1 = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-                        server1.settimeout(100)
+                        server1.settimeout(5)
                         server1.setsockopt(socket.SOL_SOCKET, socket.SO_KEEPALIVE, 1)
                         server1.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
                         if hasattr(socket, 'SO_REUSEPORT'):
@@ -177,7 +177,7 @@ def Change_Display(Where, Users, Server613: socket.socket):
                             st.session_state["ServerT1"].append(server1)
                             
                         server2 = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-                        server2.settimeout(100)
+                        server2.settimeout(5)
                         server2.setsockopt(socket.SOL_SOCKET, socket.SO_KEEPALIVE, 1)
                         server2.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
                         if hasattr(socket, 'SO_REUSEPORT'):
@@ -193,14 +193,14 @@ def Change_Display(Where, Users, Server613: socket.socket):
                         st.write(e)
                 else: 
                     server1 = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-                    server1.settimeout(100)
+                    server1.settimeout(5)
                     server1.setsockopt(socket.SOL_SOCKET, socket.SO_KEEPALIVE, 1)
                     server1.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
                     server1.connect(('localhost', 16131))
                     st.session_state["ServerT1"].append(server1)
                     
                     server2 = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-                    server2.settimeout(100)
+                    server2.settimeout(5)
                     server2.setsockopt(socket.SOL_SOCKET, socket.SO_KEEPALIVE, 1)
                     server2.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
                     server2.connect(('localhost', 26132))
@@ -220,7 +220,7 @@ def Change_Display(Where, Users, Server613: socket.socket):
         else:
             serverPort = 26132
         server = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-        server.settimeout(100)
+        server.settimeout(5)
         server.setsockopt(socket.SOL_SOCKET, socket.SO_KEEPALIVE, 1)
         server.connect(('localhost', serverPort))
         st.session_state["ServerMT"].append(server)
