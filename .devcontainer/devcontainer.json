@@ -28,7 +28,10 @@
     }
   },
   "forwardPorts": [
-    8501
+    8501,
+    613,
+    6131,
+    9613
   ],
   "postCreateCommand": "pip3 install streamlit matplotlib"
 }
