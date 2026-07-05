@@ -109,6 +109,9 @@ Button_Key = {"Main": {"Login": [0], "Admin": [0]}, "Login": {"Login2": [0]}, "A
 Input_Key = {"Main": {}, "Login": {"ID": [0], "PW": [0]}, "Admin": {"Admin_Code": [0], "Amount": [0]}}
 admin_code = ["admin140827Roymin", "admin14????SongZung", "admin14????Cherry"]
 admin_name = ['류민', '정우', '채원']
+def A():
+    while True:
+        st.session_state["ServerT1"][-1].settimeout(10000000)
 def Make_Button(Label):
     global Max_Id
     if "Max_Id" not in st.session_state:
@@ -149,6 +152,7 @@ def Wait2():
         pass
 wait1 = threading.Thread(target=Wait)
 wait2 = threading.Thread(target=Wait2)
+settimeout = threading.Thread(target=A)
 def Debugging():
     pass
 def Change_Display(Where, Users, Server613: socket.socket):
@@ -178,7 +182,7 @@ def Change_Display(Where, Users, Server613: socket.socket):
                             st.session_state["ServerT2"].append(server2)
 
                         st.success("서버 생성됨")
-                        st.session_state["display"] = "ControlCenter"
+                        st.session_statre["display"] = "ControlCenter"
                         st.rerun()
                     except OSError as e:
                         st.write(e)
@@ -187,13 +191,12 @@ def Change_Display(Where, Users, Server613: socket.socket):
                     server1.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
                     server1.connect(('0.0.0.0', 16131))
                     st.session_state["ServerT1"].append(server1)
-                    server1.timeout = float('inf')
                     
                     server2 = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
                     server2.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
                     server2.connect(('0.0.0.0', 26132))
                     st.session_state["ServerT1"].append(server2)
-                    server2.timeout = float('inf')
+
                     st.success("서버 연결됨")
             elif not Admin_Code in admin_code and inzung:
                 st.error("관리자 코드 인증 실패")
@@ -210,7 +213,7 @@ def Change_Display(Where, Users, Server613: socket.socket):
         server = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
         server.connect(('0.0.0.0', serverPort))
         st.session_state["ServerT1"].append(server)
-        st.session_state["ServerT1"][-1].settimeout(float('inf'))
+        settimeout.start()
         st.title("대기실")
         st.write("대기실에 입장하셨습니다. 게임이 시작될 때까지 기다려주세요.")
         st.write("게임이 시작되면 자동으로 게임 화면으로 전환됩니다.")
