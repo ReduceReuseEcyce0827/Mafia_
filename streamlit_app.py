@@ -270,6 +270,10 @@ def Change_Display(Where, Users, Server613: socket.socket):
             if st.button("관리자 코드 입력", key="Admin_Main"):
                 st.session_state["display"] = "Admin"
                 st.rerun()
+    if st.button("나가기"):
+        st.query_params["refresh"] = "true"
+        st.session_state["display"] = "Menu"
+        st.rerun()
 def LoginB(Server613, Users, PW):
     global Id
     if PW in [user.PW for user in Users]:
@@ -312,30 +316,14 @@ def runApp(Debug, Users, Roles, Missions):
 
     Change_Display(st.session_state["display"], Users, Server613)
 def Reload_STClose():
-    js_code = """
-    <script>
-        const isReloading = performance.navigation.type === 1;
-        if (isReloading) {
-            localStorage.setItem('is_reloaded', 'true');
-        } else {
-            // 처음 접속하거나 새 탭을 열었을 때 초기화
-            if (!performance.getEntriesByType("navigation")[0].typebackForward) {
-                localStorage.setItem('is_reloaded', 'false');
-            }
-        }
-    </script>
-    """
-    components.html(js_code, height=0)
-
-    # 2. Python에서 새로고침 여부 확인
-    if 'is_reloaded' not in st.session_state:
-        st.session_state['is_reloaded'] = False
-
-    # 로컬 스토리지 값을 읽어오는 로직 (추가 구현 필요) 또는 백엔드 변수 유지
-    if st.session_state['is_reloaded']:
-        st.session_state["ServerT1"].close()
-        st.session_state["ServerT2"].close()
-        st.session_state["ServerMT"].close()
+    query_params = st.query_params
+    if "refresh" in query_params:
+        for T1 in st.session_state["ServerT1"]:
+            T1.close()
+        for T2 in st.session_state["ServerT2"]:
+            T2.close()
+        for MT in st.session_state["ServerMT"]:
+            MT.close()
         st.write("Reloaded")
 if __name__ == "__main__":
     if not "ServerClient" in st.session_state:
