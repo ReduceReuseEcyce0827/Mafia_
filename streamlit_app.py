@@ -117,8 +117,6 @@ def Make_Text_Input(Label):
         return st.text_input(Label, key=Max_Id)
     except:
         return None
-Button = {"Main": {"Login": Make_Button("로그인"), "Admin": Make_Button("관리자 코드 입력")}, "Login": {"Login2": Make_Button("로그인")}, "Admin": {"Admin2": Make_Button("확인")}}
-Input = {"Main": {}, "Login": {"ID": Make_Text_Input("아이디"), "PW": Make_Text_Input("비밀번호")}, "Admin": {"Admin_Code": Make_Text_Input("관리자 코드 입력"), "Amount": Make_Text_Input("인원 수")}}
 def Change_Display(Where, Users, Server613):
     L = ["Main", "Login", "Admin"]
     for n in L:
@@ -134,7 +132,7 @@ def Change_Display(Where, Users, Server613):
             st.title("로그인")
             ID = Make_Text_Input("아이디")
             PW = Make_Text_Input("비밀번호")
-            if Button["Login"]["Login2"]:
+            if Make_Button("로그인"):
                 LoginB(Server613, Users, ID, PW)
     if st.session_state["Admin"]:
             st.title("관리자 모드")
