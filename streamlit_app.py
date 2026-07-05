@@ -3,7 +3,7 @@ from matplotlib import rc
 import streamlit as st
 import sqlite3 as sql
 import matplotlib.font_manager as fm
-import socket, time
+import socket, time, threading
 font_css = """
 <style>
 @import url('https://jsdelivr.net');
@@ -129,6 +129,15 @@ def Make_Text_Input(Label):
         return st.text_input("오류")
 Id = -1
 server = None
+def Wait():
+    if st.session_state["ServerT1"]:
+        st.session_state["ServerT1"].accept()
+def Wait2():
+    if st.session_state["ServerT2"]:
+        st.session_state["ServerT2"].accept()
+wait1 = threading.Thread(target=Wait())
+wait2 = threading.Thread(target=Wait2())
+
 def Change_Display(Where, Users, Server613: socket.socket):
     st.session_state["display"] = Where
     if st.session_state["display"] == "Admin" or Where == "Admin":
@@ -150,7 +159,8 @@ def Change_Display(Where, Users, Server613: socket.socket):
                     st.write(st.session_state["ServerT2"])
                     st.session_state["ServerT2"].append(serverT)
                     st.session_state["ServerT1"].append(serverAT)
-                    time.sleep(5)
+                    st.session_state["display"] = "ControlCenter"
+                    st.rerun()
             elif not Admin_Code in admin_code and inzung:
                 st.error("관리자 코드 인증 실패")
     elif st.session_state["display"] == "Login" or Where == "Login":
@@ -180,6 +190,8 @@ def Change_Display(Where, Users, Server613: socket.socket):
                    "Stop_T2": st.button('팀2 중지', key="Team2St")}
         if Buttons["Start_T1"] and server:
             Server613.sendall("StartGame".encode())
+        wait1.start()
+        wait2.start()
     else:
             st.title("마피아 게임")
             if st.button("로그인", key="Login_Main"):
