@@ -171,7 +171,7 @@ def Change_Display(Where, Users, Server613: socket.socket):
                         st.session_state["display"] = "ControlCenter"
                         st.rerun()
                     except OSError as e:
-                        print(e)
+                        st.write(e)
                     finally:
                         serverT.close()
                 else: 
