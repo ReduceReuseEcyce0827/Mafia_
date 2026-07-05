@@ -175,7 +175,8 @@ def runApp(Debug, Users, Roles, Missions):
     Change_Display("Main", Users, Server613)
 if __name__ == "__main__":
     st.session_state["ReS"] = False
-    if st.session_state["ReS"]:
+    if not st.session_state["ReS"]:
+        st.session_state["ReS"] = True
         Users = Load_Users_Data()
         Roles = Load_Role()
         Missions = Load_Missions()
