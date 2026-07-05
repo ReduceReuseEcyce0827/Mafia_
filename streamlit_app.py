@@ -142,6 +142,7 @@ def Change_Display(Where, Users, Server613: socket.socket):
                     if admin_name[admin_code.index(Admin_Code)] == '류민':
                         serverAT = socket.socket(socket.AF_INET, socket.SOCK_STREAM).bind(('', 6131))
                         serverT = socket.socket(socket.AF_INET, socket.SOCK_STREAM).bind(('', 6132))
+                        st.success("서버 생성됨")
                         serverT.listen(Amount)
                     else:
                         serverAT = socket.socket(socket.AF_INET, socket.SOCK_STREAM).connect(('', 6131))
