@@ -162,7 +162,7 @@ def Change_Display(Where, Users, Server613: socket.socket):
                     serverT.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
                     st.session_state["ServerT2"].append(serverT)
                     st.session_state["ServerT1"].append(serverT)
-                    st.session_state["ServerT2"][-1].bind(('127.0.0.1', 6132))
+                    st.session_state["ServerT2"][-1].bind(('localhost', 6132))
                     st.session_state["ServerT1"][-1].bind(('localhost', 9613))
                     st.success("서버 생성됨")
                     st.session_state["display"] = "ControlCenter"
