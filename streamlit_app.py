@@ -132,15 +132,17 @@ server = None
 team1C = []
 team2C = []
 def Wait():
-    while True:
-        if st.session_state["ServerT1"]:
-            client_socket, addr = st.session_state["ServerT1"].accept()
-            team1C.append(client_socket)
+    try:
+        client_socket, addr = st.session_state["ServerT1"].accept()
+        team1C.append(client_socket)
+    except socket.timeout:
+        pass
 def Wait2():
-    while True:
-        if st.session_state["ServerT2"]:
-            client_socket, addr = st.session_state["ServerT2"].accept()
-            team2C.append(client_socket)
+    try:
+        client_socket, addr = st.session_state["ServerT2"].accept()
+        team2C.append(client_socket)
+    except socket.timeout:
+        pass
 wait1 = threading.Thread(target=Wait)
 wait2 = threading.Thread(target=Wait2)
 
@@ -194,6 +196,8 @@ def Change_Display(Where, Users, Server613: socket.socket):
                    "Stop_T2": st.button('팀2 중지', key="Team2St")}
         if Buttons["Start_T1"] and server:
             Server613.sendall("StartGame".encode())
+        st.session_state["ServerT1"].listen()
+        st.session_state["ServerT1"].setblocking(False)
         wait1.start()
         wait2.start()
         st.write(socket.gethostname())
