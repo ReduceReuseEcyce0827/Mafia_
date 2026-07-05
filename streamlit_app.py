@@ -102,12 +102,13 @@ class Display:
         self.titles = Titles
 Button_Key = {"Main": {"Login": [0], "Admin": [0]}, "Login": {"Login2": [0]}, "Admin": {"Admin2": [0]}}
 Input_Key = {"Main": {}, "Login": {"ID": [0], "PW": [0]}, "Admin": {"Admin_Code": [0], "Amount": [0]}}
-Max_Id = 0
 def Make_Button(Label):
     global Max_Id
+    if "Max_Id" not in st.session_state:
+        st.session_state["Max_Id"] = 0
     try:
-        Max_Id += 1
-        return st.button(Label, key=Max_Id)
+        st.session_state["Max_Id"] += 1
+        return st.button(Label, key=st.session_state["Max_Id"])
     except:
         return None
 def Make_Text_Input(Label):
@@ -173,8 +174,11 @@ def runApp(Debug, Users, Roles, Missions):
         st.session_state["display"] = "Main"
 
     Change_Display(st.session_state["display"], Users, Server613)
-st.session_state["ReS"] = False
 if __name__ == "__main__":
+    if "ReS" not in st.session_state:
+        st.session_state["ReS"] = False
+    if "Max_Id" not in st.session_state:
+        st.session_state["Max_Id"] = 0
     if not st.session_state["ReS"]:
         st.session_state["ReS"] = True
         Userss = Load_Users_Data()
