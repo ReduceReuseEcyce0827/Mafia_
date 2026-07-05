@@ -135,7 +135,7 @@ def Change_Display(Where, Users, Server613):
     elif st.session_state["display"] == "Login" or Where == "Login":
             st.title("로그인")
             PW = Make_Text_Input("로그인 코드")
-            if Make_Button("로그인"):
+            if Make_Button(" 로그인 "):
                 LoginB(Server613, Users, PW)
     elif st.session_state["display"] == "Main" or Where == "Main":
             st.title("마피아 게임")
