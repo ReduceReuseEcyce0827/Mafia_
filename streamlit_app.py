@@ -141,9 +141,9 @@ def Change_Display(Where, Users, Server613):
     elif st.session_state["Main"]:
             st.title("마피아 게임")
             if Make_Button("로그인"):
-                Change_Display("Login", Users, Server613)
+                st.session_state["Login"] = True
             if Make_Button("관리자 코드 입력"):
-                Change_Display("Admin", Users, Server613)
+                st.session_state["Admin"] = True
 def LoginB(Server613, Users, ID, PW):
     if Server613 and ID in [user.ID for user in Users] and PW == [user.PW for user in Users if user.ID == ID][0]:
         st.success("로그인 성공")
@@ -172,7 +172,6 @@ def runApp(Debug, Users, Roles, Missions):
     plt.rcParams['axes.unicode_minus'] = False
     st.write(Debug)
     Server613 = Connect_Event_Server()
-    Change_Display("Main", Users, Server613)
 if __name__ == "__main__":
     st.session_state["ReS"] = False
     if not st.session_state["ReS"]:
