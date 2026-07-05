@@ -164,7 +164,7 @@ def Change_Display(Where, Users, Server613: socket.socket):
                     st.session_state["ServerT1"].append(serverT)
                     try:
                         st.session_state["ServerT2"][-1].bind(('127.0.0.1', 6132))
-                        st.session_state["ServerT1"][-1].bind(('127.0.0.1', 61319))
+                        st.session_state["ServerT1"][-1].bind(('127.0.0.1', 9613))
                         st.success("서버 생성됨")
                         st.session_state["display"] = "ControlCenter"
                         st.rerun()
@@ -175,7 +175,7 @@ def Change_Display(Where, Users, Server613: socket.socket):
                     st.session_state["ServerT2"].append(serverT)
                     st.session_state["ServerT1"].append(serverT)
                     st.session_state["ServerT2"][-1].connect(('127.0.0.1', 6132))
-                    st.session_state["ServerT1"][-1].connect(('127.0.0.1', 61319))
+                    st.session_state["ServerT1"][-1].connect(('127.0.0.1', 9613))
                     st.success("서버 연결됨")
             elif not Admin_Code in admin_code and inzung:
                 st.error("관리자 코드 인증 실패")
@@ -239,7 +239,7 @@ def LoginB(Server613, Users, PW):
         if Users[Id].Team == 1:
                     serverPort = 6131
         else:
-                    serverPort = 61329
+                    serverPort = 9613
         server = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
         server.connect(('127.0.0.1', serverPort))
         st.session_state["ServerT1"].append(server)
@@ -261,7 +261,7 @@ def AdminB():
         if admin_name[admin_code.index(Admin_Code)] == '류민':
             serverPort = 6131
         else:
-            serverPort = 61329
+            serverPort = 9613
         server = socket.socket(socket.AF_INET, socket.SOCK_STREAM).bind(('', serverPort))  # 관리자 서버에 연결
         server.listen(Amount)
     else:
