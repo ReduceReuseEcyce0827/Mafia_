@@ -154,7 +154,7 @@ def Change_Display(Where, Users, Server613: socket.socket):
                 st.success(f"관리자 코드 인증 성공! ({admin_name[admin_code.index(Admin_Code)]}으로 인증됨)")
                 Amount = st.text_input("인원 수", key="Amount_Admin")
                 if st.button("이벤트 서버 생성"):
-                    if admin_name[admin_code.index(Admin_Code)] == '류민':
+                    if Admin_Code == "admin140827Roymin":
                         serverAT = socket.socket(socket.AF_INET, socket.SOCK_STREAM).bind(('', 6131))
                         serverT = socket.socket(socket.AF_INET, socket.SOCK_STREAM).bind(('', 6132))
                         st.success("서버 생성됨")
