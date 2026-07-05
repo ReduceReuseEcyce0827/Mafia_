@@ -4,6 +4,7 @@ import streamlit as st
 import sqlite3 as sql
 import matplotlib.font_manager as fm
 import socket, time, threading
+import streamlit.components.v1 as components
 font_css = """
 <style>
 @import url('https://jsdelivr.net');
@@ -166,22 +167,22 @@ def Change_Display(Where, Users, Server613: socket.socket):
                 if Admin_Code == "admin140827Roymin":
                     try:
                         server1 = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-                        server1.settimeout(None)
+                        server1.settimeout(100)
                         server1.setsockopt(socket.SOL_SOCKET, socket.SO_KEEPALIVE, 1)
                         server1.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
                         if hasattr(socket, 'SO_REUSEPORT'):
                             server1.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEPORT, 1)
-                        server1.bind(('0.0.0.0', 16131))
+                        server1.bind(('localhost', 16131))
                         if not server1 in st.session_state["ServerT1"]:
                             st.session_state["ServerT1"].append(server1)
                             
                         server2 = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-                        server2.settimeout(None)
+                        server2.settimeout(100)
                         server2.setsockopt(socket.SOL_SOCKET, socket.SO_KEEPALIVE, 1)
                         server2.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
                         if hasattr(socket, 'SO_REUSEPORT'):
                             server2.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEPORT, 1)
-                        server2.bind(('0.0.0.0', 26132))
+                        server2.bind(('localhost', 26132))
                         if not server2 in st.session_state["ServerT2"]:
                             st.session_state["ServerT2"].append(server2)
 
@@ -192,17 +193,17 @@ def Change_Display(Where, Users, Server613: socket.socket):
                         st.write(e)
                 else: 
                     server1 = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-                    server1.settimeout(None)
+                    server1.settimeout(100)
                     server1.setsockopt(socket.SOL_SOCKET, socket.SO_KEEPALIVE, 1)
                     server1.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
-                    server1.connect(('0.0.0.0', 16131))
+                    server1.connect(('localhost', 16131))
                     st.session_state["ServerT1"].append(server1)
                     
                     server2 = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-                    server2.settimeout(None)
+                    server2.settimeout(100)
                     server2.setsockopt(socket.SOL_SOCKET, socket.SO_KEEPALIVE, 1)
                     server2.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
-                    server2.connect(('0.0.0.0', 26132))
+                    server2.connect(('localhost', 26132))
                     st.session_state["ServerT2"].append(server2)
 
                     st.success("서버 연결됨")
@@ -219,9 +220,9 @@ def Change_Display(Where, Users, Server613: socket.socket):
         else:
             serverPort = 26132
         server = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-        server.settimeout(None)
+        server.settimeout(100)
         server.setsockopt(socket.SOL_SOCKET, socket.SO_KEEPALIVE, 1)
-        server.connect(('0.0.0.0', serverPort))
+        server.connect(('localhost', serverPort))
         st.session_state["ServerMT"].append(server)
         st.title("대기실")
         st.write("대기실에 입장하셨습니다. 게임이 시작될 때까지 기다려주세요.")
@@ -310,6 +311,31 @@ def runApp(Debug, Users, Roles, Missions):
         st.session_state["display"] = "Main"
 
     Change_Display(st.session_state["display"], Users, Server613)
+def Reload_STClose():
+    js_code = """
+    <script>
+        const isReloading = performance.navigation.type === 1;
+        if (isReloading) {
+            localStorage.setItem('is_reloaded', 'true');
+        } else {
+            // 처음 접속하거나 새 탭을 열었을 때 초기화
+            if (!performance.getEntriesByType("navigation")[0].typebackForward) {
+                localStorage.setItem('is_reloaded', 'false');
+            }
+        }
+    </script>
+    """
+    components.html(js_code, height=0)
+
+    # 2. Python에서 새로고침 여부 확인
+    if 'is_reloaded' not in st.session_state:
+        st.session_state['is_reloaded'] = False
+
+    # 로컬 스토리지 값을 읽어오는 로직 (추가 구현 필요) 또는 백엔드 변수 유지
+    if st.session_state['is_reloaded']:
+        st.session_state["ServerT1"].close()
+        st.session_state["ServerT2"].close()
+        st.session_state["ServerMT"].close()
 if __name__ == "__main__":
     if not "ServerClient" in st.session_state:
         st.session_state["ServerClient"] = []
