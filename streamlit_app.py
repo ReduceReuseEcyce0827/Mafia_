@@ -141,9 +141,9 @@ def Change_Display(Where, Users, Server613):
     elif st.session_state["Main"]:
             st.title("마피아 게임")
             if Make_Button("로그인"):
-                st.session_state["Login"] = True
+                Change_Display("Login", Users, Server613)
             if Make_Button("관리자 코드 입력"):
-                st.session_state["Admin"] = True
+                Change_Display("Admin", Users, Server613)
 def LoginB(Server613, Users, ID, PW):
     if Server613 and ID in [user.ID for user in Users] and PW == [user.PW for user in Users if user.ID == ID][0]:
         st.success("로그인 성공")
