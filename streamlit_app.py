@@ -135,8 +135,8 @@ def Wait():
 def Wait2():
     if st.session_state["ServerT2"]:
         st.session_state["ServerT2"].accept()
-wait1 = threading.Thread(target=Wait())
-wait2 = threading.Thread(target=Wait2())
+wait1 = threading.Thread(target=Wait)
+wait2 = threading.Thread(target=Wait2)
 
 def Change_Display(Where, Users, Server613: socket.socket):
     st.session_state["display"] = Where
