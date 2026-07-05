@@ -188,11 +188,15 @@ def Change_Display(Where, Users, Server613: socket.socket):
                         st.write(e)
                 else: 
                     server1 = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+                    server1.settimeout(None)
+                    server1.setsockopt(socket.SOL_SOCKET, socket.SO_KEEPALIVE, 1)
                     server1.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
                     server1.connect(('0.0.0.0', 16131))
                     st.session_state["ServerT1"].append(server1)
                     
                     server2 = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+                    server2.settimeout(None)
+                    server2.setsockopt(socket.SOL_SOCKET, socket.SO_KEEPALIVE, 1)
                     server2.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
                     server2.connect(('0.0.0.0', 26132))
                     st.session_state["ServerT2"].append(server2)
@@ -236,8 +240,6 @@ def Change_Display(Where, Users, Server613: socket.socket):
                    "Stop_T1": st.button('팀1 중지', key="Team1St"), 
                    "Stop_T2": st.button('팀2 중지', key="Team2St"),
                    "Test": st.button('메세지 보내기(테스트용)')}
-        server.settimeout(None)
-        server.setsockopt(socket.SOL_SOCKET, socket.SO_KEEPALIVE, 1)
         if Buttons["Start_T1"] and server:
             Server613.sendall("StartGame".encode())
         if Buttons["Test"]:
