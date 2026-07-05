@@ -201,6 +201,13 @@ def Change_Display(Where, Users, Server613: socket.socket):
             if st.button("로그인", key="Login_Login"):
                 LoginB(Server613, Users, PW)
     elif st.session_state["display"] == "WaitRoom" or Where == "WaitRoom":
+        if Users[Id].Team == 1:
+            serverPort = 16131
+        else:
+            serverPort = 26132
+        server = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+        server.connect(('0.0.0.0', serverPort))
+        st.session_state["ServerT1"].append(server)
         st.title("대기실")
         st.write("대기실에 입장하셨습니다. 게임이 시작될 때까지 기다려주세요.")
         st.write("게임이 시작되면 자동으로 게임 화면으로 전환됩니다.")
@@ -253,13 +260,6 @@ def LoginB(Server613, Users, PW):
         st.success("로그인 성공")
         LoginSuccessed = True
         Id = int(-([user.PW for user in Users].index(PW)-1))
-        if Users[Id].Team == 1:
-                    serverPort = 16131
-        else:
-                    serverPort = 26132
-        server = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-        server.connect(('0.0.0.0', serverPort))
-        st.session_state["ServerT1"].append(server)
         st.session_state["display"] = "WaitRoom"
         st.rerun()
     else:
