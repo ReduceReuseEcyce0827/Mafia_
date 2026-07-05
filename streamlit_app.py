@@ -181,6 +181,7 @@ if __name__ == "__main__":
         Users = []
         for i in range(len(Userss)):
             Users.append(User_Data_Conv_to_Class(Userss[i]))
+            print(Users[-1])
         Roles = Load_Role()
         Missions = Load_Missions()
         runApp("진행중인 이벤트가 없습니다.", Users, Roles, Missions)
