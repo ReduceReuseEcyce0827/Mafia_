@@ -324,7 +324,6 @@ def Reload_STClose():
             T2.close()
         for MT in st.session_state["ServerMT"]:
             MT.close()
-        st.write("Reloaded")
 if __name__ == "__main__":
     if not "ServerClient" in st.session_state:
         st.session_state["ServerClient"] = []
