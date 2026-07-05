@@ -128,7 +128,8 @@ def Make_Text_Input(Label):
     except:
         return st.text_input("오류")
 Id = -1
-def Change_Display(Where, Users, Server613):
+server = None
+def Change_Display(Where, Users, Server613: socket.socket):
     st.session_state["display"] = Where
     if st.session_state["display"] == "Admin" or Where == "Admin":
             st.title("관리자 모드")
@@ -137,13 +138,16 @@ def Change_Display(Where, Users, Server613):
             if Admin_Code in admin_code and inzung:
                 st.success(f"관리자 코드 인증 성공! ({admin_name[admin_code.index(Admin_Code)]}으로 인증됨)")
                 Amount = st.text_input("인원 수", key="Amount_Admin")
-                if admin_name[admin_code.index(Admin_Code)] == '류민':
-                    serverPort = 6131
-                else:
-                    serverPort = 6132
                 if st.button("이벤트 서버 생성"):
-                    server = socket.socket(socket.AF_INET, socket.SOCK_STREAM).bind(('', serverPort))
-                    server.listen(Amount)
+                    if admin_name[admin_code.index(Admin_Code)] == '류민':
+                        serverAT = socket.socket(socket.AF_INET, socket.SOCK_STREAM).bind(('', 6131))
+                        serverT = socket.socket(socket.AF_INET, socket.SOCK_STREAM).bind(('', 6132))
+                        serverT.listen(Amount)
+                    else:
+                        serverAT = socket.socket(socket.AF_INET, socket.SOCK_STREAM).connect(('', 6131))
+                        serverT = socket.socket(socket.AF_INET, socket.SOCK_STREAM).connect(('', 6132))
+                st.session_state["ServerT2"] = serverT
+                st.session_state["ServerT1"] = serverAT
             elif not Admin_Code in admin_code and inzung:
                 st.error("관리자 코드 인증 실패")
     elif st.session_state["display"] == "Login" or Where == "Login":
@@ -161,6 +165,17 @@ def Change_Display(Where, Users, Server613):
             if L[i].Team != Users[Id].Team:
                 S += f"{L[i].Name}, "
         st.write(f"당신은 {S[0:-3]}와 같은 조입니다")
+        A = server.recv(1024).decode()
+        st.write(A)
+    elif st.session_state["display"] == "ControlCenter" or Where == "ControlCenter":
+        st.title("컨트롤 센터")
+        st.write("관리자만 사용할 수 있는 컨트롤 센터입니다.")
+        Buttons = {"Start_T1": st.button('팀1 시작', key="Team1S"), 
+                   "Start_T2": st.button('팀2 시작', key="Team2S"), 
+                   "Stop_T1": st.button('팀1 중지', key="Team1St"), 
+                   "Stop_T2": st.button('팀2 중지', key="Team2St")}
+        if Buttons["Start_T1"] and server:
+            Server613.sendall("StartGame".encode())
     else:
             st.title("마피아 게임")
             if st.button("로그인", key="Login_Main"):
@@ -176,6 +191,11 @@ def LoginB(Server613, Users, PW):
         Id = -([user.PW for user in Users].index(PW)-1)
         st.session_state["display"] = "WaitRoom"
         st.rerun()
+        if User[Id].Team == 1:
+                    serverPort = 6131
+        else:
+                    serverPort = 6132
+        server = socket.socket(socket.AF_INET, socket.SOCK_STREAM).connect(('', serverPort))
     else:
         st.error("로그인 실패")
         LoginSuccessed = False
