@@ -132,13 +132,15 @@ server = None
 team1C = []
 team2C = []
 def Wait():
-    if st.session_state["ServerT1"]:
-        client_socket, addr = st.session_state["ServerT1"].accept()
-        team1C.append(client_socket)
+    while True:
+        if st.session_state["ServerT1"]:
+            client_socket, addr = st.session_state["ServerT1"].accept()
+            team1C.append(client_socket)
 def Wait2():
-    if st.session_state["ServerT2"]:
-        client_socket, addr = st.session_state["ServerT2"].accept()
-        team2C.append(client_socket)
+    while True:
+        if st.session_state["ServerT2"]:
+            client_socket, addr = st.session_state["ServerT2"].accept()
+            team2C.append(client_socket)
 wait1 = threading.Thread(target=Wait)
 wait2 = threading.Thread(target=Wait2)
 
