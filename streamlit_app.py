@@ -208,6 +208,7 @@ def Change_Display(Where, Users, Server613: socket.socket):
         server = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
         server.connect(('0.0.0.0', serverPort))
         st.session_state["ServerT1"].append(server)
+        st.session_state["ServerT1"][-1].timeout = float('inf')
         st.title("대기실")
         st.write("대기실에 입장하셨습니다. 게임이 시작될 때까지 기다려주세요.")
         st.write("게임이 시작되면 자동으로 게임 화면으로 전환됩니다.")
