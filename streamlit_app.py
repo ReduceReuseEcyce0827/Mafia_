@@ -177,7 +177,10 @@ st.session_state["ReS"] = False
 if __name__ == "__main__":
     if not st.session_state["ReS"]:
         st.session_state["ReS"] = True
-        Users = Load_Users_Data()
+        Userss = Load_Users_Data()
+        Users = []
+        for i in range(len(Userss)):
+            Users.append(User_Data_Conv_to_Class(Userss[i]))
         Roles = Load_Role()
         Missions = Load_Missions()
         runApp("진행중인 이벤트가 없습니다.", Users, Roles, Missions)
