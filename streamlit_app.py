@@ -351,12 +351,12 @@ def runApp(Debug, Users, Roles, Missions):
     Change_Display(st.session_state["display"], Users, Server613)
 def Reload_STClose():
     if "refresh" in query_params:
-        for T1 in st.session_state["ServerT1"]:
-            T1.close()
-        for T2 in st.session_state["ServerT2"]:
-            T2.close()
-        for MT in st.session_state["ServerMT"]:
-            MT.close()
+        for i in range(len(st.session_state["ServerT1"])):
+            st.session_state["ServerT1"][i].close()
+        for i in range(len(st.session_state["ServerT2"])):
+            st.session_state["ServerT2"][i].close()
+        for i in range(len(st.session_state["ServerMT"])):
+            st.session_state["ServerMT"][i].close()
 if __name__ == "__main__":
     if "ServerClient" not in st.session_state:
         st.session_state["ServerClient"] = []
