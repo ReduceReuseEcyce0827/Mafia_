@@ -5,7 +5,6 @@ import sqlite3 as sql
 import matplotlib.font_manager as fm
 import socket, time, threading
 import streamlit.components.v1 as components
-st.title("테스트")
 font_css = """
 <style>
 @import url('https://jsdelivr.net');
@@ -184,7 +183,7 @@ settimeout = threading.Thread(target=A)
 host = "0.0.0.0"
 def Debugging():
     pass
-def Change_Display(Where, Users, Server613: socket.socket):
+def Change_Display(Where, Users):
     st.session_state["display"] = Where
     if st.session_state["display"] == "Admin" or Where == "Admin":
             st.title("관리자 모드")
@@ -241,7 +240,7 @@ def Change_Display(Where, Users, Server613: socket.socket):
             st.title("로그인")
             PW = st.text_input("로그인 코드", key="Login_PW")
             if st.button("로그인", key="Login_Login"):
-                LoginB(Server613, Users, PW)
+                LoginB(Users, PW)
     elif st.session_state["display"] == "WaitRoom" or Where == "WaitRoom":
         if Users[Id].Team == 1:
             serverPort = 16131
@@ -284,7 +283,8 @@ def Change_Display(Where, Users, Server613: socket.socket):
         wait2.start()
         st.write(socket.gethostname())
         if Buttons["Start_T1"] and server:
-            Server613.sendall("StartGame".encode())
+            st.session_state["ServerT1"][-1].sendall("SG".encode('utf-8'))
+            st.session_state["ServerT2"][-1].sendall("SG".encode('utf-8'))
         if Buttons["Test"]:
             st.session_state["ServerT1"][-1].sendall("테스트 메세지".encode('utf-8'))
             st.session_state["ServerT2"][-1].sendall("테스트 메세지".encode('utf-8'))
@@ -309,7 +309,7 @@ def Change_Display(Where, Users, Server613: socket.socket):
         st.query_params["refresh"] = "true"
         st.session_state["display"] = "Menu"
         st.rerun()
-def LoginB(Server613, Users, PW):
+def LoginB(Users, PW):
     global Id
     if PW in [user.PW for user in Users]:
         st.success("로그인 성공")
@@ -320,10 +320,6 @@ def LoginB(Server613, Users, PW):
     else:
         st.error("로그인 실패")
         LoginSuccessed = False
-    try:
-        Server613.sendto(f"LOGIN|{PW}|{LoginSuccessed}".encode(), ("127.0.0.1", 613))
-    except:
-        pass
 def AdminB():
     Admin_Code = Make_Text_Input("관리자 코드 입력")
     {Button_Key['Admin']['Admin2'].append(Button_Key['Admin']['Admin2'][-1]+1) if Button_Key['Admin']['Admin2'] else Button_Key['Admin']['Admin2'].append(0)}
@@ -344,12 +340,11 @@ def runApp(Debug, Users, Roles, Missions):
     place_holder = st.empty()
     plt.rcParams['axes.unicode_minus'] = False
     st.write(Debug)
-    Server613 = Connect_Event_Server()
 
     if "display" not in st.session_state:
         st.session_state["display"] = "Main"
 
-    Change_Display(st.session_state["display"], Users, Server613)
+    Change_Display(st.session_state["display"], Users)
 def Reload_STClose():
     if "refresh" in query_params:
         for i in range(len(st.session_state["ServerT1"])):
