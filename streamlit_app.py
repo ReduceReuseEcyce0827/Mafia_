@@ -357,14 +357,10 @@ def Reload_STClose():
         for MT in st.session_state["ServerMT"]:
             MT.close()
 if __name__ == "__main__":
-    if "ServerClient" not in st.session_state:
-        st.session_state["ServerClient"] = []
-    if "ServerT1" not in st.session_state:
-        st.session_state["ServerT1"] = []
-    if "ServerT2" not in st.session_state:
-        st.session_state["ServerT2"] = []
-    if "ServerMT" not in st.session_state:
-        st.session_state["ServerMT"] = []
+    st.session_state["ServerClient"] = []
+    st.session_state["ServerT1"] = []
+    st.session_state["ServerT2"] = []
+    st.session_state["ServerMT"] = []
     if "ReS" not in st.session_state:
         st.session_state["ReS"] = False
     if "Max_Id" not in st.session_state:
