@@ -357,20 +357,19 @@ def Reload_STClose():
             T2.close()
         for MT in st.session_state["ServerMT"]:
             MT.close()
-if __name__ == "__main__" or True:
-    if "ServerClient" not in st.session_state:
-        st.session_state["ServerClient"] = []
-    if "ServerT1" not in st.session_state:
-        st.session_state["ServerT1"] = []
-    if "ServerT2" not in st.session_state:
+if "ServerClient" not in st.session_state:
+    st.session_state["ServerClient"] = []
+if "ServerT1" not in st.session_state:
+    st.session_state["ServerT1"] = []
+if "ServerT2" not in st.session_state:
         st.session_state["ServerT2"] = []
-    if "ServerMT" not in st.session_state:
+if "ServerMT" not in st.session_state:
         st.session_state["ServerMT"] = []
-    if "ReS" not in st.session_state:
+if "ReS" not in st.session_state:
         st.session_state["ReS"] = False
-    if "Max_Id" not in st.session_state:
+if "Max_Id" not in st.session_state:
         st.session_state["Max_Id"] = 0
-    if "refresh" in query_params:
+if "refresh" in query_params:
         st.session_state["ReS"] = True
         Userss = Load_Users_Data()
         Users = []
