@@ -366,7 +366,7 @@ if __name__ == "__main__":
             st.session_state["ReS"] = False
     if "Max_Id" not in st.session_state:
             st.session_state["Max_Id"] = 0
-    if "refresh" in query_params:
+    if not "refresh" in query_params:
             st.session_state["ReS"] = True
             Userss = Load_Users_Data()
             Users = []
