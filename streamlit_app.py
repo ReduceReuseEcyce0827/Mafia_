@@ -109,6 +109,18 @@ class Display:
 class Game_UI:
     def __init__(self, Missions, Chattings):
         pass
+if "ServerClient" not in st.session_state:
+        st.session_state["ServerClient"] = []
+if "ServerT1" not in st.session_state:
+        st.session_state["ServerT1"] = []
+if "ServerT2" not in st.session_state:
+            st.session_state["ServerT2"] = []
+if "ServerMT" not in st.session_state:
+            st.session_state["ServerMT"] = []
+if "ReS" not in st.session_state:
+            st.session_state["ReS"] = False
+if "Max_Id" not in st.session_state:
+            st.session_state["Max_Id"] = 0
 Button_Key = {"Main": {"Login": [0], "Admin": [0]}, "Login": {"Login2": [0]}, "Admin": {"Admin2": [0]}}
 Input_Key = {"Main": {}, "Login": {"ID": [0], "PW": [0]}, "Admin": {"Admin_Code": [0], "Amount": [0]}}
 admin_code = ["admin140827Roymin", "admin14????SongZung", "admin14????Cherry"]
@@ -358,18 +370,6 @@ def Reload_STClose():
         for i in range(len(st.session_state["ServerMT"])):
             st.session_state["ServerMT"][i].close()
 if __name__ == "__main__":
-    if "ServerClient" not in st.session_state:
-        st.session_state["ServerClient"] = []
-    if "ServerT1" not in st.session_state:
-        st.session_state["ServerT1"] = []
-    if "ServerT2" not in st.session_state:
-            st.session_state["ServerT2"] = []
-    if "ServerMT" not in st.session_state:
-            st.session_state["ServerMT"] = []
-    if "ReS" not in st.session_state:
-            st.session_state["ReS"] = False
-    if "Max_Id" not in st.session_state:
-            st.session_state["Max_Id"] = 0
     if not "refresh" in query_params:
             st.session_state["ReS"] = True
             Userss = Load_Users_Data()
