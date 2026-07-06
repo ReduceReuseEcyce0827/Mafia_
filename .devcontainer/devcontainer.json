@@ -33,5 +33,5 @@
     6131,
     9613
   ],
-  "postCreateCommand": "pip3 install streamlit matplotlib"
+  "postCreateCommand": "pip install -r requirements.txt"
 }
