@@ -106,6 +106,8 @@ class Display:
         self.titles = Titles
         self.name = name
         self.game = game
+class Game_UI:
+    def __init__(self, Missions, Chattings, )
 Button_Key = {"Main": {"Login": [0], "Admin": [0]}, "Login": {"Login2": [0]}, "Admin": {"Admin2": [0]}}
 Input_Key = {"Main": {}, "Login": {"ID": [0], "PW": [0]}, "Admin": {"Admin_Code": [0], "Amount": [0]}}
 admin_code = ["admin140827Roymin", "admin14????SongZung", "admin14????Cherry"]
@@ -269,6 +271,7 @@ def Change_Display(Where, Users):
                 S += f"{L[i].Name}, "
         st.write(f"당신은 {S[0:-3]}와 같은 조입니다.")
         server = st.session_state["ServerMT"][-1]
+        get1.start()
     elif st.session_state["display"] == "ControlCenter" or Where == "ControlCenter":
         st.title("컨트롤 센터")
         st.write("관리자만 사용할 수 있는 컨트롤 센터입니다.")
