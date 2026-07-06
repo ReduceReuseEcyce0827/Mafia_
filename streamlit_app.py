@@ -138,6 +138,7 @@ Id = -1
 server = None
 team1C = []
 team2C = []
+query_params = st.query_params
 def Wait():
     try:
         client_socket, addr = st.session_state["ServerT1"][-1].accept()
@@ -348,7 +349,6 @@ def runApp(Debug, Users, Roles, Missions):
 
     Change_Display(st.session_state["display"], Users, Server613)
 def Reload_STClose():
-    query_params = st.query_params
     if "refresh" in query_params:
         for T1 in st.session_state["ServerT1"]:
             T1.close()
@@ -369,7 +369,7 @@ if __name__ == "__main__":
         st.session_state["ReS"] = False
     if "Max_Id" not in st.session_state:
         st.session_state["Max_Id"] = 0
-    if not st.session_state["ReS"] or True:
+    if "refresh" in query_params:
         st.session_state["ReS"] = True
         Userss = Load_Users_Data()
         Users = []
