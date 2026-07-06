@@ -5,6 +5,7 @@ import sqlite3 as sql
 import matplotlib.font_manager as fm
 import socket, time, threading
 import streamlit.components.v1 as components
+st.title("테스트")
 font_css = """
 <style>
 @import url('https://jsdelivr.net');
