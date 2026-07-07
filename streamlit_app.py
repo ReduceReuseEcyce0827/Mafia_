@@ -107,20 +107,13 @@ class Display:
         self.name = name
         self.game = game
 class Game_UI:
-    def __init__(self, Missions, Chattings):
-        pass
-if "ServerClient" not in st.session_state:
-        st.session_state["ServerClient"] = []
-if "ServerT1" not in st.session_state:
-        st.session_state["ServerT1"] = []
-if "ServerT2" not in st.session_state:
-            st.session_state["ServerT2"] = []
-if "ServerMT" not in st.session_state:
-            st.session_state["ServerMT"] = []
-if "ReS" not in st.session_state:
-            st.session_state["ReS"] = False
-if "Max_Id" not in st.session_state:
-            st.session_state["Max_Id"] = 0
+    def __init__(self, Mission, Chatting, JobIcon, AbilityIcon):
+        self.Mission = Mission
+        self.Chatting = Chatting
+        self.JobIcon = JobIcon
+        self.AbilityIcon = AbilityIcon
+
+
 Button_Key = {"Main": {"Login": [0], "Admin": [0]}, "Login": {"Login2": [0]}, "Admin": {"Admin2": [0]}}
 Input_Key = {"Main": {}, "Login": {"ID": [0], "PW": [0]}, "Admin": {"Admin_Code": [0], "Amount": [0]}}
 admin_code = ["admin140827Roymin", "admin14????SongZung", "admin14????Cherry"]
