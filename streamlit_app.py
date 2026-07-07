@@ -313,9 +313,12 @@ def Change_Display(Where, Users):
             Debugging()
         get1.start()
         get2.start()
-        while True:
-            wait1.start()
-            wait2.start()
+        try:
+            while True:
+                wait1.start()
+                wait2.start()
+        except RuntimeError:
+            pass
     else:
             st.title("마피아 게임")
             if st.button("로그인", key="Login_Main"):
