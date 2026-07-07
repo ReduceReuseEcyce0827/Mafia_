@@ -151,7 +151,7 @@ def Wait():
     try:
         client_socket, addr = st.session_state["ServerT1"][-1].accept()
         st.session_state["team1C"].append(client_socket)
-        st5t.write(f"연결 수락됨: {addr}")
+        st.write(f"연결 수락됨: {addr}")
         client_socket.send("Hello!".encode('utf-8'))
     except socket.timeout:
         pass
