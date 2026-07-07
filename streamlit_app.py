@@ -144,10 +144,6 @@ def Make_Text_Input(Label):
         return st.text_input("오류")
 Id = -1
 server = None
-if not "team1C" in st.session_state:
-    st.session_state["team1C"] = []
-if not "team2C" in st.session_state:
-    st.session_state["team2C"] = []
 query_params = st.query_params
 def Wait():
     try:
@@ -372,6 +368,11 @@ def Reload_STClose():
         for i in range(len(st.session_state["ServerMT"])):
             st.session_state["ServerMT"][i].close()
 if __name__ == "__main__":
+
+    if not "team1C" in st.session_state:
+        st.session_state["team1C"] = []
+    if not "team2C" in st.session_state:
+        st.session_state["team2C"] = []
     if not "ServerT1" in st.session_state:
         st.session_state["ServerT1"] = []
     if not "ServerT2" in st.session_state:
