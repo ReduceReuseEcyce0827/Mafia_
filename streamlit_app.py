@@ -363,6 +363,16 @@ def Reload_STClose():
         for i in range(len(st.session_state["ServerMT"])):
             st.session_state["ServerMT"][i].close()
 if __name__ == "__main__":
+    if not "ServerT1" in st.session_state:
+        st.session_state["ServerT1"] = []
+    if not "ServerT2" in st.session_state:
+        st.session_state["ServerT2"] = []
+    if not "ServerMT" in st.session_state:
+        st.session_state["ServerMT"] = []
+    if not "ServerClient" in st.session_state:
+        st.session_state["ServerClient"] = []
+    if not "display" in st.session_state:
+        st.session_state["diaplay"] = "Main"
     if not "refresh" in query_params:
             st.session_state["ReS"] = True
             Userss = Load_Users_Data()
