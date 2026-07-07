@@ -195,7 +195,7 @@ def Change_Display(Where, Users):
     st.session_state["display"] = Where
     if st.session_state["display"] == "Admin" or Where == "Admin":
             st.title("관리자 모드")
-            Admin_Code = st.text_input("관리자 코드 입력", key="Admin_Code_Admin")
+            Admin_Code = st.text_input("관리자 코드 입력", key="Admin_Code_Admin", type="password")
             inzung = st.button("인증", key="Admin_Admin")
             if Admin_Code in admin_code and inzung:
                 st.success(f"관리자 코드 인증 성공! ({admin_name[admin_code.index(Admin_Code)]}으로 인증됨)")
