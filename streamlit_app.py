@@ -151,16 +151,16 @@ def Wait():
     try:
         client_socket, addr = st.session_state["ServerT1"][-1].accept()
         st.session_state["team1C"].append(client_socket)
-        print(f"연결 수락됨: {addr}")
-        client_socket.sendall("Hello!".encode())
+        st5t.write(f"연결 수락됨: {addr}")
+        client_socket.send("Hello!".encode('utf-8'))
     except socket.timeout:
         pass
 def Wait2():
     try:
         client_socket, addr = st.session_state["ServerT2"][-1].accept()
         st.session_state["team2C"].append(client_socket)
-        print(f"연결 수락됨: {addr}")
-        client_socket.sendall("Hello!".encode())
+        st.write(f"연결 수락됨: {addr}")
+        client_socket.send("Hello!".encode('utf-8'))
     except socket.timeout:
         pass
 def Get1():
@@ -168,7 +168,7 @@ def Get1():
         while True:
             for t1 in range(len(st.session_state["team1C"])):
                 try:
-                    st.write(st.session_state["team1C"][t1].recv(1024).decode())
+                    st.write(st.session_state["team1C"][t1].recv(1024).decode('utf-8'))
                 except:
                     pass
     except RuntimeError:
@@ -178,7 +178,7 @@ def Get2():
         while True:
             for t2 in range(len(st.session_state["team2C"])):
                 try:
-                    st.write(st.session_state["team2C"][t2].recv(1024).decode())
+                    st.write(st.session_state["team2C"][t2].recv(1024).decode('utf-8'))
                 except:
                     pass
     except RuntimeError:
@@ -263,13 +263,13 @@ def Change_Display(Where, Users):
         st.write("대기실에 입장하셨습니다. 게임이 시작될 때까지 기다려주세요.")
         st.write("게임이 시작되면 자동으로 게임 화면으로 전환됩니다.")
         if st.button("❤️"):
-            st.session_state["ServerMT"][-1].send("Heart".encode())
+            st.session_state["ServerMT"][-1].send("Heart".encode('utf-8'))
         if st.button("😊"):
-            st.session_state["ServerMT"][-1].send("Happy".encode())
+            st.session_state["ServerMT"][-1].send("Happy".encode('utf-8'))
         if st.button("😂"):
-            st.session_state["ServerMT"][-1].send("Fun".encode())
+            st.session_state["ServerMT"][-1].send("Fun".encode('utf-8'))
         if st.button("👍"):
-            st.session_state["ServerMT"][-1].send("Good".encode())
+            st.session_state["ServerMT"][-1].send("Good".encode('utf-8'))
         L = [user for user in Users]
         S = ''
         for i in range(len(L)-1):
@@ -292,11 +292,15 @@ def Change_Display(Where, Users):
         wait2.start()
         st.write(socket.gethostname())
         if Buttons["Start_T1"] and server:
-            st.session_state["ServerT1"][-1].sendall("SG".encode('utf-8'))
-            st.session_state["ServerT2"][-1].sendall("SG".encode('utf-8'))
+            for t1 in range(len(st.session_state["team1C"])):
+                st.session_state["team1C"][t1].send("SG".encode('utf-8'))
+            for t2 in range(len(st.session_state["team2C"])):
+                st.session_state["team2C"][t1].send("SG".encode('utf-8'))
         if Buttons["Test"]:
-            st.session_state["ServerT1"][-1].sendall("테스트 메세지".encode('utf-8'))
-            st.session_state["ServerT2"][-1].sendall("테스트 메세지".encode('utf-8'))
+            for t1 in range(len(st.session_state["team1C"])):
+                st.session_state["team1C"][t1].send("테스트 메세지".encode('utf-8'))
+            for t2 in range(len(st.session_state["team2C"])):
+                st.session_state["team2C"][t1].send("테스트 메세지".encode('utf-8'))
         isDebugging = 0
         if st.button("디버깅(김류민용)"):
             isDebugging = 1-isDebugging
