@@ -368,7 +368,6 @@ def Reload_STClose():
         for i in range(len(st.session_state["ServerMT"])):
             st.session_state["ServerMT"][i].close()
 if __name__ == "__main__":
-
     if not "team1C" in st.session_state:
         st.session_state["team1C"] = []
     if not "team2C" in st.session_state:
