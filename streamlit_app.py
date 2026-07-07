@@ -169,6 +169,7 @@ def Get1():
                     st.write(st.session_state["team1C"][t1].recv(1024).decode('utf-8'))
                 except:
                     pass
+            st.write("1")
     except RuntimeError:
         pass
 def Get2():
@@ -179,6 +180,7 @@ def Get2():
                     st.write(st.session_state["team2C"][t2].recv(1024).decode('utf-8'))
                 except:
                     pass
+            st.write("2")
     except RuntimeError:
         pass
 wait1 = threading.Thread(target=Wait)
