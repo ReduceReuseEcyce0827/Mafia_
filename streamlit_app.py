@@ -144,13 +144,13 @@ def Make_Text_Input(Label):
         return st.text_input("오류")
 Id = -1
 server = None
-team1C = []
-team2C = []
+st.sessions_state["team1C"] = []
+st.sessions_state["team2C"] = []
 query_params = st.query_params
 def Wait():
     try:
         client_socket, addr = st.session_state["ServerT1"][-1].accept()
-        team1C.append(client_socket)
+        st.sessions_state["team1C"].append(client_socket)
         print(f"연결 수락됨: {addr}")
         client_socket.sendall("Hello!".encode())
     except socket.timeout:
@@ -158,7 +158,7 @@ def Wait():
 def Wait2():
     try:
         client_socket, addr = st.session_state["ServerT2"][-1].accept()
-        team2C.append(client_socket)
+        st.sessions_state["team2C"].append(client_socket)
         print(f"연결 수락됨: {addr}")
         client_socket.sendall("Hello!".encode())
     except socket.timeout:
@@ -166,9 +166,9 @@ def Wait2():
 def Get1():
     try:
         while True:
-            for t1 in team1C:
+            for t1 in range(len(st.sessions_state["team1C"])):
                 try:
-                    st.write(t1.recv(1024).decode())
+                    st.write(st.sessions_state["team1C"][t1].recv(1024).decode())
                 except:
                     pass
     except RuntimeError:
@@ -176,9 +176,9 @@ def Get1():
 def Get2():
     try:
         while True:
-            for t2 in team2C:
+            for t2 in range(len(st.sessions_state["team2C"])):
                 try:
-                    st.write(t2.recv(1024).decode())
+                    st.write(st.sessions_state["team2C"][t2].recv(1024).decode())
                 except:
                     pass
     except RuntimeError:
