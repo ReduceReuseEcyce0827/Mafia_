@@ -152,7 +152,7 @@ def Wait():
         st.write(f"연결 수락됨: {addr}")
         client_socket.send("Hello!".encode('utf-8'))
     except socket.timeout:
-        pass
+        st.write("타임아웃!")
 def Wait2():
     try:
         client_socket, addr = st.session_state["ServerT2"][-1].accept()
@@ -160,7 +160,7 @@ def Wait2():
         st.write(f"연결 수락됨: {addr}")
         client_socket.send("Hello!".encode('utf-8'))
     except socket.timeout:
-        pass
+        st.write("타임아웃!")
 def Get1():
     try:
         while True:
