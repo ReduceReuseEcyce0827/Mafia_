@@ -191,6 +191,8 @@ settimeout = threading.Thread(target=A)
 host = "0.0.0.0"
 def Debugging():
     pass
+def InGame():
+    st.session_state
 def Change_Display(Where, Users):
     st.session_state["display"] = Where
     if st.session_state["display"] == "Admin" or Where == "Admin":
@@ -289,8 +291,6 @@ def Change_Display(Where, Users):
                    "Test": st.button('메세지 보내기(테스트용)')}
         st.session_state["ServerT1"][-1].listen()
         st.session_state["ServerT2"][-1].listen()
-        wait1.start()
-        wait2.start()
         st.write(socket.gethostname())
         if Buttons["Start_T1"] and server:
             for t1 in range(len(st.session_state["team1C"])):
@@ -313,6 +313,9 @@ def Change_Display(Where, Users):
             Debugging()
         get1.start()
         get2.start()
+        while True:
+            wait1.start()
+            wait2.start()
     else:
             st.title("마피아 게임")
             if st.button("로그인", key="Login_Main"):
@@ -369,10 +372,6 @@ def Reload_STClose():
             st.session_state["ServerT2"][i].close()
         for i in range(len(st.session_state["ServerMT"])):
             st.session_state["ServerMT"][i].close()
-        for i in range(len(st.session_state["team1C"])):
-            st.session_state["team1C"][i].close()
-        for i in range(len(st.session_state["team2C"])):
-            st.session_state["team2C"][i].close()
 if __name__ == "__main__":
     if not "team1C" in st.session_state:
         st.session_state["team1C"] = []
