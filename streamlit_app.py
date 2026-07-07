@@ -389,7 +389,7 @@ if __name__ == "__main__":
     if not "ServerClient" in st.session_state:
         st.session_state["ServerClient"] = []
     if not "display" in st.session_state:
-        st.session_state["diaplay"] = "Main"
+        st.session_state["display"] = "Main"
     if not "refresh" in query_params:
             st.session_state["ReS"] = True
             Userss = Load_Users_Data()
