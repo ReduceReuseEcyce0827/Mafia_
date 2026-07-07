@@ -298,6 +298,8 @@ def Change_Display(Where, Users):
             for t2 in range(len(st.session_state["team2C"])):
                 st.session_state["team2C"][t2].send("SG".encode('utf-8'))
         if Buttons["Test"]:
+            st.write(st.session_state["team1C"])
+            st.write(st.session_state["team1C"])
             for t1 in range(len(st.session_state["team1C"])):
                 st.session_state["team1C"][t1].send("테스트 메세지".encode('utf-8'))
             for t2 in range(len(st.session_state["team2C"])):
