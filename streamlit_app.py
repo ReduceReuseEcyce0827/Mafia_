@@ -144,8 +144,10 @@ def Make_Text_Input(Label):
         return st.text_input("오류")
 Id = -1
 server = None
-st.session_state["team1C"] = []
-st.session_state["team2C"] = []
+if not "team1C" in st.session_state:
+    st.session_state["team1C"] = []
+if not "team2C" in st.session_state:
+    st.session_state["team2C"] = []
 query_params = st.query_params
 def Wait():
     try:
