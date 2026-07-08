@@ -334,7 +334,7 @@ def Change_Display(Where, Users):
         except:
                 pass
         st.write(socket.gethostname())
-        if Buttons["Start_T1"] and server:
+        if Buttons["Start_T1"]:
             for t1 in range(len(st.session_state["team1C"])):
                 st.session_state["team1C"][t1].send("SG".encode('utf-8'))
             for t2 in range(len(st.session_state["team2C"])):
