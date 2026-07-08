@@ -310,7 +310,10 @@ def Change_Display(Where, Users):
             while True:
                 try:
                     for t1 in range(len(st.session_state["ServerMT"])):
-                        st.write(st.session_state["ServerMT"][t1].recv(1024).decode('utf-8'))
+                        data = st.session_state["ServerMT"][t1].recv(1024).decode('utf-8')
+                        if data == "SG":
+                            st.session_state["display"] = "GameMenu"
+                            st.rerun()
                 except:
                     pass
         except:
@@ -324,12 +327,16 @@ def Change_Display(Where, Users):
                    "Stop_T2": st.button('팀2 중지', key="Team2St"),
                    "Test": st.button('메세지 보내기(테스트용)')}
         st.session_state["ServerT1"][-1].listen(1)
+        L1 = []
+        for i in range(len(Users)):
+            L1.append(Users[i].PS)
         try:
             while True:
                 client_socket, addr = st.session_state["ServerT1"][-1].accept()
                 st.session_state["team1C"].append(client_socket)
                 st.write(f"연결 수락됨: {addr}")
-                client_socket.send("Hello!".encode('utf-8'))
+                for i in range(len(st.session_state["teamC"])):
+                    st.session_state["teamC"][i].send(f"{Users[L1.index(PW)].Name}님이 참여하셨습니다.".encode('utf-8'))
                 time.sleep(2)
         except:
                 pass
@@ -351,6 +358,7 @@ def Change_Display(Where, Users):
         isDebugging = 0
         if st.button("디버깅(김류민용)"):
             isDebugging = 1-isDebugging
+    
     else:
             st.title("마피아 게임")
             if st.button("로그인", key="Login_Main"):
