@@ -325,7 +325,7 @@ def Change_Display(Where, Users):
                 st.write(f"연결 수락됨: {addr}")
                 client_socket.send("Hello!".encode('utf-8'))
             except socket.timeout:
-                st.write("타임아웃!")
+                pass
         st.write(socket.gethostname())
         if Buttons["Start_T1"] and server:
             for t1 in range(len(st.session_state["team1C"])):
