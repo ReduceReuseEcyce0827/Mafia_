@@ -5,6 +5,21 @@ import sqlite3 as sql
 import matplotlib.font_manager as fm
 import socket, time, threading
 import streamlit.components.v1 as components
+if __name__ == "__main__":
+    if not "team1C" in st.session_state:
+        st.session_state["team1C"] = []
+    if not "team2C" in st.session_state:
+        st.session_state["team2C"] = []
+    if not "ServerT1" in st.session_state:
+        st.session_state["ServerT1"] = []
+    if not "ServerT2" in st.session_state:
+        st.session_state["ServerT2"] = []
+    if not "ServerMT" in st.session_state:
+        st.session_state["ServerMT"] = []
+    if not "ServerClient" in st.session_state:
+        st.session_state["ServerClient"] = []
+    if not "display" in st.session_state:
+        st.session_state["display"] = "Main"
 font_css = """
 <style>
 @import url('https://jsdelivr.net');
@@ -386,20 +401,6 @@ def Reload_STClose():
         for i in range(len(st.session_state["ServerMT"])):
             st.session_state["ServerMT"][i].close()
 if __name__ == "__main__":
-    if not "team1C" in st.session_state:
-        st.session_state["team1C"] = []
-    if not "team2C" in st.session_state:
-        st.session_state["team2C"] = []
-    if not "ServerT1" in st.session_state:
-        st.session_state["ServerT1"] = []
-    if not "ServerT2" in st.session_state:
-        st.session_state["ServerT2"] = []
-    if not "ServerMT" in st.session_state:
-        st.session_state["ServerMT"] = []
-    if not "ServerClient" in st.session_state:
-        st.session_state["ServerClient"] = []
-    if not "display" in st.session_state:
-        st.session_state["display"] = "Main"
     if not "refresh" in query_params:
             st.session_state["ReS"] = True
             Userss = Load_Users_Data()
