@@ -309,8 +309,7 @@ def Change_Display(Where, Users):
         try:
             while True:
                 try:
-                    for t1 in range(len(st.session_state["ServerMT"])):
-                        st.write(st.session_state["ServerMT"][t1].recv(1024).decode('utf-8'))
+                    st.write(st.session_state["ServerMT"][-1].recv(1024).decode('utf-8'))
                 except:
                     pass
         except:
