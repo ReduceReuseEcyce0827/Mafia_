@@ -322,11 +322,13 @@ def Change_Display(Where, Users):
                    "Test": st.button('메세지 보내기(테스트용)')}
         st.session_state["ServerT1"][-1].listen(1)
         try:
+            while True:
                 client_socket, addr = st.session_state["ServerT1"][-1].accept()
                 st.session_state["team1C"].append(client_socket)
                 st.write(f"연결 수락됨: {addr}")
                 client_socket.send("Hello!".encode('utf-8'))
-        except socket.timeout:
+                time.sleep(2)
+        except:
                 pass
         st.write(socket.gethostname())
         if Buttons["Start_T1"] and server:
