@@ -337,8 +337,10 @@ def Change_Display(Where, Users):
             st.write(st.session_state["team2C"])
             for t1 in range(len(st.session_state["team1C"])):
                 st.session_state["team1C"][t1].send("테스트 메세지".encode('utf-8'))
+                st.write("메세지 보냄")
             for t2 in range(len(st.session_state["team2C"])):
                 st.session_state["team2C"][t2].send("테스트 메세지".encode('utf-8'))
+                st.write("메세지 보냄")
         isDebugging = 0
         if st.button("디버깅(김류민용)"):
             isDebugging = 1-isDebugging
