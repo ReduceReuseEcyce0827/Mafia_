@@ -319,7 +319,7 @@ def Change_Display(Where, Users):
         st.session_state["ServerT2"][-1].listen(1)
         get1.start()
         get2.start()
-        if st.session_state["team1C"][-1] == []:
+        if st.session_state["team1C"] == []:
             try:
                 client_socket, addr = st.session_state["ServerT1"][-1].accept()
                 st.session_state["team1C"].append(client_socket)
