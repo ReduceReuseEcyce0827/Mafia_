@@ -325,8 +325,6 @@ def Change_Display(Where, Users):
                    "Stop_T2": st.button('팀2 중지', key="Team2St"),
                    "Test": st.button('메세지 보내기(테스트용)')}
         st.session_state["ServerT1"][-1].listen(1)
-        get1.start()
-        get2.start()
         if st.session_state["team1C"] == []:
             try:
                 client_socket, addr = st.session_state["ServerT1"][-1].accept()
