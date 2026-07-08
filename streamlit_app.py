@@ -315,9 +315,9 @@ def Change_Display(Where, Users):
                    "Stop_T1": st.button('팀1 중지', key="Team1St"), 
                    "Stop_T2": st.button('팀2 중지', key="Team2St"),
                    "Test": st.button('메세지 보내기(테스트용)')}
-        st.session_state["ServerT1"][-1].listen(1)
-        st.session_state["ServerT2"][-1].listen(1)
+        st.session_state["ServerT1"][-1].listen()
         wait1.start()
+        st.session_state["ServerT2"][-1].listen()
         wait2.start()
         get1.start()
         get2.start()
