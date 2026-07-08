@@ -167,8 +167,8 @@ def Get1():
             for t1 in range(len(st.session_state["team1C"])):
                 try:
                     st.write(st.session_state["team1C"][t1].recv(1024).decode('utf-8'))
-                except:
-                    pass
+                except Exception as e:
+                    st.write(e)
             st.write("1")
     except RuntimeError:
         pass
