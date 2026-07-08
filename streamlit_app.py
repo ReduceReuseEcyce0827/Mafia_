@@ -319,13 +319,14 @@ def Change_Display(Where, Users):
         st.session_state["ServerT2"][-1].listen(1)
         get1.start()
         get2.start()
-        try:
-            client_socket, addr = st.session_state["ServerT1"][-1].accept()
-            st.session_state["team1C"].append(client_socket)
-            st.write(f"연결 수락됨: {addr}")
-            client_socket.send("Hello!".encode('utf-8'))
-        except socket.timeout:
-            st.write("타임아웃!")
+        if st.session_state["team1C"][-1] == []:
+            try:
+                client_socket, addr = st.session_state["ServerT1"][-1].accept()
+                st.session_state["team1C"].append(client_socket)
+                st.write(f"연결 수락됨: {addr}")
+                client_socket.send("Hello!".encode('utf-8'))
+            except socket.timeout:
+                st.write("타임아웃!")
         st.write(socket.gethostname())
         if Buttons["Start_T1"] and server:
             for t1 in range(len(st.session_state["team1C"])):
