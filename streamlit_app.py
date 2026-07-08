@@ -306,7 +306,16 @@ def Change_Display(Where, Users):
                 S += f"{L[i].Name}, "
         st.write(f"당신은 {S[0:-2]}와 같은 조입니다.")
         server = st.session_state["ServerMT"][-1]
-        get3.start()
+        try:
+            while True:
+                for t1 in range(len(st.session_state["ServerMT"])):
+                    try:
+                        st.write(st.session_state["ServerMT"][t1].recv(1024).decode('utf-8'))
+                    except Exception as e:
+                        st.write(e)
+                st.write("1")
+        except RuntimeError:
+            pass
     elif st.session_state["display"] == "ControlCenter" or Where == "ControlCenter":
         st.title("컨트롤 센터")
         st.write("관리자만 사용할 수 있는 컨트롤 센터입니다.")
