@@ -291,6 +291,10 @@ def Change_Display(Where, Users):
                    "Test": st.button('메세지 보내기(테스트용)')}
         st.session_state["ServerT1"][-1].listen(1)
         st.session_state["ServerT2"][-1].listen(1)
+        get1.start()
+        get2.start()
+        wait1.start()
+        wait2.start()
         try:
             client_socket, addr = st.session_state["ServerT1"][-1].accept()
             st.session_state["team1C"].append(client_socket)
@@ -314,18 +318,6 @@ def Change_Display(Where, Users):
         isDebugging = 0
         if st.button("디버깅(김류민용)"):
             isDebugging = 1-isDebugging
-        if isDebugging == 1:
-            Debugging()
-        if st.button("새로고침"):
-            Debugging()
-        get1.start()
-        get2.start()
-        try:
-            while True:
-                wait1.start()
-                wait2.start()
-        except RuntimeError:
-            pass
     else:
             st.title("마피아 게임")
             if st.button("로그인", key="Login_Main"):
