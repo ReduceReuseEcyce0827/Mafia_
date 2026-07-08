@@ -315,12 +315,24 @@ def Change_Display(Where, Users):
                    "Stop_T1": st.button('팀1 중지', key="Team1St"), 
                    "Stop_T2": st.button('팀2 중지', key="Team2St"),
                    "Test": st.button('메세지 보내기(테스트용)')}
-        st.session_state["ServerT1"][-1].listen()
-        wait1.start()
-        st.session_state["ServerT2"][-1].listen()
-        wait2.start()
+        st.session_state["ServerT1"][-1].listen(1)
+        st.session_state["ServerT2"][-1].listen(1)
         get1.start()
         get2.start()
+        try:
+            client_socket, addr = st.session_state["ServerT1"][-1].accept()
+            st.session_state["team1C"].append(client_socket)
+            st.write(f"연결 수락됨: {addr}")
+            client_socket.send("Hello!".encode('utf-8'))
+        except socket.timeout:
+            st.write("타임아웃!")
+        try:
+            client_socket, addr = st.session_state["ServerT2"][-1].accept()
+            st.session_state["team2C"].append(client_socket)
+            st.write(f"연결 수락됨: {addr}")
+            client_socket.send("Hello!".encode('utf-8'))
+        except socket.timeout:
+            st.write("타임아웃!")
         st.write(socket.gethostname())
         if Buttons["Start_T1"] and server:
             for t1 in range(len(st.session_state["team1C"])):
