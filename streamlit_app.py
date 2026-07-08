@@ -309,11 +309,7 @@ def Change_Display(Where, Users):
         try:
             while True:
                 for t1 in range(len(st.session_state["ServerMT"])):
-                    try:
-                        st.write(st.session_state["ServerMT"][t1].recv(1024).decode('utf-8'))
-                    except Exception as e:
-                        st.write(e)
-                st.write("1")
+                    st.write(st.session_state["ServerMT"][t1].recv(1024).decode('utf-8'))
         except:
             pass
     elif st.session_state["display"] == "ControlCenter" or Where == "ControlCenter":
