@@ -317,10 +317,10 @@ def Change_Display(Where, Users):
                    "Test": st.button('메세지 보내기(테스트용)')}
         st.session_state["ServerT1"][-1].listen(1)
         st.session_state["ServerT2"][-1].listen(1)
-        get1.start()
-        get2.start()
         wait1.start()
         wait2.start()
+        get1.start()
+        get2.start()
         st.write(socket.gethostname())
         if Buttons["Start_T1"] and server:
             for t1 in range(len(st.session_state["team1C"])):
