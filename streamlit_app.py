@@ -329,7 +329,7 @@ def Change_Display(Where, Users):
         st.session_state["ServerT1"][-1].listen(1)
         L1 = []
         for i in range(len(Users)):
-            L1.append(Users[i].PS)
+            L1.append(Users[i].PW)
         try:
             while True:
                 client_socket, addr = st.session_state["ServerT1"][-1].accept()
