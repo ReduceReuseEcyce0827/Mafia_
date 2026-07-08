@@ -314,7 +314,7 @@ def Change_Display(Where, Users):
                     except Exception as e:
                         st.write(e)
                 st.write("1")
-        except RuntimeError:
+        except socket.timeout:
             pass
     elif st.session_state["display"] == "ControlCenter" or Where == "ControlCenter":
         st.title("컨트롤 센터")
