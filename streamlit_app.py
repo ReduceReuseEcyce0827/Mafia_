@@ -64,7 +64,7 @@ class Role: #직업
     def __str__(self):
         return f"ID: {self.ID}, Name: {self.Name}, is_neutral: {self.is_neutral}, Description: {self.Description}"
 class Player: #게임 진행 시 만들어지는 일시적인 데이터
-    def __init__(self, User: User, Role, NickName, Team, Votes, Missions, Status, X, Y):
+    def __init__(self, User: User, Role, NickName, Team, Votes, Missions, Status, X, Y, Color):
         self.User = User
         self.Role = Role
         self.NickName = NickName
@@ -74,6 +74,7 @@ class Player: #게임 진행 시 만들어지는 일시적인 데이터
         self.Status = Status
         self.X = X
         self.Y = Y
+        self.Color = Color
     def __str__(self):
         return f"User: [{self.User}], Role: {self.Role}, NickName: {self.NickName}, Team: {self.Team}, Votes: {self.Votes}, Missions: {self.Missions}, Status: {self.Status}"
 def Reset_Tables():
@@ -312,7 +313,7 @@ def Change_Display(Where, Users):
                     for t1 in range(len(st.session_state["ServerMT"])):
                         data = st.session_state["ServerMT"][t1].recv(1024).decode('utf-8')
                         if data == "SG":
-                            st.session_state["display"] = "GameMenu"
+                            st.session_state["display"] = "InGame"
                             st.rerun()
                 except:
                     pass
@@ -358,7 +359,8 @@ def Change_Display(Where, Users):
         isDebugging = 0
         if st.button("디버깅(김류민용)"):
             isDebugging = 1-isDebugging
-    
+    elif st.session_state["display"] == "InGame" or Where == "InGame":
+        pass
     else:
             st.title("마피아 게임")
             if st.button("로그인", key="Login_Main"):
