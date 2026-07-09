@@ -329,7 +329,7 @@ def Change_Display(Where, Users):
                    "Stop_T2": st.button('팀2 중지', key="Team2St"),
                    "Test": st.button('메세지 보내기')}
         Inputs = {"Message": st.text_input('보낼 메세지', key="Message001")}
-        st.session_state["ServerT1"][-1].listen(1)
+        st.session_state["ServerT1"][-1].listen(3)
         L1 = []
         for i in range(len(Users)):
             L1.append(Users[i].PW)
