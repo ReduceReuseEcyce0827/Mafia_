@@ -327,7 +327,8 @@ def Change_Display(Where, Users):
                    "Start_T2": st.button('팀2 시작', key="Team2S"), 
                    "Stop_T1": st.button('팀1 중지', key="Team1St"), 
                    "Stop_T2": st.button('팀2 중지', key="Team2St"),
-                   "Test": st.button('메세지 보내기(테스트용)')}
+                   "Test": st.button('메세지 보내기')}
+        Inputs = {"Message": st.text_input('보낼 메세지', key="Message001")}
         st.session_state["ServerT1"][-1].listen(1)
         L1 = []
         for i in range(len(Users)):
@@ -352,10 +353,10 @@ def Change_Display(Where, Users):
             st.write(st.session_state["team1C"])
             st.write(st.session_state["team2C"])
             for t1 in range(len(st.session_state["team1C"])):
-                st.session_state["team1C"][t1].send("테스트 메세지".encode('utf-8'))
+                st.session_state["team1C"][t1].send(Inputs["Message"].encode('utf-8'))
                 st.write("메세지 보냄")
             for t2 in range(len(st.session_state["team2C"])):
-                st.session_state["team2C"][t2].send("테스트 메세지".encode('utf-8'))
+                st.session_state["team2C"][t2].send(Inputs["Message"].encode('utf-8'))
                 st.write("메세지 보냄")
         isDebugging = 0
         if st.button("디버깅(김류민용)"):
