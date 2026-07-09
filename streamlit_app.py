@@ -429,4 +429,5 @@ if __name__ == "__main__":
             Roles = Load_Role()
             Missions = Load_Missions()
             Reload_STClose()
+            st.write(Users)
             runApp("진행중인 이벤트가 없습니다.", Users, Roles, Missions)
