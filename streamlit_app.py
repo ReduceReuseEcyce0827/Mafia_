@@ -315,6 +315,7 @@ def Change_Display(Where, Users):
                         if data == "SG":
                             st.session_state["display"] = "InGame"
                             st.rerun()
+                        st.write(data)
                 except:
                     pass
         except:
