@@ -426,7 +426,6 @@ if __name__ == "__main__":
             Users = []
             for i in range(len(Userss)):
                 Users.append(User_Data_Conv_to_Class(Userss[i]))
-                st.write(f"{Users[-1].ID}번 코드: {Users[-1].PW}")
             Roles = Load_Role()
             Missions = Load_Missions()
             Reload_STClose()
