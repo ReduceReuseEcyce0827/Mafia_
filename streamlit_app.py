@@ -5,6 +5,7 @@ import sqlite3 as sql
 import matplotlib.font_manager as fm
 import socket, time, threading
 import streamlit.components.v1 as components
+from PIL import Image
 if __name__ == "__main__":
     if not "team1C" in st.session_state:
         st.session_state["team1C"] = []
@@ -362,7 +363,7 @@ def Change_Display(Where, Users):
         if st.button("디버깅(김류민용)"):
             isDebugging = 1-isDebugging
     elif st.session_state["display"] == "InGame" or Where == "InGame":
-        pass
+        Group = {"BackGroundIMG": st.image()}
     else:
             st.title("마피아 게임")
             if st.button("로그인", key="Login_Main"):
@@ -429,4 +430,5 @@ if __name__ == "__main__":
             Roles = Load_Role()
             Missions = Load_Missions()
             Reload_STClose()
+            st.session_state["BGIMG"] = Image.open("Images/Background.png")
             runApp("진행중인 이벤트가 없습니다.", Users, Roles, Missions)
