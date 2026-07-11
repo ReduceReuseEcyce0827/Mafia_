@@ -311,8 +311,7 @@ def Change_Display(Where, Users):
         try:
             while True:
                 try:
-                    for t1 in range(len(st.session_state["ServerMT"])):
-                        data = st.session_state["ServerMT"][t1].recv(1024).decode('utf-8')
+                        data = st.session_state["ServerMT"][-1].recv(1024).decode('utf-8')
                         if data == "SG":
                             st.session_state["display"] = "InGame"
                             st.rerun()
