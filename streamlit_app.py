@@ -325,6 +325,7 @@ def Change_Display(Where, Users):
                         data = st.session_state["ServerMT"][-1].recv(1024).decode('utf-8')
                         if data == "SG":
                             st.session_state["display"] = "InGame"
+                            st.write("와 곧 시작한다 너무 기대된다")
                             if Users[Id].Team == 1:
                                 st.session_state["Job"] = T1J.pop(T1J[random.randint(0, len(T1J)-1)])
                             else:
@@ -332,7 +333,7 @@ def Change_Display(Where, Users):
                             st.rerun()
                         st.write(data)
                 except:
-                    pass
+                    st.write("으아아아악!!! 오류 발생!!!!!")
         except:
             pass
     elif st.session_state["display"] == "ControlCenter" or Where == "ControlCenter":
