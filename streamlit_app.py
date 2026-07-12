@@ -232,7 +232,7 @@ def Debugging():
     pass
 def InGame():
     st.session_state
-def Change_Display(Where, Users):
+def Change_Display(Where, Users): 
     if st.session_state["display"] == "Admin" or Where == "Admin":
             st.title("관리자 모드")
             Admin_Code = st.text_input("관리자 코드 입력", key="Admin_Code_Admin", type="password")
