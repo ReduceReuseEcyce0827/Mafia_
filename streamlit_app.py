@@ -362,7 +362,7 @@ def Change_Display(Where, Users):
         if st.button("디버깅(김류민용)"):
             isDebugging = 1-isDebugging
     elif st.session_state["display"] == "InGame" or Where == "InGame":
-        st.title("인게")
+        st.title("인게임")
         Group = {"BackGroundIMG": st.image(st.session_state("BGIMG"), caption="배경")}
     else:
             st.title("마피아 게임")
