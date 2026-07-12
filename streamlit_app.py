@@ -133,7 +133,7 @@ class Game_UI:
 
 Button_Key = {"Main": {"Login": [0], "Admin": [0]}, "Login": {"Login2": [0]}, "Admin": {"Admin2": [0]}}
 Input_Key = {"Main": {}, "Login": {"ID": [0], "PW": [0]}, "Admin": {"Admin_Code": [0], "Amount": [0]}}
-admin_code = ["admin140827Roymin", "admin14????SongZung", "admin14????Cherry"]
+admin_code = ["admin140827Roymin", "admin140618SongZung", "admin14????Cherry"]
 admin_name = ['류민', '정우', '채원']
 def A():
     while True:
@@ -335,7 +335,6 @@ def Change_Display(Where, Users):
         for i in range(len(Users)):
             L1.append(Users[i].PW)
         if Buttons["Start_T1"]:
-
             for t1 in range(len(st.session_state["team1C"])):
                 st.session_state["team1C"][t1].send("SG".encode('utf-8'))
             for t2 in range(len(st.session_state["team2C"])):
