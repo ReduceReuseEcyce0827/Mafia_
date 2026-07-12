@@ -330,6 +330,7 @@ def Change_Display(Where, Users):
                    "Test": st.button('메세지 보내기')}
         Inputs = {"Message": st.text_input('보낼 메세지', key="Message001")}
         st.session_state["ServerT1"][-1].listen(3)
+        st.session_state["ServerT2"][-1].listen(3)
         L1 = []
         for i in range(len(Users)):
             L1.append(Users[i].PW)
@@ -338,8 +339,18 @@ def Change_Display(Where, Users):
                 client_socket, addr = st.session_state["ServerT1"][-1].accept()
                 st.session_state["team1C"].append(client_socket)
                 st.write(f"연결 수락됨: {addr}")
-                for i in range(len(st.session_state["teamC"])):
-                    st.session_state["teamC"][i].send(f"{Users[L1.index(PW)].Name}님이 참여하셨습니다.".encode('utf-8'))
+                for i in range(len(st.session_state["team1C"])):
+                    st.session_state["team1C"][i].send(f"{Users[L1.index(PW)].Name}님이 참여하셨습니다.".encode('utf-8'))
+                time.sleep(2)
+        except:
+                pass
+        try:
+            while True:
+                client_socket, addr = st.session_state["ServerT2"][-1].accept()
+                st.session_state["team2C"].append(client_socket)
+                st.write(f"연결 수락됨: {addr}")
+                for i in range(len(st.session_state["team2C"])):
+                    st.session_state["team2C"][i].send(f"{Users[L1.index(PW)].Name}님이 참여하셨습니다.".encode('utf-8'))
                 time.sleep(2)
         except:
                 pass
