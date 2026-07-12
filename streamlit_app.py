@@ -351,6 +351,8 @@ def Change_Display(Where, Users):
             for i in range(len(Users)):
                 L1.append(Users[i].PW)
             if Buttons["Start_T1"]:
+                st.write(st.session_state["team1C"])
+                st.write(st.session_state["team2C"])
                 for t1 in range(len(st.session_state["team1C"])):
                     st.session_state["team1C"][t1].send("SG".encode('utf-8'))
                 for t2 in range(len(st.session_state["team2C"])):
