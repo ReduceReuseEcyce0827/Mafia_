@@ -220,16 +220,6 @@ get2 = threading.Thread(target=Get2)
 get3 = threading.Thread(target=Get3)
 settimeout = threading.Thread(target=A)
 host = "0.0.0.0"
-@st.cache_resource
-def Job_T1():
-    JobT1 = ["미친 송정우", "정상 한창조", "천사 김류민"]
-    return JobT1
-@st.cache_resource
-def Job_T2():
-    JobT2 = ["미친 송정우", "정상 한창조", "천사 김류민"]
-    return JobT2
-T1J = Job_T1()
-T2J = Job_T2()
 def Debugging():
     pass
 def InGame():
@@ -326,13 +316,10 @@ def Change_Display(Where, Users):
                 try:
                     for i in range(len(st.session_state["ServerMT"])):
                         data = st.session_state["ServerMT"][i].recv(1024).decode('utf-8')
-                        if data == "SG":
+                        if "SG" == data[0]+data[1]:
                             st.session_state["display"] = "InGame"
                             st.write("와 곧 시작한다 너무 기대된다")
-                            if Users[Id].Team == 1:
-                                st.session_state["Job"] = T1J.pop(random.randint(0, len(T1J)-1))
-                            else:
-                                st.session_state["Job"] = T2J.pop(random.randint(0, len(T2J)-1))
+                            st.session_state["Job"] = data.split("|")[1]
                             st.rerun()
                         st.write(data)
                 except TimeoutError:
@@ -356,11 +343,13 @@ def Change_Display(Where, Users):
             if Buttons["Start_T1"]:
                 st.write(st.session_state["team1C"])
                 st.write(st.session_state["team2C"])
+                T1Job = [Roles[i].Name for i in range(len(Roles))]
+                T2Job = T1Job
                 for t1 in range(len(st.session_state["team1C"])):
-                    st.session_state["team1C"][t1].send("SG".encode('utf-8'))
+                    st.session_state["team1C"][t1].send(f"SG|{T1Job.pop(random.randint(0, len(T1Job)-1))}".encode('utf-8'))
                     st.write("보냄")
                 for t2 in range(len(st.session_state["team2C"])):
-                    st.session_state["team2C"][t2].send("SG".encode('utf-8'))
+                    st.session_state["team2C"][t2].send(f"SG|{T2Job.pop(random.randint(0, len(T2Job)-1))}".encode('utf-8'))
                     st.write("보냄")
             if Buttons["Test"]:
                 st.write(st.session_state["team1C"])
@@ -459,7 +448,10 @@ if __name__ == "__main__":
             Users = []
             for i in range(len(Userss)):
                 Users.append(User_Data_Conv_to_Class(Userss[i]))
-            Roles = Load_Role()
+            Roless = Load_Role()
+            Roles = []
+            for i in range(len(Roles)):
+                Roles.append(Role_Data_Conv_to_Class(Userss[i]))
             Missions = Load_Missions()
             Reload_STClose()
             st.session_state["BGIMG"] = Image.open("Images/Background.png")
