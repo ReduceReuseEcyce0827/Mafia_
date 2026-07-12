@@ -391,6 +391,7 @@ def Change_Display(Where, Users):
             isDebugging = 1-isDebugging
     elif st.session_state["display"] == "InGame" or Where == "InGame":
         st.title("인게임")
+        st.write(st.session_state["Job"])
         Group = {"BackGroundIMG": st.image(st.session_state("BGIMG"), caption="배경")}
     else:
             st.title("마피아 게임")
