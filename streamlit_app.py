@@ -334,6 +334,21 @@ def Change_Display(Where, Users):
         L1 = []
         for i in range(len(Users)):
             L1.append(Users[i].PW)
+        if Buttons["Start_T1"]:
+            
+            for t1 in range(len(st.session_state["team1C"])):
+                st.session_state["team1C"][t1].send("SG".encode('utf-8'))
+            for t2 in range(len(st.session_state["team2C"])):
+                st.session_state["team2C"][t2].send("SG".encode('utf-8'))
+        if Buttons["Test"]:
+            st.write(st.session_state["team1C"])
+            st.write(st.session_state["team2C"])
+            for t1 in range(len(st.session_state["team1C"])):
+                st.session_state["team1C"][t1].send(Inputs["Message"].encode('utf-8'))
+                st.write("메세지 보냄")
+            for t2 in range(len(st.session_state["team2C"])):
+                st.session_state["team2C"][t2].send(Inputs["Message"].encode('utf-8'))
+                st.write("메세지 보냄")
         try:
             while True:
                 client_socket, addr = st.session_state["ServerT1"][-1].accept()
@@ -355,20 +370,6 @@ def Change_Display(Where, Users):
         except:
                 pass
         st.write(socket.gethostname())
-        if Buttons["Start_T1"]:
-            for t1 in range(len(st.session_state["team1C"])):
-                st.session_state["team1C"][t1].send("SG".encode('utf-8'))
-            for t2 in range(len(st.session_state["team2C"])):
-                st.session_state["team2C"][t2].send("SG".encode('utf-8'))
-        if Buttons["Test"]:
-            st.write(st.session_state["team1C"])
-            st.write(st.session_state["team2C"])
-            for t1 in range(len(st.session_state["team1C"])):
-                st.session_state["team1C"][t1].send(Inputs["Message"].encode('utf-8'))
-                st.write("메세지 보냄")
-            for t2 in range(len(st.session_state["team2C"])):
-                st.session_state["team2C"][t2].send(Inputs["Message"].encode('utf-8'))
-                st.write("메세지 보냄")
         isDebugging = 0
         if st.button("디버깅(김류민용)"):
             isDebugging = 1-isDebugging
