@@ -450,8 +450,8 @@ if __name__ == "__main__":
                 Users.append(User_Data_Conv_to_Class(Userss[i]))
             Roless = Load_Role()
             Roles = []
-            for i in range(len(Roles)):
-                Roles.append(Role_Data_Conv_to_Class(Userss[i]))
+            for i in range(len(Roless)):
+                Roles.append(Role_Data_Conv_to_Class(Roless[i]))
             Missions = Load_Missions()
             Reload_STClose()
             st.session_state["BGIMG"] = Image.open("Images/Background.png")
