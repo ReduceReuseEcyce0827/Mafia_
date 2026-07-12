@@ -330,9 +330,9 @@ def Change_Display(Where, Users):
                             st.session_state["display"] = "InGame"
                             st.write("와 곧 시작한다 너무 기대된다")
                             if Users[Id].Team == 1:
-                                st.session_state["Job"] = T1J.pop(T1J[random.randint(0, len(T1J)-1)])
+                                st.session_state["Job"] = T1J.pop(random.randint(0, len(T1J)-1))
                             else:
-                                st.session_state["Job"] = T2J.pop(T2J[random.randint(0, len(T2J)-1)])
+                                st.session_state["Job"] = T2J.pop(random.randint(0, len(T2J)-1))
                             st.rerun()
                         st.write(data)
                 except TimeoutError:
