@@ -222,8 +222,6 @@ settimeout = threading.Thread(target=A)
 host = "0.0.0.0"
 def Debugging():
     pass
-def InGame():
-    st.session_state
 def Change_Display(Where, Users): 
     if st.session_state["display"] == "Admin" or Where == "Admin":
             st.title("관리자 모드")
