@@ -334,7 +334,9 @@ def Change_Display(Where, Users):
                             st.rerun()
                         st.write(data)
                 except TimeoutError:
-                    st.write("으아아아악!!! 오류 발생!!!!!")
+                    pass
+                except:
+                    pass
         except:
             pass
     elif st.session_state["display"] == "ControlCenter" or Where == "ControlCenter":
