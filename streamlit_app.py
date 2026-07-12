@@ -337,17 +337,12 @@ def Change_Display(Where, Users):
                         st.write(data)
                 except TimeoutError:
                     pass
-                except:
-                    st.write("아씨 오류 진짜 극혐")
         except:
             pass
     elif st.session_state["display"] == "ControlCenter" or Where == "ControlCenter":
         st.title("컨트롤 센터")
         st.write("관리자만 사용할 수 있는 컨트롤 센터입니다.")
-        Buttons = {"Start_T1": st.button('팀1 시작', key="Team1S"), 
-                   "Start_T2": st.button('팀2 시작', key="Team2S"), 
-                   "Stop_T1": st.button('팀1 중지', key="Team1St"), 
-                   "Stop_T2": st.button('팀2 중지', key="Team2St"),
+        Buttons = {"Start_T1": st.button('게임 시작', key="Team1S"),
                    "Test": st.button('메세지 보내기')}
         Inputs = {"Message": st.text_input('보낼 메세지', key="Message001")}
         if True:
