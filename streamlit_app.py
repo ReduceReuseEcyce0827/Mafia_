@@ -333,7 +333,7 @@ def Change_Display(Where, Users):
                                 st.session_state["Job"] = T2J.pop(T2J[random.randint(0, len(T2J)-1)])
                             st.rerun()
                         st.write(data)
-                except:
+                except TimeoutError:
                     st.write("으아아아악!!! 오류 발생!!!!!")
         except:
             pass
@@ -388,7 +388,7 @@ def Change_Display(Where, Users):
                     for i in range(len(st.session_state["team2C"])):
                         st.session_state["team2C"][i].send(f"{Users[L1.index(PW)].Name}님이 참여하셨습니다.".encode('utf-8'))
                     time.sleep(2)
-            except RuntimeError:
+            except:
                     pass
         st.write(socket.gethostname())
         isDebugging = 0
