@@ -319,6 +319,7 @@ def Change_Display(Where, Users):
                             st.session_state["Job"] = data.split("|")[1]
                             st.session_state["display"] = "InGame"
                             st.rerun()
+                            break
                         st.write(data)
                 except TimeoutError:
                     pass
@@ -326,6 +327,7 @@ def Change_Display(Where, Users):
                     st.write(e)
         except:
             pass
+        st.rerun()
     elif st.session_state["display"] == "ControlCenter" or Where == "ControlCenter":
         st.title("컨트롤 센터")
         st.write("관리자만 사용할 수 있는 컨트롤 센터입니다.")
