@@ -463,3 +463,7 @@ if __name__ == "__main__":
             Reload_STClose()
             st.session_state["BGIMG"] = Image.open("Images/Background.png")
             runApp("진행중인 이벤트가 없습니다.", Users, Roles, Missions)
+"""
+팀 1 시작 
+팀 2 시작 
+"""
