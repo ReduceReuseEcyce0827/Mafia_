@@ -21,6 +21,8 @@ if __name__ == "__main__":
         st.session_state["ServerClient"] = []
     if not "display" in st.session_state:
         st.session_state["display"] = "Main"
+    if not "Job" in st.session_state:
+        st.session_state["Job"] = ""
 font_css = """
 <style>
 @import url('https://jsdelivr.net');
@@ -220,11 +222,11 @@ settimeout = threading.Thread(target=A)
 host = "0.0.0.0"
 @st.cache_resource
 def Job_T1():
-    JobT1 = ["미친 송정우", "정상 손지환", "천사 김류민"]
+    JobT1 = ["미친 송정우", "정상 한창조", "천사 김류민"]
     return JobT1
 @st.cache_resource
 def Job_T2():
-    JobT2 = ["미친 송정우", "정상 손지환", "천사 김류민"]
+    JobT2 = ["미친 송정우", "정상 한창조", "천사 김류민"]
     return JobT2
 T1J = Job_T1()
 T2J = Job_T2()
