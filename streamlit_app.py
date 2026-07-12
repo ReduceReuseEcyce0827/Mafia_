@@ -346,10 +346,10 @@ def Change_Display(Where, Users):
                 T1Job = [Roles[i].Name for i in range(len(Roles))]
                 T2Job = T1Job
                 for t1 in range(len(st.session_state["team1C"])):
-                    st.session_state["team1C"][t1].send(f"SG|{T1Job.pop(random.randint(0, len(T1Job)-1))}".encode('utf-8'))
+                    st.session_state["team1C"][t1].send(("SG|"+T1Job.pop(random.randint(0, len(T1Job)-1))).encode('utf-8'))
                     st.write("보냄")
                 for t2 in range(len(st.session_state["team2C"])):
-                    st.session_state["team2C"][t2].send(f"SG|{T2Job.pop(random.randint(0, len(T2Job)-1))}".encode('utf-8'))
+                    st.session_state["team2C"][t2].send(("SG|"+T2Job.pop(random.randint(0, len(T2Job)-1))).encode('utf-8'))
                     st.write("보냄")
             if Buttons["Test"]:
                 st.write(st.session_state["team1C"])
