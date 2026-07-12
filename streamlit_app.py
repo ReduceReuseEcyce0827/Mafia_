@@ -335,7 +335,7 @@ def Change_Display(Where, Users):
         for i in range(len(Users)):
             L1.append(Users[i].PW)
         if Buttons["Start_T1"]:
-            
+
             for t1 in range(len(st.session_state["team1C"])):
                 st.session_state["team1C"][t1].send("SG".encode('utf-8'))
             for t2 in range(len(st.session_state["team2C"])):
@@ -419,9 +419,6 @@ def runApp(Debug, Users, Roles, Missions):
     place_holder = st.empty()
     plt.rcParams['axes.unicode_minus'] = False
     st.write(Debug)
-
-    if "display" not in st.session_state:
-        st.session_state["display"] = "Main"
 
     Change_Display(st.session_state["display"], Users)
 def Reload_STClose():
