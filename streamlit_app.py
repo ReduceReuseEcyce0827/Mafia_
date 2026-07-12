@@ -3,7 +3,7 @@ from matplotlib import rc
 import streamlit as st
 import sqlite3 as sql
 import matplotlib.font_manager as fm
-import socket, time, threading
+import socket, time, threading, random
 import streamlit.components.v1 as components
 from PIL import Image
 if __name__ == "__main__":
@@ -218,6 +218,16 @@ get2 = threading.Thread(target=Get2)
 get3 = threading.Thread(target=Get3)
 settimeout = threading.Thread(target=A)
 host = "0.0.0.0"
+@st.cache_resource
+def Job_T1():
+    JobT1 = ["미친 송정우", "정상 손지환", "천사 김류민"]
+    return JobT1
+@st.cache_resource
+def Job_T2():
+    JobT2 = ["미친 송정우", "정상 손지환", "천사 김류민"]
+    return JobT2
+T1J = Job_T1()
+T2J = Job_T2()
 def Debugging():
     pass
 def InGame():
@@ -316,6 +326,10 @@ def Change_Display(Where, Users):
                         data = st.session_state["ServerMT"][-1].recv(1024).decode('utf-8')
                         if data == "SG":
                             st.session_state["display"] = "InGame"
+                            if Users[Id].Team == 1:
+                                st.session_state["Job"] = T1J.pop(T1J[random.randint(0, len(T1J)-1)])
+                            else:
+                                st.session_state["Job"] = T2J.pop(T2J[random.randint(0, len(T2J)-1)])
                             st.rerun()
                         st.write(data)
                 except:
@@ -331,45 +345,46 @@ def Change_Display(Where, Users):
                    "Stop_T2": st.button('팀2 중지', key="Team2St"),
                    "Test": st.button('메세지 보내기')}
         Inputs = {"Message": st.text_input('보낼 메세지', key="Message001")}
-        st.session_state["ServerT1"][-1].listen(3)
-        st.session_state["ServerT2"][-1].listen(3)
-        L1 = []
-        for i in range(len(Users)):
-            L1.append(Users[i].PW)
-        if Buttons["Start_T1"]:
-            for t1 in range(len(st.session_state["team1C"])):
-                st.session_state["team1C"][t1].send("SG".encode('utf-8'))
-            for t2 in range(len(st.session_state["team2C"])):
-                st.session_state["team2C"][t2].send("SG".encode('utf-8'))
-        if Buttons["Test"]:
-            st.write(st.session_state["team1C"])
-            st.write(st.session_state["team2C"])
-            for t1 in range(len(st.session_state["team1C"])):
-                st.session_state["team1C"][t1].send(Inputs["Message"].encode('utf-8'))
-                st.write("메세지 보냄")
-            for t2 in range(len(st.session_state["team2C"])):
-                st.session_state["team2C"][t2].send(Inputs["Message"].encode('utf-8'))
-                st.write("메세지 보냄")
-        try:
-            while True:
-                client_socket, addr = st.session_state["ServerT1"][-1].accept()
-                st.session_state["team1C"].append(client_socket)
-                st.write(f"연결 수락됨: {addr}")
-                for i in range(len(st.session_state["team1C"])):
-                    st.session_state["team1C"][i].send(f"{Users[L1.index(PW)].Name}님이 참여하셨습니다.".encode('utf-8'))
-                time.sleep(2)
-        except:
-                pass
-        try:
-            while True:
-                client_socket, addr = st.session_state["ServerT2"][-1].accept()
-                st.session_state["team2C"].append(client_socket)
-                st.write(f"연결 수락됨: {addr}")
-                for i in range(len(st.session_state["team2C"])):
-                    st.session_state["team2C"][i].send(f"{Users[L1.index(PW)].Name}님이 참여하셨습니다.".encode('utf-8'))
-                time.sleep(2)
-        except:
-                pass
+        if Admin_Code and Admin_Code == "admin140827Roymin":
+            st.session_state["ServerT1"][-1].listen(3)
+            st.session_state["ServerT2"][-1].listen(3)
+            L1 = []
+            for i in range(len(Users)):
+                L1.append(Users[i].PW)
+            if Buttons["Start_T1"]:
+                for t1 in range(len(st.session_state["team1C"])):
+                    st.session_state["team1C"][t1].send("SG".encode('utf-8'))
+                for t2 in range(len(st.session_state["team2C"])):
+                    st.session_state["team2C"][t2].send("SG".encode('utf-8'))
+            if Buttons["Test"]:
+                st.write(st.session_state["team1C"])
+                st.write(st.session_state["team2C"])
+                for t1 in range(len(st.session_state["team1C"])):
+                    st.session_state["team1C"][t1].send(Inputs["Message"].encode('utf-8'))
+                    st.write("메세지 보냄")
+                for t2 in range(len(st.session_state["team2C"])):
+                    st.session_state["team2C"][t2].send(Inputs["Message"].encode('utf-8'))
+                    st.write("메세지 보냄")
+            try:
+                while True:
+                    client_socket, addr = st.session_state["ServerT1"][-1].accept()
+                    st.session_state["team1C"].append(client_socket)
+                    st.write(f"연결 수락됨: {addr}")
+                    for i in range(len(st.session_state["team1C"])):
+                        st.session_state["team1C"][i].send(f"{Users[L1.index(PW)].Name}님이 참여하셨습니다.".encode('utf-8'))
+                    time.sleep(2)
+            except:
+                    pass
+            try:
+                while True:
+                    client_socket, addr = st.session_state["ServerT2"][-1].accept()
+                    st.session_state["team2C"].append(client_socket)
+                    st.write(f"연결 수락됨: {addr}")
+                    for i in range(len(st.session_state["team2C"])):
+                        st.session_state["team2C"][i].send(f"{Users[L1.index(PW)].Name}님이 참여하셨습니다.".encode('utf-8'))
+                    time.sleep(2)
+            except:
+                    pass
         st.write(socket.gethostname())
         isDebugging = 0
         if st.button("디버깅(김류민용)"):
