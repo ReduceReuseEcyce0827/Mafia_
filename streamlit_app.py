@@ -105,8 +105,8 @@ def Mission_Data_Conv_to_Class(Mission):
     (Id, Name, isNeutral, Desc) = Mission
     data = [Id, Name, isNeutral, Desc]
     return Role(data[0], data[1], data[2], data[3])
-def Role_Data_Conv_to_Class(Role):
-    (Id, Name, isNeutral, Desc) = Role
+def Role_Data_Conv_to_Class(Rolee):
+    (Id, Name, isNeutral, Desc) = Rolee
     data = [Id, Name, isNeutral, Desc]
     return Role(data[0], data[1], data[2], data[3])
 
