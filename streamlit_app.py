@@ -273,6 +273,8 @@ def Change_Display(Where, Users):
                     st.session_state["ServerT2"].append(server2)
 
                     st.success("서버 연결됨")
+                    st.session_state["display"] = "ControlCenter"
+                    st.rerun()
             elif not Admin_Code in admin_code and inzung:
                 st.error("관리자 코드 인증 실패")
     elif st.session_state["display"] == "Login" or Where == "Login":
