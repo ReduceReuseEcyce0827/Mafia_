@@ -396,10 +396,6 @@ def Change_Display(Where, Users):
             if st.button("관리자 코드 입력", key="Admin_Main"):
                 st.session_state["display"] = "Admin"
                 st.rerun()
-    if st.button("나가기"):
-        st.query_params["refresh"] = "true"
-        st.session_state["display"] = "Menu"
-        st.rerun()
 def LoginB(Users, PW):
     global Id
     if PW in [user.PW for user in Users]:
