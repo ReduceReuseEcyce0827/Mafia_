@@ -223,7 +223,7 @@ host = "0.0.0.0"
 def Debugging():
     pass
 def Change_Display(Where, Users): 
-    if st.session_state["display"] == "Admin" or Where == "Admin":
+    if st.session_state["display"] == "Admin":
             st.title("관리자 모드")
             Admin_Code = st.text_input("관리자 코드 입력", key="Admin_Code_Admin", type="password")
             inzung = st.button("인증", key="Admin_Admin")
@@ -276,7 +276,7 @@ def Change_Display(Where, Users):
                     st.rerun()
             elif not Admin_Code in admin_code and inzung:
                 st.error("관리자 코드 인증 실패")
-    elif st.session_state["display"] == "Login" or Where == "Login":
+    elif st.session_state["display"] == "Login":
             st.title("로그인")
             PW = st.text_input("로그인 코드", key="Login_PW")
             if st.button("로그인", key="Login_Login"):
