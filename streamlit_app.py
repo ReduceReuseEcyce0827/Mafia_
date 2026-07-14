@@ -387,7 +387,7 @@ def Change_Display(Where, Users):
     elif st.session_state["display"] == "InGame" or Where == "InGame":
         st.title("인게임")
         st.write(st.session_state["Job"])
-        Group = {"BackGroundIMG": st.image(st.session_state("BGIMG"), caption="배경")}
+        Group = {"BackGroundIMG": st.image(st.session_state["BGIMG"], caption="배경")}
     else:
             st.title("마피아 게임")
             if st.button("로그인", key="Login_Main"):
