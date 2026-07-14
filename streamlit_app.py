@@ -314,7 +314,7 @@ def Change_Display(Where, Users):
                 try:
                     for i in range(len(st.session_state["ServerMT"])):
                         data = st.session_state["ServerMT"][i].recv(1024).decode('utf-8')
-                        if "SG" == data[0:1]:
+                        if "SG" == data[0:2]:
                             st.write("와 곧 시작한다 너무 기대된다")
                             st.session_state["Job"] = data.split("|")[1]
                             st.session_state["display"] = "InGame"
