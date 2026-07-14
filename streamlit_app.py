@@ -407,20 +407,6 @@ def LoginB(Users, PW):
     else:
         st.error("로그인 실패")
         LoginSuccessed = False
-def AdminB():
-    Admin_Code = Make_Text_Input("관리자 코드 입력")
-    {Button_Key['Admin']['Admin2'].append(Button_Key['Admin']['Admin2'][-1]+1) if Button_Key['Admin']['Admin2'] else Button_Key['Admin']['Admin2'].append(0)}
-    if Admin_Code in admin_code:  # 예시로 관리자 코드를 "admin123"으로 설정
-        st.success(f"관리자 코드 인증 성공! ({admin_name[admin_code.index(Admin_Code)]}으로 인증됨)")
-        Amount = int(Make_Text_Input("인원 수"))
-        if admin_name[admin_code.index(Admin_Code)] == '류민':
-            serverPort = 6131
-        else:
-            serverPort = 9613
-        server = socket.socket(socket.AF_INET, socket.SOCK_STREAM).bind(('', serverPort))  # 관리자 서버에 연결
-        server.listen(Amount)
-    else:
-        st.error("관리자 코드 인증 실패")
 def runApp(Debug, Users, Roles, Missions):
     # 시스템 폰트 사용 (나눔고딕 또는 기본 폰트)
     rc('font', family='RiaSans-ExtraBold')
@@ -452,7 +438,4 @@ if __name__ == "__main__":
             Reload_STClose()
             st.session_state["BGIMG"] = Image.open("Images/Background.png")
             runApp("진행중인 이벤트가 없습니다.", Users, Roles, Missions)
-"""
-팀 1 시작 
-팀 2 시작 
-"""
+            
