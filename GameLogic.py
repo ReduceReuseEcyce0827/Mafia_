@@ -1,0 +1,2 @@
+import time, random
+def 
