@@ -5,6 +5,7 @@ import sqlite3 as sql
 import matplotlib.font_manager as fm
 import socket, time, threading, random
 import streamlit.components.v1 as components
+import keyboard
 from PIL import Image
 if __name__ == "__main__":
     if not "team1C" in st.session_state:
@@ -385,9 +386,16 @@ def Change_Display(Where, Users):
         if st.button("디버깅(김류민용)"):
             isDebugging = 1-isDebugging
     elif st.session_state["display"] == "InGame" or Where == "InGame":
-        st.title("인게임")
-        st.write(st.session_state["Job"])
+        st.title(st.session_state["Job"])
+        st.write(Roles)
         Group = {"BackGroundIMG": st.image(st.session_state["BGIMG"], caption="배경")}
+        SpawnPos = {"1": [0, 0], "2": [100, 0], "3": [-100, 0], "4": [0, 100], "5": [0, -100]}
+        Pos = SpawnPos[str(random.randint(1, len(SpawnPos)))]
+        try:
+            while True:
+                s
+        except TimeoutError:
+            pass
     else:
             st.title("마피아 게임")
             if st.button("로그인", key="Login_Main"):
@@ -401,7 +409,7 @@ def LoginB(Users, PW):
     if PW in [user.PW for user in Users]:
         st.success("로그인 성공")
         LoginSuccessed = True
-        Id = int(-([user.PW for user in Users].index(PW)-1))
+        Id = int(-([user.PW for user in Users].index(user.PW)-1))
         st.session_state["display"] = "WaitRoom"
         st.rerun()
     else:
