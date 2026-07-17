@@ -5,7 +5,6 @@ import sqlite3 as sql
 import matplotlib.font_manager as fm
 import socket, time, threading, random
 import streamlit.components.v1 as components
-import keyboard
 from PIL import Image
 if __name__ == "__main__":
     if not "team1C" in st.session_state:
@@ -24,6 +23,10 @@ if __name__ == "__main__":
         st.session_state["display"] = "Main"
     if not "Job" in st.session_state:
         st.session_state["Job"] = ""
+    if not "PN" in st.session_state:
+        st.session_state["PN"] = []
+    if not "PL" in st.session_state:
+        st.session_state["PL"] = []
 font_css = """
 <style>
 @import url('https://jsdelivr.net');
@@ -221,6 +224,82 @@ get2 = threading.Thread(target=Get2)
 get3 = threading.Thread(target=Get3)
 settimeout = threading.Thread(target=A)
 host = "0.0.0.0"
+def Get_InGame_Admin():
+    Player_Data = {"Team": [t.team for t in Users],
+                   "Name": [[t.Name for t in Users]],
+                   "Id": [[t.Id for t in Users]]}
+    try:
+            while True:
+                try:
+                    for i in range(len(st.session_state["ServerMT"])):
+                        data = st.session_state["ServerMT"][i].recv(1024).decode('utf-8')
+                        Data_L = data.split('|')
+                        if "위치" == Data_L[0]:
+                            Team = Player_Data["Name"].index(Data_L[1])
+                            st.session_state[f"ServerT{Team}"].sendall(f"위치|{Data_L[1]}|{Data_L[2]}")
+                            pass
+                        if "미션완료" == Data_L[0]:
+                            # 미션 완료시 실행되는 메커니즘
+                            pass
+                        if "상태변경" == Data_L[0]:
+                            # 상태 변경시 실행되는 메커니즘
+                            pass
+                        if "회의" == Data_L[0]:
+                            # 회의 시작시 실행되는 메커니즘
+                            pass
+                        if "능력사용" == Data_L[0]:
+                            # 능력 사용시 실행되는 메커니즘
+                            pass
+                        if "채팅" == Data_L[0]:
+                            # 채팅시 실행되는 메커니즘
+                            pass
+                except TimeoutError:
+                    pass
+                except Exception as e:
+                    st.write(e)
+    except Exception as e:
+            st.write(e)
+def Get_InGame_User():
+    Player_Data = {"Team": [t.team for t in Users],
+                   "Name": [[t.Name for t in Users]],
+                   "Id": [[t.Id for t in Users]]}
+    try:
+            while True:
+                try:
+                    for i in range(len(st.session_state["ServerMT"])):
+                        data = st.session_state["ServerMT"][i].recv(1024).decode('utf-8')
+                        Data_L = data.split('|')
+                        if "위치" == Data_L[0]:
+                            A = st.session_state["PN"].index(Data_L[1])
+                            if A == -1:
+                                st.session_state["PN"].append(f"{Data_L[1]}")
+                                st.session_state["PL"].append(f"{Data_L[2]}")
+                            else:
+                                st.session_state["PL"][A] = Data_L[2]
+                            # {f"{Data_L[1]}": f"{Data_L[2]}"}
+                            pass
+                        if "미션완료" == Data_L[0]:
+                            # 미션 완료시 실행되는 메커니즘
+                            pass
+                        if "상태변경" == Data_L[0]:
+                            # 상태 변경시 실행되는 메커니즘
+                            pass
+                        if "회의" == Data_L[0]:
+                            # 회의 시작시 실행되는 메커니즘
+                            pass
+                        if "능력사용" == Data_L[0]:
+                            # 능력 사용시 실행되는 메커니즘
+                            pass
+                        if "채팅" == Data_L[0]:
+                            # 채팅시 실행되는 메커니즘
+                            pass
+                except TimeoutError:
+                    pass
+                except Exception as e:
+                    st.write(e)
+    except Exception as e:
+            st.write(e)
+Get_InGame = threading.Thread(target=Get_InGame_User)
 def Debugging():
     pass
 def Change_Display(Where, Users): 
@@ -335,6 +414,7 @@ def Change_Display(Where, Users):
         Buttons = {"Start_T1": st.button('게임 시작', key="Team1S"),
                    "Test": st.button('메세지 보내기')}
         Inputs = {"Message": st.text_input('보낼 메세지', key="Message001")}
+        Game_Status = ["Loading"]
         if True:
             st.session_state["ServerT1"][-1].listen(3)
             st.session_state["ServerT2"][-1].listen(3)
@@ -342,6 +422,8 @@ def Change_Display(Where, Users):
             for i in range(len(Users)):
                 L1.append(Users[i].PW)
             if Buttons["Start_T1"]:
+                Game_Status.remove("Loading")
+                Game_Status.append("Game")
                 st.write(st.session_state["team1C"])
                 st.write(st.session_state["team2C"])
                 T1Job = [Roles[i].Name for i in range(3)]
@@ -352,6 +434,7 @@ def Change_Display(Where, Users):
                 for t2 in range(len(st.session_state["team2C"])):
                     st.session_state["team2C"][t2].send(("SG|"+T2Job.pop(random.randint(0, len(T2Job)-1))).encode('utf-8'))
                     st.write("보냄")
+                Get_InGame_Admin()
             if Buttons["Test"]:
                 st.write(st.session_state["team1C"])
                 st.write(st.session_state["team2C"])
@@ -386,15 +469,42 @@ def Change_Display(Where, Users):
         if st.button("디버깅(김류민용)"):
             isDebugging = 1-isDebugging
     elif st.session_state["display"] == "InGame" or Where == "InGame":
-        st.title(st.session_state["Job"])
-        st.write(Roles)
+        st.title("인게임")
+        st.write(st.session_state["Job"])
         Group = {"BackGroundIMG": st.image(st.session_state["BGIMG"], caption="배경")}
-        SpawnPos = {"1": [0, 0], "2": [100, 0], "3": [-100, 0], "4": [0, 100], "5": [0, -100]}
-        Pos = SpawnPos[str(random.randint(1, len(SpawnPos)))]
+        #순간이동실, 전기실, 창고, 온실, 옷장, 회의실, 연회실
+        Test_Button = {'Move': {"Teleporter": st.button("순간이동 장치실로 이동", key="Move001"),
+                                "Electricity": st.button("전기실로 이동", key="Move002"),
+                                "ChangGo": st.button("창고로 이동", key="Move003"),
+                                "Farm": st.button("온실로 이동", key="Move004"),
+                                "DressRoom": st.button("옷장으로 이동", key="Move005"),
+                                "BoardRoom": st.button("회의실로 이동", key="Move006"),
+                                "Hall": st.button("연회실로 이동", key="Move007")}}
+        Location = ["순간이동 장치실", "전기실", "창고", "온실", "옷장", "회의실", "연회실"][random.randint(0, 6)]
+        st.session_state["ServerMT"].send(f"위치|{User[Id].Name}|{Location}")
+        Getss = ""
+        Get_InGame.start()
+        if Test_Button["Move"]["Teleporter"]:
+            Location = "순간이동 장치실"
+        if Test_Button["Move"]["Electricity"]:
+            Location = "전기실"
+        if Test_Button["Move"]["ChangGo"]:
+            Location = "창고"
+        if Test_Button["Move"]["Farm"]:
+            Location = "온실"
+        if Test_Button["Move"]["DressRoom"]:
+            Location = "옷장"
+        if Test_Button["Move"]["BoardRoom"]:
+            Location = "회의실"
+        if Test_Button["Move"]["Hall"]:
+            Location = "연회실"
+        st.write(f"현재 위치: {Location}")
         try:
             while True:
-                s
-        except TimeoutError:
+                for i in range(len(st.session_state["PN"])):
+                    st.write(f"{st.session_state["PN"][i]}의 위치: {st.session_state["PL"][i]}")
+                time.sleep(3)
+        except RuntimeError:
             pass
     else:
             st.title("마피아 게임")
@@ -409,7 +519,7 @@ def LoginB(Users, PW):
     if PW in [user.PW for user in Users]:
         st.success("로그인 성공")
         LoginSuccessed = True
-        Id = int(-([user.PW for user in Users].index(user.PW)-1))
+        Id = int(-([user.PW for user in Users].index(PW)-1))
         st.session_state["display"] = "WaitRoom"
         st.rerun()
     else:
