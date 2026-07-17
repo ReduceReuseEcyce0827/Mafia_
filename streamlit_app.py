@@ -260,7 +260,7 @@ def Get_InGame_Admin():
     except Exception as e:
             st.write(e)
 def Get_InGame_User():
-    Player_Data = {"Team": [t.team for t in Users],
+    Player_Data = {"Team": [t.Team for t in Users],
                    "Name": [[t.Name for t in Users]],
                    "Id": [[t.Id for t in Users]]}
     try:
