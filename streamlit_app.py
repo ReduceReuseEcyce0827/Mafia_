@@ -226,8 +226,8 @@ settimeout = threading.Thread(target=A)
 host = "0.0.0.0"
 def Get_InGame_Admin():
     Player_Data = {"Team": [t.team for t in Users],
-                   "Name": [[t.Name for t in Users]],
-                   "Id": [[t.Id for t in Users]]}
+                   "Name": [t.Name for t in Users],
+                   "Id": [t.Id for t in Users]}
     try:
             while True:
                 try:
@@ -236,7 +236,7 @@ def Get_InGame_Admin():
                         Data_L = data.split('|')
                         if "위치" == Data_L[0]:
                             Team = Player_Data["Name"].index(Data_L[1])
-                            st.session_state[f"ServerT{Team}"].sendall(f"위치|{Data_L[1]}|{Data_L[2]}")
+                            st.session_state[f"ServerT{Team}"][i].sendall(f"위치|{Data_L[1]}|{Data_L[2]}")
                             pass
                         if "미션완료" == Data_L[0]:
                             # 미션 완료시 실행되는 메커니즘
