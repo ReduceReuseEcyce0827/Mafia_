@@ -418,7 +418,7 @@ def Change_Display(Where, Users):
                 Game_Status.append("Game")
                 st.write(st.session_state["team1C"])
                 st.write(st.session_state["team2C"])
-                T1Job = [Roles[i].Name for i in range(3)]
+                T1Job = [Roles[i].Name for i in range(len(Roles))]
                 T2Job = T1Job
                 for t1 in range(len(st.session_state["team1C"])):
                     st.session_state["team1C"][t1].send(f"SG|{T1Job.pop(random.randint(0, len(T1Job)-1))}".encode('utf-8'))
