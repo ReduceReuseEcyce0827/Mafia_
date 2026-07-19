@@ -411,6 +411,8 @@ def Change_Display(Where, Users):
         Game_Status = ["Loading"]
         PL = []
         if True:
+            st.session_state["ServerT1"][-1].settimeout(100000000)
+            st.session_state["ServerT2"][-1].settimeout(100000000)
             st.session_state["ServerT1"][-1].listen(3)
             st.session_state["ServerT2"][-1].listen(3)
             L1 = []
