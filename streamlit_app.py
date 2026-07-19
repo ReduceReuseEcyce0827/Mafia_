@@ -500,7 +500,6 @@ def Change_Display(Where, Users, Roles):
             Location = "회의실"
         if Test_Button["Move"]["Hall"]:
             Location = "연회실"
-        st.write(f"현재 위치: {Location}")
         try:
             while True:
                 for i in range(len(st.session_state["PN"])):
