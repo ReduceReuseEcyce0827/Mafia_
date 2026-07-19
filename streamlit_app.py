@@ -302,7 +302,7 @@ def Get_InGame_User():
 Get_InGame = threading.Thread(target=Get_InGame_User)
 def Debugging():
     pass
-def Change_Display(Where, Users): 
+def Change_Display(Where, Users, Roles): 
     if st.session_state["display"] == "Admin":
             st.title("관리자 모드")
             Admin_Code = st.text_input("관리자 코드 입력", key="Admin_Code_Admin", type="password")
@@ -429,10 +429,10 @@ def Change_Display(Where, Users):
                 T1Job = [Roles[i].Name for i in range(3)]
                 T2Job = T1Job
                 for t1 in range(len(st.session_state["team1C"])):
-                    st.session_state["team1C"][t1].send(("SG|"+T1Job.pop(random.randint(0, len(T1Job)-1))).encode('utf-8'))
+                    st.session_state["team1C"][t1].send(f"SG|{T1Job.pop(random.randint(0, len(T1Job)-1))}".encode('utf-8'))
                     st.write("보냄")
                 for t2 in range(len(st.session_state["team2C"])):
-                    st.session_state["team2C"][t2].send(("SG|"+T2Job.pop(random.randint(0, len(T2Job)-1))).encode('utf-8'))
+                    st.session_state["team2C"][t2].send(f"SG|{T2Job.pop(random.randint(0, len(T2Job)-1))}".encode('utf-8'))
                     st.write("보냄")
                 Get_InGame_Admin()
             if Buttons["Test"]:
@@ -481,7 +481,7 @@ def Change_Display(Where, Users):
                                 "BoardRoom": st.button("회의실로 이동", key="Move006"),
                                 "Hall": st.button("연회실로 이동", key="Move007")}}
         Location = ["순간이동 장치실", "전기실", "창고", "온실", "옷장", "회의실", "연회실"][random.randint(0, 6)]
-        st.session_state["ServerMT"].send(f"위치|{User[Id].Name}|{Location}")
+        st.session_state["ServerMT"][-1].send(f"위치|{User[Id].Name}|{Location}")
         Getss = ""
         Get_InGame.start()
         if Test_Button["Move"]["Teleporter"]:
@@ -532,7 +532,7 @@ def runApp(Debug, Users, Roles, Missions):
     plt.rcParams['axes.unicode_minus'] = False
     st.write(Debug)
 
-    Change_Display(st.session_state["display"], Users)
+    Change_Display(st.session_state["display"], Users, Roles)
 def Reload_STClose():
     if "refresh" in query_params:
         for i in range(len(st.session_state["ServerT1"])):
