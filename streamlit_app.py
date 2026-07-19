@@ -23,8 +23,6 @@ if __name__ == "__main__":
         st.session_state["display"] = "Main"
     if not "Job" in st.session_state:
         st.session_state["Job"] = ""
-    if not "PN" in st.session_state:
-        st.session_state["PN"] = []
     if not "PL" in st.session_state:
         st.session_state["PL"] = []
 font_css = """
@@ -269,13 +267,8 @@ def Get_InGame_User():
                     for i in range(len(st.session_state["ServerMT"])):
                         data = st.session_state["ServerMT"][i].recv(1024).decode('utf-8')
                         Data_L = data.split('|')
-                        if "위치" == Data_L[0]:
-                            A = st.session_state["PN"].index(Data_L[1])
-                            if A == -1:
-                                st.session_state["PN"].append(f"{Data_L[1]}")
-                                st.session_state["PL"].append(f"{Data_L[2]}")
-                            else:
-                                st.session_state["PL"][A] = Data_L[2]
+                        if "플레이어위치" == Data_L[0]:
+                            st.session_state["PL"].append(f"{Data_L[1]}|{Data_L[2]}")
                             # {f"{Data_L[1]}": f"{Data_L[2]}"}
                             pass
                         if "미션완료" == Data_L[0]:
@@ -395,7 +388,6 @@ def Change_Display(Where, Users, Roles):
                     for i in range(len(st.session_state["ServerMT"])):
                         data = st.session_state["ServerMT"][i].recv(1024).decode('utf-8')
                         if "SG" == data[0:2]:
-                            st.write("와 곧 시작한다 너무 기대된다")
                             st.session_state["Job"] = data.split("|")[1]
                             st.session_state["display"] = "InGame"
                             st.rerun()
@@ -434,7 +426,19 @@ def Change_Display(Where, Users, Roles):
                 for t2 in range(len(st.session_state["team2C"])):
                     st.session_state["team2C"][t2].send(f"SG|{T2Job.pop(random.randint(0, len(T2Job)-1))}".encode('utf-8'))
                     st.write("보냄")
-                Get_InGame_Admin()
+                Location = ["순간이동 장치실", "전기실", "창고", "온실", "옷장", "회의실", "연회실"]
+                T1L = []
+                T2L = []
+                for t1 in range(len(st.session_state["team1C"])):
+                    T1L.append(f"플레이어위치|{Users[L1.index(PW)].Name}|{Location[random.randint(0, 6)]}")
+                for t2 in range(len(st.session_state["team2C"])):
+                    T2L.append(f"플레이어위치|{Users[L1.index(PW)].Name}|{Location[random.randint(0, 6)]}")
+                for t1 in range(len(st.session_state["team1C"])):
+                    for i in range(len(T1L)):
+                        st.session_state["team1C"][t1].send(T1L[i].encode('utf-8'))
+                for t2 in range(len(st.session_state["team2C"])):
+                    for i in range(len(T1L)):
+                        st.session_state["team2C"][t2].send(T2L[i].encode('utf-8'))
             if Buttons["Test"]:
                 st.write(st.session_state["team1C"])
                 st.write(st.session_state["team2C"])
@@ -480,8 +484,6 @@ def Change_Display(Where, Users, Roles):
                                 "DressRoom": st.button("옷장으로 이동", key="Move005"),
                                 "BoardRoom": st.button("회의실로 이동", key="Move006"),
                                 "Hall": st.button("연회실로 이동", key="Move007")}}
-        Location = ["순간이동 장치실", "전기실", "창고", "온실", "옷장", "회의실", "연회실"][random.randint(0, 6)]
-        st.session_state["ServerMT"][-1].send(f"위치|{Users[Id].Name}|{Location}".encode('utf-8'))
         Getss = ""
         Get_InGame.start()
         if Test_Button["Move"]["Teleporter"]:
@@ -502,7 +504,7 @@ def Change_Display(Where, Users, Roles):
         try:
             while True:
                 for i in range(len(st.session_state["PN"])):
-                    st.write(f"{st.session_state["PN"][i]}의 위치: {st.session_state["PL"][i]}")
+                    st.write(f"{st.session_state["PL"][i].split('|')[0]}의 위치: {st.session_state["PL"][i].split('|')[1]}")
                 time.sleep(3)
         except RuntimeError:
             pass
