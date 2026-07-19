@@ -295,7 +295,7 @@ def Get_InGame_User():
 Get_InGame = threading.Thread(target=Get_InGame_User)
 def Debugging():
     pass
-def Change_Display(Where, Users, Roles): 
+def Change_Display(Where, Users): 
     if st.session_state["display"] == "Admin":
             st.title("관리자 모드")
             Admin_Code = st.text_input("관리자 코드 입력", key="Admin_Code_Admin", type="password")
@@ -502,7 +502,7 @@ def Change_Display(Where, Users, Roles):
             Location = "연회실"
         try:
             while True:
-                for i in range(len(st.session_state["PN"])):
+                for i in range(len(st.session_state["PL"])):
                     st.write(f"{st.session_state["PL"][i].split('|')[0]}의 위치: {st.session_state["PL"][i].split('|')[1]}")
                 time.sleep(3)
         except RuntimeError:
@@ -533,7 +533,7 @@ def runApp(Debug, Users, Roles, Missions):
     plt.rcParams['axes.unicode_minus'] = False
     st.write(Debug)
 
-    Change_Display(st.session_state["display"], Users, Roles)
+    Change_Display(st.session_state["display"], Users)
 def Reload_STClose():
     if "refresh" in query_params:
         for i in range(len(st.session_state["ServerT1"])):
