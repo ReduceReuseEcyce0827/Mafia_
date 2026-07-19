@@ -365,7 +365,7 @@ def Change_Display(Where, Users):
         server.setsockopt(socket.SOL_SOCKET, socket.SO_KEEPALIVE, 1)
         server.connect((host, serverPort))
         st.session_state["ServerMT"].append(server)
-        st.session_state["ServerMT"].send(str(Users[Id].Name).encode('utf-8'))
+        st.session_state["ServerMT"][-1].send(str(Users[Id].Name).encode('utf-8'))
         st.title("대기실")
         st.write("대기실에 입장하셨습니다. 게임이 시작될 때까지 기다려주세요.")
         st.write("게임이 시작되면 자동으로 게임 화면으로 전환됩니다.")
