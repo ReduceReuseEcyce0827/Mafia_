@@ -481,7 +481,7 @@ def Change_Display(Where, Users, Roles):
                                 "BoardRoom": st.button("회의실로 이동", key="Move006"),
                                 "Hall": st.button("연회실로 이동", key="Move007")}}
         Location = ["순간이동 장치실", "전기실", "창고", "온실", "옷장", "회의실", "연회실"][random.randint(0, 6)]
-        st.session_state["ServerMT"][-1].send(f"위치|{User[Id].Name}|{Location}")
+        st.session_state["ServerMT"][-1].send(f"위치|{Users[Id].Name}|{Location}")
         Getss = ""
         Get_InGame.start()
         if Test_Button["Move"]["Teleporter"]:
