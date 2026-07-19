@@ -46,6 +46,7 @@ class User: #게임 종류 후에도 유지될 영구적인 데이터 e
         self.Level = Level
         self.Exp = Exp
         self.Team = Team
+        self.Data = []
     def __str__(self):
         return f"ID: {self.ID}, Password: {self.PW}, Name: {self.Name}, Level: {self.Level}, Exp: {self.Exp}"
 class Game:
@@ -80,7 +81,6 @@ class Player: #게임 진행 시 만들어지는 일시적인 데이터
         self.X = X
         self.Y = Y
         self.Color = Color
-        self.Data = []
     def __str__(self):
         return f"User: [{self.User}], Role: {self.Role}, NickName: {self.NickName}, Team: {self.Team}, Votes: {self.Votes}, Missions: {self.Missions}, Status: {self.Status}"
 def Reset_Tables():
