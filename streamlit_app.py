@@ -261,7 +261,7 @@ def Get_InGame_Admin():
 def Get_InGame_User():
     Player_Data = {"Team": [t.Team for t in Users],
                    "Name": [[t.Name for t in Users]],
-                   "Id": [[t.Id for t in Users]]}
+                   "Id": [[t.ID for t in Users]]}
     try:
             while True:
                 try:
