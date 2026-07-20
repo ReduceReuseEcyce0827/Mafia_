@@ -291,6 +291,8 @@ def Get_InGame_User():
                     pass
                 except Exception as e:
                     st.write(e)
+    except TimeoutError:
+        pass
     except Exception as e:
             st.write(e)
 Get_InGame = threading.Thread(target=Get_InGame_User)
