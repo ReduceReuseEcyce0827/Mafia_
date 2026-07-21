@@ -298,6 +298,7 @@ def Get_InGame_User():
         pass
 Get_InGame = threading.Thread(target=Get_InGame_User)
 add_script_run_ctx(Get_InGame)
+PW = ""
 def Debugging():
     pass
 def Change_Display(Where, Users): 
