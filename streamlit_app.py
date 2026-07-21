@@ -6,6 +6,7 @@ import matplotlib.font_manager as fm
 import socket, time, threading, random
 import streamlit.components.v1 as components
 from PIL import Image
+from streamlit.runtime.scriptrunner import add_script_run_ctx
 if __name__ == "__main__":
     if not "team1C" in st.session_state:
         st.session_state["team1C"] = []
@@ -296,6 +297,7 @@ def Get_InGame_User():
     except Exception as e:
         pass
 Get_InGame = threading.Thread(target=Get_InGame_User)
+add_script_run_ctx(Get_InGame)
 def Debugging():
     pass
 def Change_Display(Where, Users): 
