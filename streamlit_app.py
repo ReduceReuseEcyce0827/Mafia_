@@ -26,6 +26,8 @@ if __name__ == "__main__":
         st.session_state["Job"] = ""
     if not "PL" in st.session_state:
         st.session_state["PL"] = []
+    if not "PW" in st.session_state:
+        st.session_state["PW"] = ""
 font_css = """
 <style>
 @import url('https://jsdelivr.net');
@@ -370,7 +372,7 @@ def Change_Display(Where, Users):
         server.setsockopt(socket.SOL_SOCKET, socket.SO_KEEPALIVE, 1)
         server.connect((host, serverPort))
         st.session_state["ServerMT"].append(server)
-        st.session_state["ServerMT"][-1].send(str(PW).encode('utf-8'))
+        st.session_state["ServerMT"][-1].send(str(st.session_state["PW"]).encode('utf-8'))
         st.title("대기실")
         st.write("대기실에 입장하셨습니다. 게임이 시작될 때까지 기다려주세요.")
         st.write("게임이 시작되면 자동으로 게임 화면으로 전환됩니다.")
@@ -537,6 +539,7 @@ def LoginB(Users, PW):
         st.success("로그인 성공")
         LoginSuccessed = True
         Id = int(-([user.PW for user in Users].index(PW)-1))
+        st.session_state["PW"] = PW
         st.session_state["display"] = "WaitRoom"
         st.rerun()
     else:
