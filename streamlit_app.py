@@ -448,9 +448,9 @@ def Change_Display(Where, Users):
                 T1L = []
                 T2L = []
                 for t1 in range(len(st.session_state["team1C"])):
-                    T1L.append(f"플레이어위치|{Users[L2.index(st.session_state["team1C"][t1])].Name}|{Location[random.randint(0, 6)]}")
+                    T1L.append(f"플레이어위치|{Users[L1.index(PW)].Name}|{Location[random.randint(0, 6)]}")
                 for t2 in range(len(st.session_state["team2C"])):
-                    T2L.append(f"플레이어위치|{Users[L2.index(st.session_state["team2C"][t2])].Name}|{Location[random.randint(0, 6)]}")
+                    T2L.append(f"플레이어위치|{Users[L1.index(PW)].Name}|{Location[random.randint(0, 6)]}")
                 for t1 in range(len(st.session_state["team1C"])):
                     for i in range(len(T1L)):
                         st.session_state["team1C"][t1].send(T1L[i].encode('utf-8'))
@@ -471,15 +471,13 @@ def Change_Display(Where, Users):
                     client_socket, addr = st.session_state["ServerT1"][-1].accept()
                     st.session_state["team1C"].append(client_socket)
                     st.write(f"연결 수락됨: {addr}")
-                    PW = st.session_state["team1C"][-1].recv(1024).decode('utf-8')
                     Users[L1.index(PW)].Data = addr
                     for i in range(len(st.session_state["team1C"])):
                         st.session_state["team1C"][i].send(f"{Users[L1.index(PW)].Name}님이 참여하셨습니다.".encode('utf-8'))
                     client_socket, addr = st.session_state["ServerT2"][-1].accept()
                     st.session_state["team2C"].append(client_socket)
                     st.write(f"연결 수락됨: {addr}")
-                    PL.append(st.session_state["team2C"][-1].recv(1024).decode('utf-8'))
-                    Users[L3.index(PL[-1])].Data = addr
+                    Users[L1.index(PW)].Data = addr
                     for i in range(len(st.session_state["team2C"])):
                         st.session_state["team2C"][i].send(f"{Users[L1.index(PW)].Name}님이 참여하셨습니다.".encode('utf-8'))
             except:
