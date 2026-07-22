@@ -447,10 +447,10 @@ def Change_Display(Where, Users):
                 Location = ["순간이동 장치실", "전기실", "창고", "온실", "옷장", "회의실", "연회실"]
                 T1L = []
                 T2L = []
-                for t1 in range(len(st.session_state["team1C"])):
-                    T1L.append(f"플레이어위치|{Users[L1.index(PW)].Name}|{Location[random.randint(0, 6)]}")
-                for t2 in range(len(st.session_state["team2C"])):
-                    T2L.append(f"플레이어위치|{Users[L1.index(PW)].Name}|{Location[random.randint(0, 6)]}")
+                for t1 in range(len(T1)):
+                    T1L.append(f"플레이어위치|{T1[t1].Name}|{Location[random.randint(0, 6)]}")
+                for t2 in range(len(T2)):
+                    T2L.append(f"플레이어위치|{T2[t2].Name}|{Location[random.randint(0, 6)]}")
                 for t1 in range(len(st.session_state["team1C"])):
                     for i in range(len(T1L)):
                         st.session_state["team1C"][t1].send(T1L[i].encode('utf-8'))
@@ -568,8 +568,14 @@ if __name__ == "__main__":
                 Users.append(User_Data_Conv_to_Class(Userss[i]))
             Roless = Load_Role()
             Roles = []
+            T1 = []
+            T2 = []
             for i in range(len(Roless)):
                 Roles.append(Role_Data_Conv_to_Class(Roless[i]))
+                if Roles[-1].Team == 1:
+                    T1.append(Roles[-1])
+                else:
+                    T2.append(Roles[-1])
             Missions = Load_Missions()
             Reload_STClose()
             st.session_state["BGIMG"] = Image.open("Images/Background.png")
