@@ -573,9 +573,9 @@ if __name__ == "__main__":
             for i in range(len(Roless)):
                 Roles.append(Role_Data_Conv_to_Class(Roless[i]))
                 if Roles[-1].Team == 1:
-                    T1.append(Roles[-1])
+                    T1.append(Roles[i])
                 else:
-                    T2.append(Roles[-1])
+                    T2.append(Roles[i])
             Missions = Load_Missions()
             Reload_STClose()
             st.session_state["BGIMG"] = Image.open("Images/Background.png")
