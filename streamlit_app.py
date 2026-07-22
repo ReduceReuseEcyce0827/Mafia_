@@ -564,6 +564,8 @@ if __name__ == "__main__":
             st.session_state["ReS"] = True
             Userss = Load_Users_Data()
             Users = []
+            T1 = []
+            T2 = []
             for i in range(len(Userss)):
                 Users.append(User_Data_Conv_to_Class(Userss[i]))
                 if Users[-1].Team == 1:
@@ -572,8 +574,6 @@ if __name__ == "__main__":
                     T2.append(Users[i])
             Roless = Load_Role()
             Roles = []
-            T1 = []
-            T2 = []
             for i in range(len(Roless)):
                 Roles.append(Role_Data_Conv_to_Class(Roless[i]))
             Missions = Load_Missions()
