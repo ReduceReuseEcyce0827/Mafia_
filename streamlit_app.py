@@ -566,16 +566,16 @@ if __name__ == "__main__":
             Users = []
             for i in range(len(Userss)):
                 Users.append(User_Data_Conv_to_Class(Userss[i]))
+                if Users[-1].Team == 1:
+                    T1.append(Users[i])
+                else:
+                    T2.append(Users[i])
             Roless = Load_Role()
             Roles = []
             T1 = []
             T2 = []
             for i in range(len(Roless)):
                 Roles.append(Role_Data_Conv_to_Class(Roless[i]))
-                if Roles[-1].Team == 1:
-                    T1.append(Roles[i])
-                else:
-                    T2.append(Roles[i])
             Missions = Load_Missions()
             Reload_STClose()
             st.session_state["BGIMG"] = Image.open("Images/Background.png")
