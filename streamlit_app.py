@@ -269,27 +269,28 @@ def Get_InGame_User():
             while True:
                 try:
                     for i in range(len(st.session_state["ServerMT"])):
-                        data = st.session_state["ServerMT"][i].recv(1024).decode('utf-8')
-                        Data_L = data.split('|')
-                        if "플레이어위치" == Data_L[0]:
-                            st.session_state["PL"].append(f"{Data_L[1]}|{Data_L[2]}")
-                            # {f"{Data_L[1]}": f"{Data_L[2]}"}
-                            pass
-                        if "미션완료" == Data_L[0]:
-                            # 미션 완료시 실행되는 메커니즘
-                            pass
-                        if "상태변경" == Data_L[0]:
-                            # 상태 변경시 실행되는 메커니즘
-                            pass
-                        if "회의" == Data_L[0]:
-                            # 회의 시작시 실행되는 메커니즘
-                            pass
-                        if "능력사용" == Data_L[0]:
-                            # 능력 사용시 실행되는 메커니즘
-                            pass
-                        if "채팅" == Data_L[0]:
-                            # 채팅시 실행되는 메커니즘
-                            pass
+                        for i in range(27):
+                            data = st.session_state["ServerMT"][i].recv(1024).decode('utf-8')
+                            Data_L = data.split('|')
+                            if "플레이어위치" == Data_L[0]:
+                                st.session_state["PL"].append(f"{Data_L[1]}|{Data_L[2]}")
+                                # {f"{Data_L[1]}": f"{Data_L[2]}"}
+                                pass
+                            if "미션완료" == Data_L[0]:
+                                # 미션 완료시 실행되는 메커니즘
+                                pass
+                            if "상태변경" == Data_L[0]:
+                                # 상태 변경시 실행되는 메커니즘
+                                pass
+                            if "회의" == Data_L[0]:
+                                # 회의 시작시 실행되는 메커니즘
+                                pass
+                            if "능력사용" == Data_L[0]:
+                                # 능력 사용시 실행되는 메커니즘
+                                pass
+                            if "채팅" == Data_L[0]:
+                                # 채팅시 실행되는 메커니즘
+                                pass
                 except TimeoutError:
                     pass
                 except Exception as e:
@@ -518,8 +519,8 @@ def Change_Display(Where, Users):
             Location = "연회실"
         try:
             while True:
-                for i in range(len(st.session_state["PL"])):
-                    st.write(f"{st.session_state["PL"][i].split('|')[0]}의 위치: {st.session_state["PL"][i].split('|')[1]}")
+                for i in st.session_state["PL"]:
+                    st.write(f"{i.split('|')[0]}의 위치: {i.split('|')[1]}")
                 time.sleep(3)
         except RuntimeError:
             pass
